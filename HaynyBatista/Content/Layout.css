@@ -1,0 +1,173 @@
+﻿header {
+    display: flex;
+    justify-content: center;
+}
+
+.menu {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    background-color: #262626;
+    overflow: visible;
+}
+#NavLogo {
+    
+}
+
+.UpperMenu, .LowerMenu {
+    display: flex;
+    width: 100%;
+}
+
+.UpperMenu {
+    justify-content: space-between;
+}
+
+.LowerMenu {
+    justify-content: center;
+}
+
+#MenuDivider {
+}
+
+#MenuDivider {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+    transition: width .5s ease, background-color .5s ease;
+    width: 0%;
+    background: transparent;
+    color: transparent;
+}
+
+.NavLink a {
+    color: white;
+    background-color: #262626;
+    padding: 5px 15px;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    transition: background-color .5s ease
+}
+
+    .NavLink a:hover {
+        background-color: black;
+    }
+
+.NavLink {
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.NavIcon {
+    margin: 1px 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: red;
+}
+
+
+
+    .NavIcon a {
+        color: white;
+        padding: 15px;
+        background-color: #262626;
+        display: flex;
+        justify-content: center;
+        text-decoration: none;
+        transition: background-color .5s ease
+    }
+
+        .NavIcon a:hover {
+            background-color: black;
+        }
+
+.NavLink a {
+    font-size: 18px;
+}
+
+.logo {
+    width: 7%;
+    padding: 5px 5px;
+}
+
+#UserLinks {
+    display: flex;
+    width: 90%;
+    justify-content: flex-end;
+    margin: 0px 20px 0px 0px;
+    position: relative;
+    transition: all linear 0.3s;
+}
+    #UserLinks .NavIcon .DropdownLink + .DropDownMenu {
+        display: none;
+        position: absolute;
+        width: 135px;
+    }
+    #UserLinks .NavIcon .DropdownLink:hover + .DropDownMenu {
+        display: block;
+    }
+
+.LowerLink:after {
+    content: '';
+    display: block;
+    margin: 0 auto;
+    height: 2px;
+    width: 0px;
+    border-radius: 5px;
+    background: transparent;
+    transition: width .5s ease, background-color .5s ease;
+}
+
+
+.LowerLink:hover:after {
+    width: 100%;
+    background: #DC3545;
+}
+
+.NavIcon a .fa {
+    padding-right: 5px;
+}
+
+/*
+    INICIO custom bootstrap for Nav
+
+*/
+.dropdown-toggle::after {
+    display: none
+}
+
+.dropdown-toggle:focus {
+    outline: none !important;
+}
+
+.dropdown-menu {
+
+}
+
+.menu .dropdown-menu {
+    background-color: #262626;
+}
+
+.menu .dropdown-item {
+    background-color: #262626;
+}
+
+.menu .dropdown:hover > .dropdown-menu {
+    display: block;
+}
+
+.menu .dropdown-item:hover {
+    background-color: black;
+    color: white;
+}
+/* Fin custom bootstrap
+
+*/
