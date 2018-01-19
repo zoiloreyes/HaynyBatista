@@ -21,6 +21,14 @@ namespace HaynyBatista.DAL
 
                 manager.Create(role);
             }
+            if (!context.Roles.Any(r => r.Name == "Visitante"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "Visitante" };
+
+                manager.Create(role);
+            }
             if (!context.Users.Any(u => u.UserName == "zoiloreyes"))
             {
                 var store = new UserStore<ApplicationUser>(context);
