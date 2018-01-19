@@ -1,41 +1,101 @@
-﻿@model HaynyBatista.Models.RegisterViewModel
+﻿@using HaynyBatista.Models
+@model HaynyBatista.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Unete";
+    Layout = null;
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Hayny Batista</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/bundles/LayoutCss")
+</head>
+<body>
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>*@
+    <div class="container-fluid body-content pt-3">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 my-5 RegisterFormContainer">
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal RegisterForm", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="RegisterFormHeader p-2">
 
-<h2>@ViewBag.Title.</h2>
+                        <h4 class="text-danger"><img class="img-fluid d-inline mr-3 rounded-circle" src="http://via.placeholder.com/50x50" />Regístrate.</h4>
+                    </div>
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-10 control-label" })
+                        <div class="col-md-11 mx-2">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-10 control-label" })
+                        <div class="col-md-11 mx-2">
+                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-10 control-label" })
+                        <div class="col-md-11 mx-2">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-10 control-label" })
+                        <div class="col-md-11 mx-2">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <p class="ml-3">Ya tienes cuenta? <a href="#" class="text-danger">Inicia Sesión</a></p>
+                    <div class="d-flex justify-content-center">
+                        <input type="submit" class="haynyBtn bg-danger text-white" style="min-width: 100px"value="Unete" />
+                    </div>
+                    <hr class="hr-text" data-content="O"/>
+                    
+                }
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
-    </div>
-}
 
-@section Scripts {
+            </div>
+
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/LayoutJs")
     @Scripts.Render("~/bundles/jqueryval")
-}
+    <script>
+        $(document).ready(function () {
+            $(".RegisterForm").addClass("animated fadeIn")
+            $(".menu, footer").css("display", "none");
+            $(".body-content").css("background", "linear-gradient(to left, #c0392b, #8e44ad)")
+            $(".body-content").css("min-height", $(window).height() + "px");
+        });
+    </script>
+</body>
+</html>

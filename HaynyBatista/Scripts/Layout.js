@@ -11,7 +11,10 @@ $(document).ready(function () {
             $('.dropdown-menu').parent().on('hide.bs.dropdown', function (e) {
                 $(this).find('.dropdown-menu').first().stop(true, true).slideUp(200);
             });
+            $("header + .container-fluid").css("min-height", $(window).height());
         }
+
+
         return {
             Start: InitNav
         }
