@@ -14,8 +14,18 @@
     border: none;
 }
 
-a{
+@keyframes Gradient {
+    0% {
+        background-position: 0% 50%
+    }
 
+    50% {
+        background-position: 100% 50%
+    }
+
+    100% {
+        background-position: 0% 50%
+    }
 }
 
 .hr-text {
@@ -29,16 +39,33 @@ a{
     opacity: .5;
 }
 
-    .hr-text:before {
-        content: '';
-        background: -webkit-gradient(linear, left top, right top, from(transparent), color-stop(#d9534f), to(transparent));
-        background: linear-gradient(to right, transparent, #d9534f, transparent);
-        position: absolute;
-        left: 0;
-        top: 50%;
-        width: 100%;
-        height: 1px;
-    }
+.returnButton {
+    color: white;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 99;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    transition: right 0.5s;
+    outline: none !important;
+}
+
+.returnButton:hover{
+    right: 20px;
+}
+
+.hr-text:before {
+    content: '';
+    background: -webkit-gradient(linear, left top, right top, from(transparent), color-stop(#d9534f), to(transparent));
+    background: linear-gradient(to right, transparent, #d9534f, transparent);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+}
 
     .hr-text:after {
         content: attr(data-content);

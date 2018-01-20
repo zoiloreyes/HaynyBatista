@@ -1,0 +1,44 @@
+CREATE DATABASE HaynyBatistaDB;
+GO
+USE HaynyBatistaDB
+CREATE TABLE Usuario(
+	IdUsuario INTEGER IDENTITY(1,1) PRIMARY KEY
+)
+
+
+
+CREATE TABLE Imagen(
+	IdImagen INTEGER IDENTITY(1,1) PRIMARY KEY,
+	IdUsuario INT,
+	Formato VARCHAR(5) NOT NULL,
+	Height INTEGER NOT NULL,
+	Width INTEGER NOT NULL,
+	Title INTEGER,
+	FechaSubida DATETIME Default GETDATE() NOT NULL
+)
+
+CREATE TABLE Articulo(
+	IdArticulo INTEGER IDENTITY(1,1) PRIMARY KEY,
+	IdUsuario INTEGER,
+	Titutlo VARCHAR(MAX) NOT NULL,
+	Contenido VARCHAR(MAX) NOT NULL,
+	FechaSubida DATETIME DEFAULT GETDATE() NOT NULL,
+	IdImagen INTEGER
+)
+
+CREATE TABLE Etiqueta(
+	IdEtiqueta INTEGER IDENTITY(1,1) PRIMARY KEY,
+	Nombre VARCHAR(100) NOT NULL
+)
+
+CREATE TABLE EtiquetaArticulo(
+	IdEtiquetaArticulo INTEGER IDENTITY(1,1) PRIMARY KEY,
+	IdEtiqueta INTEGER NOT NULL,
+	IdArticulo INTEGER NOT NULL
+)
+
+ALTER TABLE Imagen ADD CONSTRAINT FK_Imagen_Usuario FOREIGN KEY (IdUsuario) REFERENCES Usuario(IdUsuario);
+ALTER TABLE Articulo ADD CONSTRAINT FK_Articulo_Imagen FOREIGN KEY(IdImagen) REFERENCES Imagen(IdImagen);
+ALTER TABLE Articulo ADD CONSTRAINT FK_Articulo_Usuario FOREIGN KEY(IdUsuario) REFERENCES Usuario(IdUsuario);
+ALTER TABLE EtiquetaArticulo ADD CONSTRAINT FK_EtiquetaArticulo_Etiqueta FOREIGN KEY(IdEtiqueta) REFERENCES Etiqueta(IdEtiqueta);
+ALTER TABLE EtiquetaArticulo ADD CONSTRAINT FK_EtiquetaArticulo_Articulo FOREIGN KEY(IdArticulo) REFERENCES Articulo(IdArticulo);

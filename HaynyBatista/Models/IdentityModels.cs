@@ -14,8 +14,15 @@ namespace HaynyBatista.Models
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
+            userIdentity.AddClaim(new Claim("Email", this.Email.ToString()));
+            userIdentity.AddClaim(new Claim("PhoneNumber", this.PhoneNumber.ToString()));
+            userIdentity.AddClaim(new Claim("HaynyUsuarioId", this.Usuario.IdUsuario.ToString()));
+
+
+
             return userIdentity;
         }
+        public virtual Usuario Usuario { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -28,6 +35,45 @@ namespace HaynyBatista.Models
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+
+
+
+        public virtual DbSet<Articulo> Articulo { get; set; }
+        public virtual DbSet<Etiqueta> Etiqueta { get; set; }
+        public virtual DbSet<EtiquetaArticulo> EtiquetaArticulo { get; set; }
+        public virtual DbSet<Imagen> Imagen { get; set; }
+        public virtual DbSet<Usuario> Usuario { get; set; }
+
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Articulo>()
+                .Property(e => e.Titutlo)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Articulo>()
+                .Property(e => e.Contenido)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Articulo>()
+                .HasMany(e => e.EtiquetaArticulo)
+                .WithRequired(e => e.Articulo)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Etiqueta>()
+                .Property(e => e.Nombre)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Etiqueta>()
+                .HasMany(e => e.EtiquetaArticulo)
+                .WithRequired(e => e.Etiqueta)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Imagen>()
+                .Property(e => e.Formato)
+                .IsUnicode(false);
         }
     }
 }

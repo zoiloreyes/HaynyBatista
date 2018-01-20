@@ -151,7 +151,7 @@ namespace HaynyBatista.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = model.PhoneNumber };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = model.PhoneNumber, Usuario = new Usuario() { Nombre = model.Nombre, Apellido = model.Apellido} };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -367,7 +367,7 @@ namespace HaynyBatista.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = model.PhoneNumber };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = model.PhoneNumber, Usuario = new Usuario() { Nombre = model.Nombre, Apellido = model.Apellido } };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

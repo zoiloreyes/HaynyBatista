@@ -6,6 +6,14 @@ namespace HaynyBatista.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required(ErrorMessage = "{0} Es Requerido")]
+        [EmailAddress]
+        [Display(Name = "Nombre")]
+        public string Nombre { get; set; }
+        [Required(ErrorMessage = "{0} Es Requerido")]
+        [EmailAddress]
+        [Display(Name = "Apellido")]
+        public string Apellido { get; set; }
+        [Required(ErrorMessage = "{0} Es Requerido")]
         [Display(Name = "Email")]
         public string Email { get; set; }
         [Required(ErrorMessage = "{0} Es Requerido")]
@@ -68,6 +76,15 @@ namespace HaynyBatista.Models
 
     public class RegisterViewModel
     {
+        [Required(ErrorMessage = "{0} Es Requerido")]
+        [EmailAddress]
+        [Display(Name = "Nombre")]
+        public string Nombre { get; set; }
+        [Required(ErrorMessage = "{0} Es Requerido")]
+        [EmailAddress]
+        [Display(Name = "Apellido")]
+        public string Apellido { get; set; }
+
         [Required(ErrorMessage = "{0} Es Requerido")]
         [EmailAddress]
         [Display(Name = "Email")]

@@ -13,28 +13,16 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/bundles/LayoutCss")
+    <style>
+        .body-content {
+            background-size: 400% 400% !important;
+        }
+    </style>
 </head>
 <body>
-    @*<div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    </ul>
-                    @Html.Partial("_LoginPartial")
-                </div>
-            </div>
-        </div>*@
+    <button class="returnButton">
+        <i class="fa fa-arrow-circle-left fa-5x" aria-hidden="true"></i>
+    </button>
     <div class="container-fluid body-content pt-3">
         <div class="row">
             <div class="col-md-6 offset-md-3 my-5 RegisterFormContainer">
@@ -70,7 +58,7 @@
                             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
                         </div>
                     </div>
-                    <p class="ml-3">Ya tienes cuenta? <a href="#" class="text-danger">Inicia Sesión</a></p>
+                    <p class="ml-3">Ya tienes cuenta? @Html.ActionLink("Inicia Sesión", "Login", "Account", null, new { @class = "text-danger" })</p>
                     <div class="d-flex justify-content-center">
                         <input type="submit" class="haynyBtn bg-danger text-white" style="min-width: 100px"value="Unete" />
                     </div>
@@ -91,10 +79,16 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script>
         $(document).ready(function () {
-            $(".RegisterForm").addClass("animated fadeIn")
+            $(".RegisterFormContainer").addClass("animated fadeIn")
             $(".menu, footer").css("display", "none");
-            $(".body-content").css("background", "linear-gradient(to left, #c0392b, #8e44ad)")
+            $(".body-content").css("background-size", "400% 400%")
+            $(".body-content").css("background", "linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB)")
+            $(".body-content").css("animation", "Gradient 10s ease infinite")
             $(".body-content").css("min-height", $(window).height() + "px");
+
+            $(".returnButton").click(function () {
+              window.location = "@Url.Action("Index", "Home")";
+            });
         });
     </script>
 </body>
