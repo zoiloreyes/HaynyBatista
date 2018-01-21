@@ -6,12 +6,12 @@ namespace HaynyBatista.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required(ErrorMessage = "{0} Es Requerido")]
-        [EmailAddress]
         [Display(Name = "Nombre")]
+        [StringLength(50, ErrorMessage = "El Nombre debe tener menos de 50 caracteres")]
         public string Nombre { get; set; }
         [Required(ErrorMessage = "{0} Es Requerido")]
-        [EmailAddress]
         [Display(Name = "Apellido")]
+        [StringLength(50, ErrorMessage = "El Apellido debe tener menos de 50 caracteres")]
         public string Apellido { get; set; }
         [Required(ErrorMessage = "{0} Es Requerido")]
         [Display(Name = "Email")]
@@ -62,7 +62,7 @@ namespace HaynyBatista.Models
     {
         [Required]
         [Display(Name = "Email")]
-        [EmailAddress]
+       
         public string Email { get; set; }
 
         [Required]
@@ -77,16 +77,16 @@ namespace HaynyBatista.Models
     public class RegisterViewModel
     {
         [Required(ErrorMessage = "{0} Es Requerido")]
-        [EmailAddress]
         [Display(Name = "Nombre")]
+        [StringLength(50,ErrorMessage = "El Nombre debe tener menos de 50 caracteres")]
         public string Nombre { get; set; }
         [Required(ErrorMessage = "{0} Es Requerido")]
-        [EmailAddress]
         [Display(Name = "Apellido")]
         public string Apellido { get; set; }
 
         [Required(ErrorMessage = "{0} Es Requerido")]
         [EmailAddress]
+        [StringLength(50, ErrorMessage = "El Apellido debe tener menos de 50 caracteres")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 

@@ -4,7 +4,105 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+@if (this.User.IsInRole("Administrador"))
+{
+    <div class="row">
+        <div class="col-md-10">
+            <button class="btn-block haynyBtn btn-danger py-2" data-toggle="modal" data-target="#NuevoArticulo"><strong>Nueva Entrada</strong><i class="fa fa-plus ml-2" aria-hidden="true"></i></button>
+        </div>
+    </div>
+    @section OutsideContainer{
+    <form>
+        <div class="modal fade" id="NuevoArticulo">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="d-flex flex-row-reverse">
+                            <button type="button" class="haynyBtn btn-success px-3" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">Publicar <i class="fa fa-check-circle" aria-hidden="true"></i></span>
+                            </button>
+                        </div>
+
+
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mw-100">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <textarea class="TitleInput ASTextArea" placeholder="Titulo..."></textarea>
+                                    <textarea class="tinymceTextArea mt-2">
+
+                                </textarea>
+                                </div>
+                                <div class="col-md-3">
+                                    <div id="accordion" role="tablist" aria-multiselectable="true">
+                                        <div class="card">
+                                            <div class="card-header SettingHeader" role="tab" id="TagsSettingsH">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-flex">
+                                                        <a class="SettingHeaderAnchor" data-toggle="collapse" data-parent="#accordion" href="#TagsSettingsB" aria-expanded="true" aria-controls="collapseOne">
+                                                            <i class="fa fa-tags mr-1" aria-hidden="true"></i><span>Etiquetas</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <i class="fa fa-arrow-right SettingHeaderArrow pt-1" aria-hidden="true"></i>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div id="TagsSettingsB" class="collapse p-md-2 SettingBody" role="tabpanel" aria-labelledby="headingOne">
+                                                <div class="card-block">
+                                                    <div class="form-group">
+                                                        <label for="exampleInputPassword1">Etiquetas <i class="fa fa-info-circle text-info tooltipTrigger" data-toggle="tooltip" data-placement="top" title="Introduzca Etiquetas para hacer más facil su busqueda. Separe las etiquetas por coma ','" aria-hidden="true"></i></label>
+                                                        <input type="text" class="form-control" id="Etiquetas" data-role="tagsinput" placeholder="Etiqueta">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-header SettingHeader" role="tab" id="ImageSettingsH">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-flex">
+                                                        <a class="SettingHeaderAnchor" data-toggle="collapse" data-parent="#accordion" href="#ImageSettingsB" aria-expanded="true" aria-controls="collapseOne">
+                                                            <i class="fa fa-picture-o mr-1" aria-hidden="true"></i><span>Imagen</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <i class="fa fa-arrow-right SettingHeaderArrow pt-1" aria-hidden="true"></i>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div id="ImageSettingsB" class="collapse p-md-2 SettingBody" role="tabpanel" aria-labelledby="headingOne">
+                                                <div class="card-block">
+                                                    <div class="d-flex flex-column justify-content-center ImagePreviewContainer">
+                                                        <div class="d-flex justify-content-center">
+                                                            <a class="haynyBtn btn-danger text-white indirectClick" href="#inputImgArticulo">Subir Imagen</a>
+                                                        </div>
+                                                    </div>
+                                                    <input type="file" class="d-none" id="inputImgArticulo"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    
+    }
+    
+}
+
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -29,29 +127,30 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Imagen.Formato)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuario.IdUsuario)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Titutlo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Contenido)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaSubida)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdArticulo }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdArticulo }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdArticulo })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Imagen.Formato)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario.IdUsuario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titutlo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contenido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaSubida)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IdArticulo }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IdArticulo }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IdArticulo })
+            </td>
+        </tr>
+    }
 
 </table>

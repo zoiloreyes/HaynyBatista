@@ -24,6 +24,20 @@ namespace HaynyBatista.Extensions
             return (claim != null) ? claim.Value : string.Empty;
         }
 
+        public static string GetFirstName(this IIdentity identity)
+        {
+            var claim = ((ClaimsIdentity)identity).FindFirst("FirstName");
+            // Test for null to avoid issues during local testing
+            return (claim != null) ? claim.Value : string.Empty;
+        }
+
+        public static string GetLastName(this IIdentity identity)
+        {
+            var claim = ((ClaimsIdentity)identity).FindFirst("LastName");
+            // Test for null to avoid issues during local testing
+            return (claim != null) ? claim.Value : string.Empty;
+        }
+
         public static string GetMoneySaverUserID(this IIdentity identity)
         {
             var claim = ((ClaimsIdentity)identity).FindFirst("HaynyUsuarioId");

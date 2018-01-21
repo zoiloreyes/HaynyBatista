@@ -80,3 +80,65 @@
     .rb{
         border-right: 1px solid white;
     }
+
+.modal-lg{
+    max-width: 90% !important;
+}
+
+.TitleInput {
+    width: 100%;
+    font-family: sans-serif;
+    border: none;
+    font-size: 32px;
+    outline: none !important;
+}
+
+.ExpandingTextArea {
+    resize: none;
+    overflow: hidden;
+}
+
+#accordion{
+    width: 100%;
+}
+
+.SettingHeader{
+    border-radius: 0 !important;
+    background-color: white !important;
+}
+
+.flip180 {
+    transform: rotate(-180deg);
+}
+
+.flip90Positive {
+    transform: rotate(90deg);
+}
+.SettingHeaderArrow {
+    margin-right: 0;
+    margin-left: auto;
+    color: #ff4444;
+    text-align: right;
+    transition: all 1s ease;
+}
+
+    .SettingHeaderArrow:hover {
+        color: #CC0000
+    }
+
+.SettingHeader a {
+    color: #ff4444;
+    text-decoration: none;
+    transition: all 1s ease;
+}
+
+.SettingHeader a:hover {
+    color: #CC0000;
+}
+.flip90egative {
+    transform: rotate(-90deg);
+}
+
+.ImagePreviewContainer{
+    min-height: 100px;
+}

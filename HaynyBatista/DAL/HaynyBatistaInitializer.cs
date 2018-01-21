@@ -33,7 +33,7 @@ namespace HaynyBatista.DAL
             {
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
-                var user = new ApplicationUser { UserName = "zoiloreyes", Email = "zoiloismaelreyes1@gmail.com", PhoneNumber = "8096991872" };
+                var user = new ApplicationUser { UserName = "zoiloreyes", Email = "zoiloismaelreyes1@gmail.com", PhoneNumber = "8096991872" , Usuario = new Usuario() { Nombre = "Zoilo" , Apellido = "Reyes" } };
 
                 manager.Create(user, "Admin123");
                 manager.AddToRole(user.Id, "Administrador");

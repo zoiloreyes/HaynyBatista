@@ -29,11 +29,15 @@ namespace HaynyBatista
                       "~/Content/site.css"));
             bundles.Add(new ScriptBundle("~/bundles/LayoutJs").Include(
                       "~/Scripts/Layout.js",
-                      "~/Scripts/Util.js"));
+                      "~/Scripts/Util.js",
+                      "~/Plugins/tinymce/tinymce.min.js",
+                      "~/Plugins/autosize-master/dist/autosize.min.js",
+                      "~/Plugins/TagsInput/tagsinput.js"));
             bundles.Add(new StyleBundle("~/bundles/LayoutCss").Include(
                       "~/Content/Layout.css",
                       "~/Content/animate.min.css",
-                      "~/Plugins/FontAwesome/css/font-awesome.min.css"));
+                      "~/Plugins/FontAwesome/css/font-awesome.min.css",
+                      "~/Plugins/TagsInput/tagsinput.css"));
         }
     }
 }

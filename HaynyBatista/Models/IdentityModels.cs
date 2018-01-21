@@ -17,7 +17,8 @@ namespace HaynyBatista.Models
             userIdentity.AddClaim(new Claim("Email", this.Email.ToString()));
             userIdentity.AddClaim(new Claim("PhoneNumber", this.PhoneNumber.ToString()));
             userIdentity.AddClaim(new Claim("HaynyUsuarioId", this.Usuario.IdUsuario.ToString()));
-
+            userIdentity.AddClaim(new Claim("FirstName", this.Usuario.Nombre.ToString()));
+            userIdentity.AddClaim(new Claim("LastName", this.Usuario.Apellido.ToString()));
 
 
             return userIdentity;
