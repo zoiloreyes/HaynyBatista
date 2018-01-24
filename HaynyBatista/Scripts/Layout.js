@@ -36,11 +36,7 @@ $(document).ready(function () {
             autosize($(".ASTextArea"))
         }
         var InitContent = function () {
-
-            $(".SettingBody").on("show.bs.collapse hide.bs.collapse", function () {
-                $(this).siblings(".SettingHeader").find(".SettingHeaderArrow").toggleClass("flip90Positive");
-            });
-
+            
 
             $('[data-toggle="tooltip"]').tooltip();
 

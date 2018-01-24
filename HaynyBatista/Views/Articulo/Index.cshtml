@@ -81,10 +81,13 @@
 
                                             <div id="ImageSettingsB" class="collapse p-md-2 SettingBody" role="tabpanel" aria-labelledby="headingOne">
                                                 <div class="card-block">
-                                                    <div class="d-flex flex-column justify-content-center ImagePreviewContainer">
+                                                    <div class="d-flex flex-column justify-content-center">
                                                         <div class="d-flex justify-content-center">
                                                             <a class="haynyBtn btn-danger text-white indirectClick" href="#inputImgArticulo">Subir Imagen</a>
                                                         </div>
+                                                    </div>
+                                                    <div class="d-flex flex-column justify-content-center ImagePreviewContainer my-2" id="ImgContainerInputArticulo">
+                                                        
                                                     </div>
                                                     <input type="file" class="d-none" id="inputImgArticulo" accept="image/*"/>
                                             </div>
@@ -162,8 +165,24 @@
             $(document).ready(function () {
                 $("#inputImgArticulo").on("change", function () {
                     var button = $(this);
-                    SetImgBackgroundFromFile(this, button.parent().parent());
+                    $("#ImgContainerInputArticulo").addTempClass({
+                        className: "animated bounceIn",
+                        timeOut: 2000
+                        
+                    });
+                    SetImgBackgroundFromFile(this, $("#ImgContainerInputArticulo"));
+
                 })
+
+                $(".SettingBody").on("show.bs.collapse hide.bs.collapse", function () {
+                    $(this).siblings(".SettingHeader").find(".SettingHeaderArrow").toggleClass("flip90Positive");
+                });
+
+                $(".SettingHeader").click(function () {
+
+                    //TODO dar click al header entero
+                    $(" .SettingHeaderAnchor")
+                });
             })
             function SetImgBackgroundFromFile(input, element) {
                 if (window.File && window.FileList && window.FileReader) {
