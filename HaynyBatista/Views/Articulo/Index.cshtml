@@ -178,10 +178,8 @@
                     $(this).siblings(".SettingHeader").find(".SettingHeaderArrow").toggleClass("flip90Positive");
                 });
 
-                $(".SettingHeader").click(function () {
-
-                    //TODO dar click al header entero
-                    $(" .SettingHeaderAnchor")
+                $(".SettingHeader").click(function (event) {
+                    $($(this).find(".SettingHeaderAnchor").attr("href")).collapse("toggle");
                 });
             })
             function SetImgBackgroundFromFile(input, element) {
