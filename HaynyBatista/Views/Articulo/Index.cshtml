@@ -86,7 +86,7 @@
                                                             <a class="haynyBtn btn-danger text-white indirectClick" href="#inputImgArticulo">Subir Imagen</a>
                                                         </div>
                                                     </div>
-                                                    <input type="file" class="d-none" id="inputImgArticulo"/>
+                                                    <input type="file" class="d-none" id="inputImgArticulo" accept="image/*"/>
                                             </div>
                                         </div>
                                     </div>
@@ -154,3 +154,57 @@
     }
 
 </table>
+
+@if (this.User.IsInRole("Administrador"))
+{
+    @section Scripts{
+        <script>
+            $(document).ready(function () {
+                $("#inputImgArticulo").on("change", function () {
+                    var button = $(this);
+                    SetImgBackgroundFromFile(this, button.parent().parent());
+                })
+            })
+            function SetImgBackgroundFromFile(input, element) {
+                if (window.File && window.FileList && window.FileReader) {
+                    var files = input.files;
+                    for (var i = 0; i < files.length; i++) {
+                        var file = files[i];
+                        
+                        if (!file.type.match('image')) continue;
+
+                        var picReader = new FileReader();
+
+                        picReader.addEventListener("load", function (event) {
+                            var picFile = event.target;
+                            $(element).css("background-size", "contain");
+                            $(element).css("background-repeat", "no-repeat");
+                            $(element).css("background-position", "center center");
+                            $(element).css("background-image", "url(" + picFile.result+")");
+                        });
+
+                        picReader.readAsDataURL(files[i]);
+
+                    }
+                    
+                    //setTimeout(
+                    //    function () {
+                    //        $(output).prepend("<button type='button' class='btn-close carouselHider'><i class='fa fa-close'></i></button>")
+                    //        $(inner).find(".carousel-item").first().addClass("active");
+                    //        $(output).css('display', 'block');
+                    //        $(output).addClass('animated zoomIn');
+                    //        $(".carouselHider").click(function () {
+                    //            $(this).closest('.ImgContainer').find(".carousel").first().css("display", "none");
+                    //            $(this).css("display", "none");
+                    //            $(this).closest("form").find(".imgInput").val("");
+                    //        });
+                    //    }, 1000);
+                    
+                } else {
+                    Notificar("","<p>Tu navegador no soporta File API</p>");
+                }
+            }
+        </script>
+
+    }
+}
