@@ -213,14 +213,17 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Articulo.cs" />
+    <Compile Include="Models\ArticuloViewModels.cs" />
     <Compile Include="Models\Etiqueta.cs" />
     <Compile Include="Models\EtiquetaArticulo.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Imagen.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\RetornoJSON.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="UtilClasses\HttpPostedFileBaseExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\animate.min.css" />

@@ -28,7 +28,7 @@ namespace HaynyBatista.Models
 
         public int Width { get; set; }
 
-        public int? Title { get; set; }
+        public string Title { get; set; }
 
         public DateTime FechaSubida { get; set; }
 

@@ -38,7 +38,7 @@ namespace HaynyBatista.Extensions
             return (claim != null) ? claim.Value : string.Empty;
         }
 
-        public static string GetMoneySaverUserID(this IIdentity identity)
+        public static string GetHaynyUserID(this IIdentity identity)
         {
             var claim = ((ClaimsIdentity)identity).FindFirst("HaynyUsuarioId");
             // Test for null to avoid issues during local testing

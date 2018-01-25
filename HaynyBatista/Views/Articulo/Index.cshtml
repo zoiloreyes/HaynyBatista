@@ -12,13 +12,13 @@
         </div>
     </div>
     @section OutsideContainer{
-    <form>
+    <form id="frmNuevoArticulo" method="post" enctype="multipart/form-data">
         <div class="modal fade" id="NuevoArticulo">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <div class="d-flex flex-row-reverse">
-                            <button type="button" class="haynyBtn btn-success px-3" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="haynyBtn btn-success px-3" id="btnGuardarArticulo" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">Publicar <i class="fa fa-check-circle" aria-hidden="true"></i></span>
                             </button>
                         </div>
@@ -33,8 +33,8 @@
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-9">
-                                    <textarea class="TitleInput ASTextArea" placeholder="Titulo..."></textarea>
-                                    <textarea class="tinymceTextArea mt-2">
+                                    <textarea name="Titulo" id="inputTituloArticulo" class="TitleInput ASTextArea requerido" data-title="Titulo" placeholder="Titulo..."></textarea>
+                                    <textarea name="Contenido" id="inputContenidoArticulo" data-title="Contenido" class="tinymceTextArea mt-2 tinyMCErequerido">
 
                                 </textarea>
                                 </div>
@@ -59,7 +59,7 @@
                                                 <div class="card-block">
                                                     <div class="form-group">
                                                         <label for="exampleInputPassword1">Etiquetas <i class="fa fa-info-circle text-info tooltipTrigger" data-toggle="tooltip" data-placement="top" title="Introduzca Etiquetas para hacer más facil su busqueda. Separe las etiquetas por coma ','" aria-hidden="true"></i></label>
-                                                        <input type="text" class="form-control" id="Etiquetas" data-role="tagsinput" placeholder="Etiqueta">
+                                                        <input name="Etiquetas" type="text" class="form-control" id="Etiquetas" data-role="tagsinput" placeholder="Etiqueta">
                                                     </div>
                                                 </div>
                                             </div>
@@ -100,6 +100,7 @@
                 </div>
             </div>
         </div>
+            </div>
     </form>
     
     }
@@ -181,7 +182,76 @@
                 $(".SettingHeader").click(function (event) {
                     $($(this).find(".SettingHeaderAnchor").attr("href")).collapse("toggle");
                 });
+
+                $("#btnGuardarArticulo").click(function () {
+                    GuardarArticulo();
+                })
             })
+
+            function GuardarArticulo() {
+                var formData = new FormData();
+                
+                var inputImagen = $("#inputImgArticulo")[0];
+
+                var validacion = validarForm("#frmNuevoArticulo");
+                if (validacion.Estado) {
+                    if (!inputImagen.files) {
+                        Notificar("prueba", "<p>Su navegador no soporta subida de archivos</p>")
+                    } else if (!inputImagen.files[0]) {
+
+                    } else {
+                        formData.append("Imagen", inputImagen.files[0]);
+                    }
+
+                    tinymce.get('inputContenidoArticulo').getContent();
+                    formData.append("Titulo", $("#inputTituloArticulo").val());
+                    formData.append("Contenido", tinymce.get('inputContenidoArticulo').getContent());
+
+
+                    var etiquetas = $("#Etiquetas").val().split(",").map(function (value) {
+                        object = {
+                            Nombre: value
+                        };
+                        return object;
+                    });
+
+                    formData.append("Etiquetas", JSON.stringify(etiquetas));
+                    
+                    $.ajax({
+                        url: "/Articulo/GuardarArticulo",
+                        data: formData,
+                        type: "POST",
+                        async: false,
+                        contentType: false,
+                        processData: false,
+                        dataType: "json",
+                        success: function (result) {
+                            console.log(result);
+                            
+                        },
+                        error: function (errorMessage) {
+                            alert(errorMessage.responseText);
+                        }
+                    });
+
+                } else {
+                    for (var error of validacion.Errores) {
+                        if (error.objeto.is(":visible")) {
+                            $(error.objeto).data("toggle", "tooltip");
+                            $(error.objeto).data("placement", "right");
+                            $(error.objeto).attr("title", error.msg);
+                            $(error.objeto).tooltip("toggle");
+                            setTimeout(function () {
+                                $(error.objeto.attr("id")).tooltip("dispose");
+                            }, 2000)
+                        }
+                        
+                    }
+                }
+                
+               
+                
+            }
             function SetImgBackgroundFromFile(input, element) {
                 if (window.File && window.FileList && window.FileReader) {
                     var files = input.files;
@@ -203,20 +273,6 @@
                         picReader.readAsDataURL(files[i]);
 
                     }
-                    
-                    //setTimeout(
-                    //    function () {
-                    //        $(output).prepend("<button type='button' class='btn-close carouselHider'><i class='fa fa-close'></i></button>")
-                    //        $(inner).find(".carousel-item").first().addClass("active");
-                    //        $(output).css('display', 'block');
-                    //        $(output).addClass('animated zoomIn');
-                    //        $(".carouselHider").click(function () {
-                    //            $(this).closest('.ImgContainer').find(".carousel").first().css("display", "none");
-                    //            $(this).css("display", "none");
-                    //            $(this).closest("form").find(".imgInput").val("");
-                    //        });
-                    //    }, 1000);
-                    
                 } else {
                     Notificar("","<p>Tu navegador no soporta File API</p>");
                 }

@@ -40,11 +40,11 @@ namespace HaynyBatista.Models
 
 
 
-        public virtual DbSet<Articulo> Articulo { get; set; }
-        public virtual DbSet<Etiqueta> Etiqueta { get; set; }
+        public virtual DbSet<Articulo> Articulos { get; set; }
+        public virtual DbSet<Etiqueta> Etiquetas { get; set; }
         public virtual DbSet<EtiquetaArticulo> EtiquetaArticulo { get; set; }
-        public virtual DbSet<Imagen> Imagen { get; set; }
-        public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<Imagen> Imagenes { get; set; }
+        public virtual DbSet<Usuario> Usuarios { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
