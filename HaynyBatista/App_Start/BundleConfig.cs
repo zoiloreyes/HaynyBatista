@@ -32,7 +32,8 @@ namespace HaynyBatista
                       "~/Scripts/Util.js",
                       "~/Plugins/tinymce/tinymce.min.js",
                       "~/Plugins/autosize-master/dist/autosize.min.js",
-                      "~/Plugins/TagsInput/tagsinput.js"));
+                      "~/Plugins/TagsInput/tagsinput.js",
+                      "~/Plugins/ftellipsis-master/build/ftellipsis.min.js"));
             bundles.Add(new StyleBundle("~/bundles/LayoutCss").Include(
                       "~/Content/Layout.css",
                       "~/Content/animate.min.css",

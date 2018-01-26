@@ -1,0 +1,3 @@
+26/1/2018 11:20:15 a. m. ==> WUOOO UN ERROR
+26/1/2018 11:24:10 a. m. ==> Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+26/1/2018 11:37:53 a. m. ==>   "Etiqueta"  , Nombre , El campo Nombre es obligatorio.

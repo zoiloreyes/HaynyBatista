@@ -214,3 +214,23 @@
         opacity: 0;
     }
 }
+
+.FechaArticulo{
+    display: flex;
+    align-items: center;
+    justify-content:center;
+}
+
+.FechaArticulo span {
+    background: #fff;
+    color: gray;
+    margin: 0 15px;
+    font-size: 14px;
+}
+
+.FechaArticulo:after {
+    background: gray;
+    height: 1px;
+    flex: 1;
+    content: '';
+}

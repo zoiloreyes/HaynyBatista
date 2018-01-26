@@ -161,3 +161,16 @@ function objectifyForm(jqueryForm) {
     });
     return paramObj;
 }
+
+
+//Usar ellipsis de javascript puro a jquery
+$.fn.CreateEllipsis = function () {
+
+    return this.each(function () {
+        var element = $(this)[0];
+        var ellipsis = new Elipsis(element);
+
+        ellipsis.calc();
+        ellipsis.set();
+    });
+};

@@ -199,16 +199,13 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="DAL\HaynyBatistaInitializer.cs" />
     <Compile Include="Extensions\IdentityExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201801221418183_InitialCreate.cs" />
-    <Compile Include="Migrations\201801221418183_InitialCreate.Designer.cs">
-      <DependentUpon>201801221418183_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801221421395_Initial.cs" />
-    <Compile Include="Migrations\201801221421395_Initial.Designer.cs">
-      <DependentUpon>201801221421395_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201801261840468_initial.cs" />
+    <Compile Include="Migrations\201801261840468_initial.Designer.cs">
+      <DependentUpon>201801261840468_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -224,6 +221,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="UtilClasses\HttpPostedFileBaseExtensions.cs" />
+    <Compile Include="UtilClasses\LogFileCreator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\animate.min.css" />
@@ -281,6 +279,20 @@
     <Content Include="Plugins\FontAwesome\css\font-awesome.css" />
     <Content Include="Plugins\FontAwesome\css\font-awesome.min.css" />
     <Content Include="Plugins\FontAwesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Plugins\ftellipsis-master\.gitignore" />
+    <Content Include="Plugins\ftellipsis-master\build\ftellipsis.min.js" />
+    <Content Include="Plugins\ftellipsis-master\examples\1\index.html" />
+    <Content Include="Plugins\ftellipsis-master\examples\1\style.css" />
+    <Content Include="Plugins\ftellipsis-master\examples\single-line\index.html" />
+    <Content Include="Plugins\ftellipsis-master\GruntFile.js" />
+    <Content Include="Plugins\ftellipsis-master\lib\index.js" />
+    <Content Include="Plugins\ftellipsis-master\test\buster.js" />
+    <Content Include="Plugins\ftellipsis-master\test\calc-test.js" />
+    <Content Include="Plugins\ftellipsis-master\test\helpers.js" />
+    <Content Include="Plugins\ftellipsis-master\test\set-test.js" />
+    <Content Include="Plugins\ftellipsis-master\test\style.css" />
+    <Content Include="Plugins\ftellipsis-master\test\test.html" />
+    <Content Include="Plugins\ftellipsis-master\test\unset-test.js" />
     <Content Include="Plugins\TagsInput\tagsinput.css" />
     <Content Include="Plugins\TagsInput\tagsinput.js" />
     <Content Include="Plugins\tinymce\jquery.tinymce.min.js" />
@@ -402,6 +414,12 @@
     <Content Include="Plugins\TagsInput\LICENSE" />
     <Content Include="Plugins\TagsInput\package.json" />
     <Content Include="Plugins\TagsInput\README.md" />
+    <Content Include="Plugins\ftellipsis-master\.npmignore" />
+    <Content Include="Plugins\ftellipsis-master\.travis.yml" />
+    <Content Include="Plugins\ftellipsis-master\bower.json" />
+    <Content Include="Plugins\ftellipsis-master\LICENSE-MIT" />
+    <Content Include="Plugins\ftellipsis-master\package.json" />
+    <Content Include="Plugins\ftellipsis-master\README.md" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
@@ -476,6 +494,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ImagenesSubidas\" />
+    <Folder Include="Logs\" />
     <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
@@ -488,11 +507,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801221418183_InitialCreate.resx">
-      <DependentUpon>201801221418183_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801221421395_Initial.resx">
-      <DependentUpon>201801221421395_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201801261840468_initial.resx">
+      <DependentUpon>201801261840468_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -3,7 +3,7 @@ namespace HaynyBatista.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
@@ -13,7 +13,7 @@ namespace HaynyBatista.Migrations
                     {
                         IdArticulo = c.Int(nullable: false, identity: true),
                         IdUsuario = c.Int(),
-                        Titutlo = c.String(nullable: false, unicode: false),
+                        Titulo = c.String(nullable: false, unicode: false),
                         Contenido = c.String(nullable: false, unicode: false),
                         FechaSubida = c.DateTime(nullable: false),
                         IdImagen = c.Int(),
@@ -56,7 +56,7 @@ namespace HaynyBatista.Migrations
                         Formato = c.String(nullable: false, maxLength: 5, unicode: false),
                         Height = c.Int(nullable: false),
                         Width = c.Int(nullable: false),
-                        Title = c.Int(),
+                        Title = c.String(),
                         FechaSubida = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.IdImagen)

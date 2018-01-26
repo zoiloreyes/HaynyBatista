@@ -21,7 +21,7 @@ namespace HaynyBatista.Models
         public int? IdUsuario { get; set; }
 
         [Required]
-        public string Titutlo { get; set; }
+        public string Titulo { get; set; }
 
         [Required]
         public string Contenido { get; set; }

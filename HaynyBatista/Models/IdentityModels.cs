@@ -51,7 +51,7 @@ namespace HaynyBatista.Models
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Articulo>()
-                .Property(e => e.Titutlo)
+                .Property(e => e.Titulo)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Articulo>()

@@ -1,0 +1,43 @@
+{
+  "name": "ftellipsis",
+  "title": "FTEllipsis",
+  "description": "Multi-line ellipsis made possible",
+  "version": "0.2.3",
+  "homepage": "https://github.com/ftlabs/ftellipsis",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com:ftlabs/ftellipsis.git"
+  },
+  "author": {
+    "name": "Wilson Page",
+    "email": "wilsonpage@me.com",
+    "github": "wilsonpage",
+    "organization": "The Finanacial Times Limited"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/ftlabs/ftellipsis/blob/master/LICENSE-MIT"
+    }
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-readme": "git://github.com/wilsonpage/grunt-readme.git",
+    "grunt-contrib-uglify": "~0.2.0",
+    "grunt-contrib-watch": "~0.5.1",
+    "buster": "~0.6.12",
+    "superagent": "0.14.4",
+    "grunt-buster": "~0.1.2",
+    "grunt-cli": "~0.1.8"
+  },
+  "keywords": [
+    "ellipsis",
+    "css",
+    "layout"
+  ],
+  "scripts": {
+    "test": "./node_modules/.bin/grunt buster -v"
+  }
+}

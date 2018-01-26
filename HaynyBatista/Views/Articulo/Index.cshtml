@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<HaynyBatista.Models.Articulo>
-
+@using HaynyBatista.Extensions
 @{
     ViewBag.Title = "Index";
 }
@@ -7,8 +7,45 @@
 @if (this.User.IsInRole("Administrador"))
 {
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-9">
             <button class="btn-block haynyBtn btn-danger py-2" data-toggle="modal" data-target="#NuevoArticulo"><strong>Nueva Entrada</strong><i class="fa fa-plus ml-2" aria-hidden="true"></i></button>
+            
+            <div class="articulo mt-2 w-100">
+                <p class="FechaArticulo"><span>10/04/2016</span></p>
+                <div class="d-flex w-100">
+                    <div class="d-flex w-50 flex-column">
+                        <h2>Titulos Titulos Titulos Titulos Titulos</h2>
+                        <p style="text-overflow: ellipsis; overflow: hidden; height:100px">Contrary to popular  1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.  1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackha</p>
+                    </div>
+                    <div class="d-flex w-50">
+                        <p>Prueba</p>
+                    </div>
+                </div>
+            </div>
+            @foreach (var articulo in Model)
+            {
+                articulo.Titulo.StripHtml();
+            }
+
+        </div>
+        <div class="col-md-3">
+            @using (@Html.BeginForm("Filter", "Articulo", FormMethod.Post, new { @class = "form-inline" }))
+            {
+
+                <div class="form-row align-items-center">
+                    <div class="col-auto">
+                        <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></div>
+                            </div>
+                            <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Buscar...">
+                        </div>
+                    </div>
+                </div>
+            }
+
+
         </div>
     </div>
     @section OutsideContainer{
@@ -111,6 +148,13 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<div class="row">
+    <div class="col-md-9">
+
+    </div>
+    
+</div>
+
 <table class="table">
     <tr>
         <th>
@@ -120,7 +164,7 @@
             @Html.DisplayNameFor(model => model.Usuario.IdUsuario)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Titutlo)
+            @Html.DisplayNameFor(model => model.Titulo)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Contenido)
@@ -133,6 +177,7 @@
 
     @foreach (var item in Model)
     {
+        
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Imagen.Formato)
@@ -141,7 +186,7 @@
                 @Html.DisplayFor(modelItem => item.Usuario.IdUsuario)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Titutlo)
+                @Html.DisplayFor(modelItem => item.Titulo)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Contenido)
@@ -208,7 +253,7 @@
                     formData.append("Contenido", tinymce.get('inputContenidoArticulo').getContent());
 
 
-                    var etiquetas = $("#Etiquetas").val().split(",").map(function (value) {
+                    var etiquetas = $("#Etiquetas").val().split(",").filter((val) => val).map(function (value) {
                         object = {
                             Nombre: value
                         };

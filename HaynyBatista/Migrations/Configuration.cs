@@ -1,24 +1,22 @@
 namespace HaynyBatista.Migrations
 {
+    using HaynyBatista.Models;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-    using Microsoft.AspNet.Identity.EntityFramework;
-    using Microsoft.AspNet.Identity;
-    using HaynyBatista.Models;
+
     internal sealed class Configuration : DbMigrationsConfiguration<HaynyBatista.Models.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "HaynyBatista.Models.ApplicationDbContext";
         }
 
         protected override void Seed(HaynyBatista.Models.ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
             if (!context.Roles.Any(r => r.Name == "Administrador"))
             {
                 var store = new RoleStore<IdentityRole>(context);
