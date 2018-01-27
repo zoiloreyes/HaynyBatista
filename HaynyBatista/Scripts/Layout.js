@@ -14,6 +14,7 @@ $(document).ready(function () {
                 $(this).find('.dropdown-menu').first().stop(true, true).slideUp(200);
             });
             $("header + .container-fluid").css("min-height", $(window).height());
+
         }
 
         var InitPlugins = function () {
@@ -33,7 +34,11 @@ $(document).ready(function () {
                 language: 'es_MX'
 
             });
-            autosize($(".ASTextArea"))
+            autosize($(".ASTextArea"));
+            $(".clamped").each(function () {
+                var element = $(this)[0]
+                $clamp(element, { clamp: 'auto' });
+            });
         }
         var InitContent = function () {
             
@@ -42,6 +47,12 @@ $(document).ready(function () {
 
             $(".indirectClick").click(function () {
                 $($(this).attr("href")).click();
+            });
+            $(".SNShareButton").on('click', function (e) {
+                $(this).find(".fab").removeClass("no");
+                if (e.target != this) return;
+                $(this).find(".fab").toggleClass("active");
+                //$('.share, .fab').toggleClass("active");
             });
         }
         var InitLayout = function () {

@@ -1,4 +1,6 @@
-﻿
+﻿body {
+    background-color: #eeeeee;
+}
 
 .RegisterFormContainer {
     background-color: white;
@@ -220,6 +222,25 @@
     align-items: center;
     justify-content:center;
 }
+.articulo {
+    background-color: white;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+.PageLink {
+    color: #ff4444;
+    text-decoration: none !important;
+}
+
+    .PageLink:hover {
+        font-weight: bold;
+        color: #ff4444;
+    }
+
+.LowImportance{
+    font-size: 14px;
+    color: gray;
+}
 
 .FechaArticulo span {
     background: #fff;
@@ -233,4 +254,199 @@
     height: 1px;
     flex: 1;
     content: '';
+}
+
+
+.ArticleImage {
+    max-height: 300px !important;
+    max-width: 100% !important;
+    margin: 0 auto;
+}
+
+.SNShareButton, .SNShareButton:before, .SNShareButton:after, .fab {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    position: absolute;
+    cursor: pointer;
+}
+
+    .SNShareButton{
+        position: relative;
+    }
+    .SNShareButton:before, .SNShareButton:after {
+        content: '';
+        will-change: transform;
+    }
+        .SNShareButton:before {
+            /*background: url(https://cbwconline.com/IMG/Codepen/Plus-Light-Blue.svg) center/28px no-repeat;*/
+            z-index: 5;
+            -webkit-transition: 0.3s;
+            transition: 0.3s;
+        }
+    .SNShareButton:after {
+        background: #fff;
+        -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        z-index: -1;
+        -webkit-transition: 0.39s;
+        transition: 0.39s;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+    .SNShareButton.active:before {
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+    .SNShareButton.active:after {
+        width: 3000px;
+        height: 3000px;
+    }
+
+        .SNShareButton:after {
+            background: #fff;
+            -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: -1;
+            -webkit-transition: 0.39s;
+            transition: 0.39s;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        .SNShareButton.active:before {
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+
+        .SNShareButton.active:after {
+            width: 3000px;
+            height: 3000px;
+        }
+
+.fab {
+    -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    -webkit-animation: 0.3s down forwards;
+    animation: 0.3s down forwards;
+    opacity: 0;
+    will-change: animation;
+}
+
+    .fab:nth-child(1) {
+        background-color: #1DA1F2;
+        top: -80px;
+    }
+
+
+    .fab:nth-child(2) {
+        background: #3B5998;
+        top: -40px;
+    }
+
+    .fab:nth-child(3) {
+        background: #DB4437;
+    }
+
+    .fab.active {
+        -webkit-animation: 0.48s up forwards;
+        animation: 0.48s up forwards;
+    }
+
+        .fab.active:nth-child(1) {
+            -webkit-animation-delay: 0.39s;
+            animation-delay: 0.39s;
+        }
+
+        .fab.active:nth-child(2) {
+            -webkit-animation-delay: 0.2s;
+            animation-delay: 0.2s;
+        }
+
+    .fab.no {
+        -webkit-animation: none;
+        animation: none;
+    }
+
+@-webkit-keyframes up {
+    50% {
+        -webkit-transform: translateY(-170%);
+        transform: translateY(-170%);
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(-130%);
+        transform: translateY(-130%);
+    }
+}
+
+@keyframes up {
+    50% {
+        -webkit-transform: translateY(-170%);
+        transform: translateY(-170%);
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(-130%);
+        transform: translateY(-130%);
+    }
+}
+
+@-webkit-keyframes down {
+    0% {
+        opacity: 1;
+        -webkit-transform: translateY(-130%);
+        transform: translateY(-130%);
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        top: 0;
+    }
+}
+
+@keyframes down {
+    0% {
+        opacity: 1;
+        -webkit-transform: translateY(-130%);
+        transform: translateY(-130%);
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        top: 0;
+    }
+}
+
+.circleButton {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+}
+
+.SmallHaynyBtn {
+    min-width: 100px;
+    text-align: center;
+    padding: 5px;
+    background-color: #ff4444;
+    color: white;
+    text-decoration: none !important;
+}
+
+.SmallHaynyBtn:hover {
+   font-weight: bold;
+   color: white;
 }

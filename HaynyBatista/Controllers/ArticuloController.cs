@@ -11,6 +11,7 @@ using System.IO;
 using HaynyBatista.UtilClases;
 using HaynyBatista.UtilClasses;
 using System.Data.Entity.Validation;
+using PagedList;
 
 namespace HaynyBatista.Controllers
 {
@@ -18,20 +19,27 @@ namespace HaynyBatista.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Articulo
-        public ActionResult Index()
+        public ActionResult Index(int? idUsuario, int? page)
         {
             List<Articulo> articulos = db.Articulos.ToList();
-            return View(articulos);
+
+            if (idUsuario != null)
+            {
+                articulos = articulos.Where(x => x.Usuario.IdUsuario == idUsuario).ToList();
+            }
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(articulos.ToPagedList(pageNumber,pageSize));
         }
 
-        public ActionResult Filter(string[] parametros)
+        public ActionResult Filter(string[] parametros, int? page)
         {
             var articulos =
                 (from articulo in db.Articulos
                  join articuloEtiqueta in db.EtiquetaArticulo on articulo.IdArticulo equals articuloEtiqueta.IdArticulo
                  join etiquetaP in db.Etiquetas on articuloEtiqueta.IdEtiqueta equals etiquetaP.IdEtiqueta
                  where parametros.Contains(etiquetaP.Nombre) || parametros.Contains(articulo.Titulo)
-                select articulo).Distinct();
+                select articulo).Distinct().OrderByDescending(s => s.FechaSubida);
 
             return View(articulos);
         }

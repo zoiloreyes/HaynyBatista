@@ -1,31 +1,100 @@
-﻿@model IEnumerable<HaynyBatista.Models.Articulo>
+﻿@model PagedList.IPagedList<HaynyBatista.Models.Articulo>
 @using HaynyBatista.Extensions
+
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Index";
 }
 
-@if (this.User.IsInRole("Administrador"))
-{
+
     <div class="row">
         <div class="col-md-9">
-            <button class="btn-block haynyBtn btn-danger py-2" data-toggle="modal" data-target="#NuevoArticulo"><strong>Nueva Entrada</strong><i class="fa fa-plus ml-2" aria-hidden="true"></i></button>
-            
-            <div class="articulo mt-2 w-100">
-                <p class="FechaArticulo"><span>10/04/2016</span></p>
+            @if (this.User.IsInRole("Administrador"))
+    {
+        <button class="btn-block haynyBtn btn-danger py-2" data-toggle="modal" data-target="#NuevoArticulo"><strong>Nueva Entrada</strong><i class="fa fa-plus ml-2" aria-hidden="true"></i></button>
+}
+
+            @foreach (var articulo in Model)
+    {
+        if (articulo.Imagen != null)
+        {
+            <div class="articulo mt-2 w-100" id="@("Articulo" + articulo.IdArticulo)"data-id="@articulo.IdArticulo">
+                <p class="FechaArticulo"><span>@articulo.FechaSubida</span></p>
                 <div class="d-flex w-100">
                     <div class="d-flex w-50 flex-column">
-                        <h2>Titulos Titulos Titulos Titulos Titulos</h2>
-                        <p style="text-overflow: ellipsis; overflow: hidden; height:100px">Contrary to popular  1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.  1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackha</p>
+                        <h4 style="min-height: 70px">@articulo.Titulo</h4>
+                        <p class="clamped text-justify" style=" height:150px">@articulo.Contenido.StripHtml()</p>
+                        <p class="LowImportance">Escrito por <span><a class="PageLink" href="#">@articulo.Usuario.Nombre @articulo.Usuario.Apellido</a></span></p>
+                        <p class="FechaArticulo"></p>
+
+                        <div class="d-flex flex-row">
+                            <a href="@("#Articulo" + articulo.IdArticulo)" class="circleButton bg-danger d-inline-block text-white" data-toggle="tooltip" data-html="true" title="@foreach (var etiquetaArticulo in articulo.EtiquetaArticulo) {<a href='#' class='badge badge-pill badge-primary'>@etiquetaArticulo.Etiqueta.Nombre</a> }"><i class="fa fa-tags pt-2 pl-2    " aria-hidden="true"></i></a>
+                            <div class="SNShareButton d-inline-block bg-danger ml-2">
+
+                                <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                <i class="fa fa-share-alt pt-2 pl-2 text-white" aria-hidden="true"></i>
+                            </div>
+                        </div>
                     </div>
-                    <div class="d-flex w-50">
-                        <p>Prueba</p>
+                    <div class="d-flex w-50 pl-4">
+                        <img class="ArticleImage" src="/ImagenesSubidas/@articulo.Imagen.IdImagen@articulo.Imagen.Formato" />
+
                     </div>
                 </div>
             </div>
-            @foreach (var articulo in Model)
+}
+else
+{
+        <div class="articulo mt-2 w-100" data-id="@articulo.IdArticulo">
+            <p class="FechaArticulo"><span>@articulo.FechaSubida.ToString("dd/MM/yyy")</span></p>
+            <div class="d-flex w-100">
+                <div class="d-flex w-100 flex-column">
+                    <h4 style="min-height: 70px">@articulo.Titulo</h4>
+                    <p class="clamped text-justify" style=" height:150px">@articulo.Contenido.StripHtml()</p>
+                    <p class="LowImportance">Escrito por <span><a class="PageLink" href="#">@articulo.Usuario.Nombre @articulo.Usuario.Apellido</a></span></p>
+                    <p class="FechaArticulo"></p>
+
+                    <div class="d-flex flex-row">
+                        <a href="@("#Articulo" + articulo.IdArticulo)"  class="circleButton bg-danger d-inline-block text-white" data-toggle="tooltip" data-html="true" title="@foreach (var etiquetaArticulo in articulo.EtiquetaArticulo) {<a href='#' class='badge badge-pill badge-primary'>@etiquetaArticulo.Etiqueta.Nombre</a> }"><i class="fa fa-tags pt-2 pl-2    " aria-hidden="true"></i></a>
+                        <div class="SNShareButton d-inline-block bg-danger ml-2">
+
+                            <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                            <i class="fa fa-share-alt pt-2 pl-2 text-white" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+}
+}
+            <p class="text-center mt-2 text-danger">Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount</p>
+            <div class="d-flex justify-content-center">
+                <div class="d-flex">
+
+
+
+                    @if (Model.PageNumber > 1)
             {
-                articulo.Titulo.StripHtml();
-            }
+
+                @Html.ActionLink("Anterior", "Index", new { page = Model.PageNumber - 1 }, new { @class = " SmallHaynyBtn mx-2" })
+
+    }
+
+                    @if (Model.PageNumber < Model.PageCount)
+            {
+                @Html.ActionLink("Siguiente", "Index", new { page = Model.PageNumber + 1 }, new { @class = " SmallHaynyBtn mx-2" })
+
+    }
+
+                </div>
+                <div class="d-flex">
+
+                </div>
+            </div>
 
         </div>
         <div class="col-md-3">
@@ -48,85 +117,93 @@
 
         </div>
     </div>
+    @if (this.User.IsInRole("Administrador"))
+{
     @section OutsideContainer{
-    <form id="frmNuevoArticulo" method="post" enctype="multipart/form-data">
-        <div class="modal fade" id="NuevoArticulo">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <div class="d-flex flex-row-reverse">
-                            <button type="button" class="haynyBtn btn-success px-3" id="btnGuardarArticulo" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">Publicar <i class="fa fa-check-circle" aria-hidden="true"></i></span>
+        <form id="frmNuevoArticulo" method="post" enctype="multipart/form-data">
+            <div class="modal fade" id="NuevoArticulo">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="d-flex flex-row-reverse">
+                                <button type="button" class="haynyBtn btn-info px-3 mx-2" id="btnLimpiarArticulo">
+                                    <span aria-hidden="true">Limpiar <i class="fa fa-asterisk" aria-hidden="true"></i></span>
+                                </button>
+                                <button type="button" class="haynyBtn btn-success px-3" id="btnGuardarArticulo" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">Publicar <i class="fa fa-check-circle" aria-hidden="true"></i></span>
+                                </button>
+
+                            </div>
+
+
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-
-
-
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body mw-100">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <textarea name="Titulo" id="inputTituloArticulo" class="TitleInput ASTextArea requerido" data-title="Titulo" placeholder="Titulo..."></textarea>
-                                    <textarea name="Contenido" id="inputContenidoArticulo" data-title="Contenido" class="tinymceTextArea mt-2 tinyMCErequerido">
+                        <div class="modal-body mw-100">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <textarea name="Titulo" id="inputTituloArticulo" class="TitleInput ASTextArea requerido" data-title="Titulo" placeholder="Titulo..."></textarea>
+                                        <textarea name="Contenido" id="inputContenidoArticulo" data-title="Contenido" class="tinymceTextArea mt-2 tinyMCErequerido">
 
                                 </textarea>
-                                </div>
-                                <div class="col-md-3">
-                                    <div id="accordion" role="tablist" aria-multiselectable="true">
-                                        <div class="card">
-                                            <div class="card-header SettingHeader" role="tab" id="TagsSettingsH">
-                                                <div class="d-flex justify-content-between">
-                                                    <div class="d-flex">
-                                                        <a class="SettingHeaderAnchor" data-toggle="collapse" data-parent="#accordion" href="#TagsSettingsB" aria-expanded="true" aria-controls="collapseOne">
-                                                            <i class="fa fa-tags mr-1" aria-hidden="true"></i><span>Etiquetas</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="d-flex">
-                                                        <i class="fa fa-arrow-right SettingHeaderArrow pt-1" aria-hidden="true"></i>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                            <div id="TagsSettingsB" class="collapse p-md-2 SettingBody" role="tabpanel" aria-labelledby="headingOne">
-                                                <div class="card-block">
-                                                    <div class="form-group">
-                                                        <label for="exampleInputPassword1">Etiquetas <i class="fa fa-info-circle text-info tooltipTrigger" data-toggle="tooltip" data-placement="top" title="Introduzca Etiquetas para hacer más facil su busqueda. Separe las etiquetas por coma ','" aria-hidden="true"></i></label>
-                                                        <input name="Etiquetas" type="text" class="form-control" id="Etiquetas" data-role="tagsinput" placeholder="Etiqueta">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card">
-                                            <div class="card-header SettingHeader" role="tab" id="ImageSettingsH">
-                                                <div class="d-flex justify-content-between">
-                                                    <div class="d-flex">
-                                                        <a class="SettingHeaderAnchor" data-toggle="collapse" data-parent="#accordion" href="#ImageSettingsB" aria-expanded="true" aria-controls="collapseOne">
-                                                            <i class="fa fa-picture-o mr-1" aria-hidden="true"></i><span>Imagen</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="d-flex">
-                                                        <i class="fa fa-arrow-right SettingHeaderArrow pt-1" aria-hidden="true"></i>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                            <div id="ImageSettingsB" class="collapse p-md-2 SettingBody" role="tabpanel" aria-labelledby="headingOne">
-                                                <div class="card-block">
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <div class="d-flex justify-content-center">
-                                                            <a class="haynyBtn btn-danger text-white indirectClick" href="#inputImgArticulo">Subir Imagen</a>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div id="accordion" role="tablist" aria-multiselectable="true">
+                                            <div class="card">
+                                                <div class="card-header SettingHeader" role="tab" id="TagsSettingsH">
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="d-flex">
+                                                            <a class="SettingHeaderAnchor" data-toggle="collapse" data-parent="#accordion" href="#TagsSettingsB" aria-expanded="true" aria-controls="collapseOne">
+                                                                <i class="fa fa-tags mr-1" aria-hidden="true"></i><span>Etiquetas</span>
+                                                            </a>
+                                                        </div>
+                                                        <div class="d-flex">
+                                                            <i class="fa fa-arrow-right SettingHeaderArrow pt-1" aria-hidden="true"></i>
                                                         </div>
                                                     </div>
-                                                    <div class="d-flex flex-column justify-content-center ImagePreviewContainer my-2" id="ImgContainerInputArticulo">
-                                                        
+
+                                                </div>
+
+                                                <div id="TagsSettingsB" class="collapse p-md-2 SettingBody" role="tabpanel" aria-labelledby="headingOne">
+                                                    <div class="card-block">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputPassword1">Etiquetas <i class="fa fa-info-circle text-info tooltipTrigger" data-toggle="tooltip" data-placement="top" title="Introduzca Etiquetas para hacer más facil su busqueda. Separe las etiquetas por coma ','" aria-hidden="true"></i></label>
+                                                            <input name="Etiquetas" type="text" class="form-control" id="Etiquetas" data-role="tagsinput" placeholder="Etiqueta">
+                                                        </div>
                                                     </div>
-                                                    <input type="file" class="d-none" id="inputImgArticulo" accept="image/*"/>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-header SettingHeader" role="tab" id="ImageSettingsH">
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="d-flex">
+                                                            <a class="SettingHeaderAnchor" data-toggle="collapse" data-parent="#accordion" href="#ImageSettingsB" aria-expanded="true" aria-controls="collapseOne">
+                                                                <i class="fa fa-picture-o mr-1" aria-hidden="true"></i><span>Imagen</span>
+                                                            </a>
+                                                        </div>
+                                                        <div class="d-flex">
+                                                            <i class="fa fa-arrow-right SettingHeaderArrow pt-1" aria-hidden="true"></i>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div id="ImageSettingsB" class="collapse p-md-2 SettingBody" role="tabpanel" aria-labelledby="headingOne">
+                                                    <div class="card-block">
+                                                        <div class="d-flex flex-column justify-content-center">
+                                                            <div class="d-flex justify-content-center">
+                                                                <a class="haynyBtn btn-danger text-white indirectClick" href="#inputImgArticulo">Subir Imagen</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-flex flex-column justify-content-center ImagePreviewContainer my-2" id="ImgContainerInputArticulo">
+
+                                                        </div>
+                                                        <input type="file" class="d-none" id="inputImgArticulo" accept="image/*" />
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -136,73 +213,13 @@
                     </div>
                 </div>
             </div>
-        </div>
-            </div>
-    </form>
-    
+        </form>
+
     }
-    
+
 }
 
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<div class="row">
-    <div class="col-md-9">
-
-    </div>
-    
-</div>
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Imagen.Formato)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Usuario.IdUsuario)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Titulo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Contenido)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaSubida)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Imagen.Formato)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Usuario.IdUsuario)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Titulo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Contenido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaSubida)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.IdArticulo }) |
-                @Html.ActionLink("Details", "Details", new { id = item.IdArticulo }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.IdArticulo })
-            </td>
-        </tr>
-    }
-
-</table>
 
 @if (this.User.IsInRole("Administrador"))
 {
@@ -214,7 +231,7 @@
                     $("#ImgContainerInputArticulo").addTempClass({
                         className: "animated bounceIn",
                         timeOut: 2000
-                        
+
                     });
                     SetImgBackgroundFromFile(this, $("#ImgContainerInputArticulo"));
 
@@ -231,11 +248,20 @@
                 $("#btnGuardarArticulo").click(function () {
                     GuardarArticulo();
                 })
+                $("#btnLimpiarArticulo").click(function () {
+                    LimpiarCamposArticulo();
+                })
             })
-
+            function LimpiarCamposArticulo() {
+                $("#inputImgArticulo").val("");
+                $("#inputTituloArticulo").val("");
+                tinymce.get('inputContenidoArticulo').setContent("");
+                $("#ImgContainerInputArticulo").css("background-image", "");
+                $("#Etiquetas").tagsinput('removeAll');
+            }
             function GuardarArticulo() {
                 var formData = new FormData();
-                
+
                 var inputImagen = $("#inputImgArticulo")[0];
 
                 var validacion = validarForm("#frmNuevoArticulo");
@@ -261,7 +287,7 @@
                     });
 
                     formData.append("Etiquetas", JSON.stringify(etiquetas));
-                    
+
                     $.ajax({
                         url: "/Articulo/GuardarArticulo",
                         data: formData,
@@ -272,7 +298,14 @@
                         dataType: "json",
                         success: function (result) {
                             console.log(result);
-                            
+                            if (result.Success) {
+                                Notificar("asd", "<p>" + result.Message + "</p>");
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 2000)
+                            } else {
+                                Notificar("asd", "<p>" +result.Message +"</p>");
+                            }
                         },
                         error: function (errorMessage) {
                             alert(errorMessage.responseText);
@@ -290,19 +323,19 @@
                                 $(error.objeto.attr("id")).tooltip("dispose");
                             }, 2000)
                         }
-                        
+
                     }
                 }
-                
-               
-                
+
+
+
             }
             function SetImgBackgroundFromFile(input, element) {
                 if (window.File && window.FileList && window.FileReader) {
                     var files = input.files;
                     for (var i = 0; i < files.length; i++) {
                         var file = files[i];
-                        
+
                         if (!file.type.match('image')) continue;
 
                         var picReader = new FileReader();
@@ -312,14 +345,14 @@
                             $(element).css("background-size", "contain");
                             $(element).css("background-repeat", "no-repeat");
                             $(element).css("background-position", "center center");
-                            $(element).css("background-image", "url(" + picFile.result+")");
+                            $(element).css("background-image", "url(" + picFile.result + ")");
                         });
 
                         picReader.readAsDataURL(files[i]);
 
                     }
                 } else {
-                    Notificar("","<p>Tu navegador no soporta File API</p>");
+                    Notificar("", "<p>Tu navegador no soporta File API</p>");
                 }
             }
         </script>

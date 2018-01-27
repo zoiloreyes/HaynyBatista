@@ -28,12 +28,13 @@ namespace HaynyBatista
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
             bundles.Add(new ScriptBundle("~/bundles/LayoutJs").Include(
+                      "~/Plugins/Clamp.js-master/clamp.min.js",
                       "~/Scripts/Layout.js",
                       "~/Scripts/Util.js",
                       "~/Plugins/tinymce/tinymce.min.js",
                       "~/Plugins/autosize-master/dist/autosize.min.js",
-                      "~/Plugins/TagsInput/tagsinput.js",
-                      "~/Plugins/ftellipsis-master/build/ftellipsis.min.js"));
+                      "~/Plugins/TagsInput/tagsinput.js"
+                      ));
             bundles.Add(new StyleBundle("~/bundles/LayoutCss").Include(
                       "~/Content/Layout.css",
                       "~/Content/animate.min.css",

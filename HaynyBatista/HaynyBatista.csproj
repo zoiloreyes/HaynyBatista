@@ -52,6 +52,12 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -232,6 +238,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Layout.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -243,6 +250,9 @@
     <Content Include="Plugins\autosize-master\dist\autosize.min.js" />
     <Content Include="Plugins\autosize-master\example\index.html" />
     <Content Include="Plugins\autosize-master\src\autosize.js" />
+    <Content Include="Plugins\Clamp.js-master\clamp.js" />
+    <Content Include="Plugins\Clamp.js-master\clamp.min.js" />
+    <Content Include="Plugins\Clamp.js-master\examples\example1.html" />
     <Content Include="Plugins\FontAwesome\fonts\fontawesome-webfont.eot" />
     <Content Include="Plugins\FontAwesome\fonts\fontawesome-webfont.ttf" />
     <Content Include="Plugins\FontAwesome\fonts\fontawesome-webfont.woff" />
@@ -279,20 +289,6 @@
     <Content Include="Plugins\FontAwesome\css\font-awesome.css" />
     <Content Include="Plugins\FontAwesome\css\font-awesome.min.css" />
     <Content Include="Plugins\FontAwesome\fonts\fontawesome-webfont.svg" />
-    <Content Include="Plugins\ftellipsis-master\.gitignore" />
-    <Content Include="Plugins\ftellipsis-master\build\ftellipsis.min.js" />
-    <Content Include="Plugins\ftellipsis-master\examples\1\index.html" />
-    <Content Include="Plugins\ftellipsis-master\examples\1\style.css" />
-    <Content Include="Plugins\ftellipsis-master\examples\single-line\index.html" />
-    <Content Include="Plugins\ftellipsis-master\GruntFile.js" />
-    <Content Include="Plugins\ftellipsis-master\lib\index.js" />
-    <Content Include="Plugins\ftellipsis-master\test\buster.js" />
-    <Content Include="Plugins\ftellipsis-master\test\calc-test.js" />
-    <Content Include="Plugins\ftellipsis-master\test\helpers.js" />
-    <Content Include="Plugins\ftellipsis-master\test\set-test.js" />
-    <Content Include="Plugins\ftellipsis-master\test\style.css" />
-    <Content Include="Plugins\ftellipsis-master\test\test.html" />
-    <Content Include="Plugins\ftellipsis-master\test\unset-test.js" />
     <Content Include="Plugins\TagsInput\tagsinput.css" />
     <Content Include="Plugins\TagsInput\tagsinput.js" />
     <Content Include="Plugins\tinymce\jquery.tinymce.min.js" />
@@ -414,12 +410,7 @@
     <Content Include="Plugins\TagsInput\LICENSE" />
     <Content Include="Plugins\TagsInput\package.json" />
     <Content Include="Plugins\TagsInput\README.md" />
-    <Content Include="Plugins\ftellipsis-master\.npmignore" />
-    <Content Include="Plugins\ftellipsis-master\.travis.yml" />
-    <Content Include="Plugins\ftellipsis-master\bower.json" />
-    <Content Include="Plugins\ftellipsis-master\LICENSE-MIT" />
-    <Content Include="Plugins\ftellipsis-master\package.json" />
-    <Content Include="Plugins\ftellipsis-master\README.md" />
+    <Content Include="Plugins\Clamp.js-master\README.markdown" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
