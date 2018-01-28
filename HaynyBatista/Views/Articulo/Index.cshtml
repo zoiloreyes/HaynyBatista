@@ -7,70 +7,78 @@
 }
 
 
-    <div class="row">
-        <div class="col-md-9">
-            @if (this.User.IsInRole("Administrador"))
-    {
-        <button class="btn-block haynyBtn btn-danger py-2" data-toggle="modal" data-target="#NuevoArticulo"><strong>Nueva Entrada</strong><i class="fa fa-plus ml-2" aria-hidden="true"></i></button>
-}
-
-            @foreach (var articulo in Model)
-    {
-        if (articulo.Imagen != null)
+<div class="row">
+    <div class="col-md-9">
+        @if (this.User.IsInRole("Administrador"))
         {
-            <div class="articulo mt-2 w-100" id="@("Articulo" + articulo.IdArticulo)"data-id="@articulo.IdArticulo">
-                <p class="FechaArticulo"><span>@articulo.FechaSubida</span></p>
-                <div class="d-flex w-100">
-                    <div class="d-flex w-50 flex-column">
-                        <h4 style="min-height: 70px">@articulo.Titulo</h4>
-                        <p class="clamped text-justify" style=" height:150px">@articulo.Contenido.StripHtml()</p>
-                        <p class="LowImportance">Escrito por <span><a class="PageLink" href="#">@articulo.Usuario.Nombre @articulo.Usuario.Apellido</a></span></p>
-                        <p class="FechaArticulo"></p>
+            <button class="btn-block haynyBtn btn-danger py-2" data-toggle="modal" data-target="#NuevoArticulo"><strong>Nueva Entrada</strong><i class="fa fa-plus ml-2" aria-hidden="true"></i></button>
+        }
 
-                        <div class="d-flex flex-row">
-                            <a href="@("#Articulo" + articulo.IdArticulo)" class="circleButton bg-danger d-inline-block text-white" data-toggle="tooltip" data-html="true" title="@foreach (var etiquetaArticulo in articulo.EtiquetaArticulo) {<a href='#' class='badge badge-pill badge-primary'>@etiquetaArticulo.Etiqueta.Nombre</a> }"><i class="fa fa-tags pt-2 pl-2    " aria-hidden="true"></i></a>
-                            <div class="SNShareButton d-inline-block bg-danger ml-2">
+        @if (Model.Count == 0)
+        {
+            <div class="d-flex w-100 justify-content-center">
+                <h4 class="gray-text mt-5"><i class="fa fa-frown-o" aria-hidden="true"></i> No se encontraron entradas</h4>
+            </div>
+        }
+        else
+        {
+            foreach (var articulo in Model)
+            {
+                if (articulo.Imagen != null)
+                {
+                    <div class="articulo mt-2 w-100" id="@("Articulo" + articulo.IdArticulo)" data-id="@articulo.IdArticulo">
+                        <p class="FechaArticulo"><span>@articulo.FechaSubida.ToString("dd/MM/yyy")</span></p>
+                        <div class="d-flex w-100">
+                            <div class="d-flex w-50 flex-column">
+                                <h4 style="min-height: 70px">@articulo.Titulo</h4>
+                                <p class="clamped text-justify" style=" height:150px">@articulo.Contenido.StripHtml()</p>
+                                <p class="LowImportance">Escrito por <span><a class="PageLink" href="#">@articulo.Usuario.Nombre @articulo.Usuario.Apellido</a></span></p>
+                                <p class="FechaArticulo"></p>
 
-                                <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-                                <i class="fa fa-share-alt pt-2 pl-2 text-white" aria-hidden="true"></i>
+                                <div class="d-flex flex-row">
+                                    <button href="@("#Articulo" + articulo.IdArticulo)" class="circleButton bg-danger d-inline-block text-white" data-toggle="tooltip" data-html="true" title='@foreach (var etiquetaArticulo in articulo.EtiquetaArticulo) { @Html.ActionLink(etiquetaArticulo.Etiqueta.Nombre,"Index",new { filtro = etiquetaArticulo.Etiqueta.Nombre }, new { @class="badge badge-pill badge-primary"}) }'><i class="fa fa-tags" aria-hidden="true"></i></button>
+                                    <div class="SNShareButton d-inline-block bg-danger ml-2">
+
+                                        <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                        <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                        <i class="fa fa-share-alt pt-2 pl-2 text-white" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex w-50 pl-4">
+                                <img class="ArticleImage" src="/ImagenesSubidas/@articulo.Imagen.IdImagen@articulo.Imagen.Formato" />
+
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex w-50 pl-4">
-                        <img class="ArticleImage" src="/ImagenesSubidas/@articulo.Imagen.IdImagen@articulo.Imagen.Formato" />
+                }
+                else
+                {
+                    <div class="articulo mt-2 w-100" data-id="@articulo.IdArticulo">
+                        <p class="FechaArticulo"><span>@articulo.FechaSubida.ToString("dd/MM/yyy")</span></p>
+                        <div class="d-flex w-100">
+                            <div class="d-flex w-100 flex-column">
+                                <h4 style="min-height: 70px">@articulo.Titulo</h4>
+                                <p class="clamped text-justify" style=" height:150px">@articulo.Contenido.StripHtml()</p>
+                                <p class="LowImportance">Escrito por <span><a class="PageLink" href="#">@articulo.Usuario.Nombre @articulo.Usuario.Apellido</a></span></p>
+                                <p class="FechaArticulo"></p>
 
-                    </div>
-                </div>
-            </div>
-}
-else
-{
-        <div class="articulo mt-2 w-100" data-id="@articulo.IdArticulo">
-            <p class="FechaArticulo"><span>@articulo.FechaSubida.ToString("dd/MM/yyy")</span></p>
-            <div class="d-flex w-100">
-                <div class="d-flex w-100 flex-column">
-                    <h4 style="min-height: 70px">@articulo.Titulo</h4>
-                    <p class="clamped text-justify" style=" height:150px">@articulo.Contenido.StripHtml()</p>
-                    <p class="LowImportance">Escrito por <span><a class="PageLink" href="#">@articulo.Usuario.Nombre @articulo.Usuario.Apellido</a></span></p>
-                    <p class="FechaArticulo"></p>
+                                <div class="d-flex flex-row">
+                                    <button @*href="@("#Articulo" + articulo.IdArticulo)" *@ class="circleButton bg-danger d-inline-block text-white" data-toggle="tooltip" data-html="true" title="@foreach (var etiquetaArticulo in articulo.EtiquetaArticulo) {<a href='#' class='badge badge-pill badge-primary'>@etiquetaArticulo.Etiqueta.Nombre</a> }"><i class="fa fa-tags  " aria-hidden="true"></i></button>
+                                    <div class="SNShareButton d-inline-block bg-danger ml-2">
 
-                    <div class="d-flex flex-row">
-                        <a href="@("#Articulo" + articulo.IdArticulo)"  class="circleButton bg-danger d-inline-block text-white" data-toggle="tooltip" data-html="true" title="@foreach (var etiquetaArticulo in articulo.EtiquetaArticulo) {<a href='#' class='badge badge-pill badge-primary'>@etiquetaArticulo.Etiqueta.Nombre</a> }"><i class="fa fa-tags pt-2 pl-2    " aria-hidden="true"></i></a>
-                        <div class="SNShareButton d-inline-block bg-danger ml-2">
-
-                            <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-                            <i class="fa fa-share-alt pt-2 pl-2 text-white" aria-hidden="true"></i>
+                                        <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                        <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                        <i class="fa fa-share-alt pt-2 pl-2 text-white" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-}
-}
+                }
+            }
             <p class="text-center mt-2 text-danger">Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount</p>
             <div class="d-flex justify-content-center">
                 <div class="d-flex">
@@ -78,17 +86,17 @@ else
 
 
                     @if (Model.PageNumber > 1)
-            {
+                    {
 
-                @Html.ActionLink("Anterior", "Index", new { page = Model.PageNumber - 1 }, new { @class = " SmallHaynyBtn mx-2" })
+                        @Html.ActionLink("Anterior", "Index", new { page = Model.PageNumber - 1 }, new { @class = " SmallHaynyBtn mx-2" })
 
-    }
+                    }
 
                     @if (Model.PageNumber < Model.PageCount)
-            {
-                @Html.ActionLink("Siguiente", "Index", new { page = Model.PageNumber + 1 }, new { @class = " SmallHaynyBtn mx-2" })
+                    {
+                        @Html.ActionLink("Siguiente", "Index", new { page = Model.PageNumber + 1 }, new { @class = " SmallHaynyBtn mx-2" })
 
-    }
+                    }
 
                 </div>
                 <div class="d-flex">
@@ -96,28 +104,30 @@ else
                 </div>
             </div>
 
-        </div>
-        <div class="col-md-3">
-            @using (@Html.BeginForm("Filter", "Articulo", FormMethod.Post, new { @class = "form-inline" }))
-            {
+        }
 
-                <div class="form-row align-items-center">
-                    <div class="col-auto">
-                        <label class="sr-only" for="inlineFormInputGroup">Username</label>
-                        <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></div>
-                            </div>
-                            <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Buscar...">
+    </div>
+    <div class="col-md-3">
+        @using (@Html.BeginForm("Index", "Articulo", FormMethod.Get, new { @class = "form-inline" }))
+        {
+
+            <div class="form-row align-items-center">
+                <div class="col-auto">
+                    <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></div>
                         </div>
+                        <input type="text" name="filtro" class="form-control" id="inlineFormInputGroup" placeholder="Buscar..." value="@ViewBag.Filtro">
                     </div>
                 </div>
-            }
+            </div>
+        }
 
 
-        </div>
     </div>
-    @if (this.User.IsInRole("Administrador"))
+</div>
+@if (this.User.IsInRole("Administrador"))
 {
     @section OutsideContainer{
         <form id="frmNuevoArticulo" method="post" enctype="multipart/form-data">
@@ -304,7 +314,7 @@ else
                                     location.reload();
                                 }, 2000)
                             } else {
-                                Notificar("asd", "<p>" +result.Message +"</p>");
+                                Notificar("asd", "<p>" + result.Message + "</p>");
                             }
                         },
                         error: function (errorMessage) {

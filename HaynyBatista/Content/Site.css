@@ -435,6 +435,8 @@
     height: 32px;
     width: 32px;
     border-radius: 50%;
+    border: 0px solid transparent;
+    outline: none !important;
 }
 
 .SmallHaynyBtn {
@@ -449,4 +451,8 @@
 .SmallHaynyBtn:hover {
    font-weight: bold;
    color: white;
+}
+
+.gray-text {
+    color: #616161;
 }

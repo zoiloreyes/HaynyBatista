@@ -19,13 +19,24 @@ namespace HaynyBatista.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Articulo
-        public ActionResult Index(int? idUsuario, int? page)
+        public ActionResult Index(int? idUsuario, int? page, string filtro)
         {
-            List<Articulo> articulos = db.Articulos.ToList();
+            List<Articulo> articulos = db.Articulos.OrderByDescending(x => x.FechaSubida).ToList();
 
             if (idUsuario != null)
             {
                 articulos = articulos.Where(x => x.Usuario.IdUsuario == idUsuario).ToList();
+            }
+
+            if(filtro != null)
+            {
+                ViewBag.Filtro = filtro;
+                articulos =
+                (from articulo in db.Articulos
+                 join articuloEtiqueta in db.EtiquetaArticulo on articulo.IdArticulo equals articuloEtiqueta.IdArticulo
+                 join etiquetaP in db.Etiquetas on articuloEtiqueta.IdEtiqueta equals etiquetaP.IdEtiqueta
+                 where etiquetaP.Nombre.Contains(filtro) || articulo.Titulo.Contains(filtro)
+                 select articulo).Distinct().OrderByDescending(x => x.FechaSubida).ToList();
             }
             int pageSize = 5;
             int pageNumber = (page ?? 1);
