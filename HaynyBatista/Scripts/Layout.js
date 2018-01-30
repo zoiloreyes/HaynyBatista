@@ -25,13 +25,14 @@ $(document).ready(function () {
                 plugins:[ 'advlist autolink lists link charmap print preview anchor textcolor',
                 'searchreplace visualblocks code fullscreen',
                 'insertdatetime table contextmenu paste code help wordcount'],
-                toolbar1: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+                toolbar1: 'insert | undo redo |  formatselect | bold italic backcolor fontselect  fontsizeselect | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
                 image_advtab: true,
                 templates: [
                     { title: 'Test template 1', content: 'Test 1' },
                     { title: 'Test template 2', content: 'Test 2' }
                 ],
-                language: 'es_MX'
+                language: 'es_MX',
+                fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
 
             });
             autosize($(".ASTextArea"));

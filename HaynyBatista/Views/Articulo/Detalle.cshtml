@@ -1,114 +1,50 @@
-﻿@model PagedList.IPagedList<HaynyBatista.Models.Articulo>
-@using HaynyBatista.Extensions
-
-@using PagedList.Mvc
+﻿@model HaynyBatista.Models.Articulo
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Articulo";
 }
 
+@section head{
+    <meta name="twitter:card" content="summary"/>    
+<meta name="twitter:card" content="summary" />
+@Html.Raw("<meta name='twitter:site' content='@TheSlimZ' />")
+@Html.Raw("<meta name='twitter:creator' content='@TheSlimZ' />")
+<meta property="og:url" content="http://bits.blogs.nytimes.com/2011/12/08/a-twitter-for-my-sister/" />
+<meta property="og:title" content="Titulo del articulo wuo" />
+<meta property="og:description" content="@Model.Contenido.StripHtml().Substring(0,130)@("...")" />
+<meta property="og:image" content="http://graphics8.nytimes.com/images/2011/12/08/technology/bits-newtwitter/bits-newtwitter-tmagArticle.jpg" />
+}
 
 <div class="row">
     <div class="col-md-9">
         @if (this.User.IsInRole("Administrador"))
         {
-            <button class="btn-block haynyBtn btn-danger py-2" data-toggle="modal" data-target="#NuevoArticulo"><strong>Nueva Entrada</strong><i class="fa fa-plus ml-2" aria-hidden="true"></i></button>
-        }
-
-        @if (Model.Count == 0)
-        {
-            <div class="d-flex w-100 justify-content-center">
-                <h4 class="gray-text mt-5"><i class="fa fa-frown-o" aria-hidden="true"></i> No se encontraron entradas</h4>
+            <div class="mx-5 my-2">
+                <button class="btn-block haynyBtn btn-success py-2" data-toggle="modal" data-target="#ActualizarArticulo"><strong>Editar Articulo</strong><i class="fa fa-pencil-square-o ml-2" aria-hidden="true"></i></button>
             </div>
         }
-        else
-        {
-            foreach (var articulo in Model)
+        <div class="ArticuloDetalleContainer mx-5 p-3 bg-white">
+            <h3 class="text-center">@Model.Titulo
+            @if (this.User.IsInRole("Administrador"))
             {
-                if (articulo.Imagen != null)
-                {
-                    <div class="articulo mt-2 w-100" id="@("Articulo" + articulo.IdArticulo)" data-id="@articulo.IdArticulo">
-                        <p class="FechaArticulo"><span>@articulo.FechaSubida.ToString("dd/MM/yyy")</span></p>
-                        <div class="d-flex w-100">
-                            <div class="d-flex w-50 flex-column">
-                                <h4 style="min-height: 70px"><a class="ArtitleTitleLink" href="@Url.Action("Detalle",new { id = articulo.IdArticulo})">@articulo.Titulo</a></h4>
-                                <p class="clamped text-justify" style=" height:150px">@articulo.Contenido.StripHtml().Substring(0,300)</p>
-                                <p class="LowImportance">Escrito por <span><a class="PageLink" href="#">@articulo.Usuario.Nombre @articulo.Usuario.Apellido</a></span></p>
-                                <p class="FechaArticulo"></p>
-
-                                <div class="d-flex flex-row">
-                                    <button href="@("#Articulo" + articulo.IdArticulo)" class="circleButton bg-danger d-inline-block text-white" data-toggle="tooltip" data-html="true" title='@foreach (var etiquetaArticulo in articulo.EtiquetaArticulo) { @Html.ActionLink(etiquetaArticulo.Etiqueta.Nombre,"Index",new { filtro = etiquetaArticulo.Etiqueta.Nombre }, new { @class="badge badge-pill badge-primary"}) }'><i class="fa fa-tags" aria-hidden="true"></i></button>
-                                    <div class="SNShareButton d-inline-block bg-danger ml-2">
-
-                                        <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                        <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-                                        <i class="fa fa-share-alt pt-2 pl-2 text-white" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex w-50 pl-4">
-                                <a href="@Url.Action("Detalle", new { id = articulo.IdArticulo})">
-                                    <img class="ArticleImage" src="/ImagenesSubidas/@articulo.Imagen.IdImagen@articulo.Imagen.Formato" />
-
-                                </a>
-                                
-                            </div>
-                        </div>
-                    </div>
-                }
-                else
-                {
-                    <div class="articulo mt-2 w-100" data-id="@articulo.IdArticulo">
-                        <p class="FechaArticulo"><span>@articulo.FechaSubida.ToString("dd/MM/yyy")</span></p>
-                        <div class="d-flex w-100">
-                            <div class="d-flex w-100 flex-column">
-                                <h4 style="min-height: 70px">@articulo.Titulo</h4>
-                                <p class="clamped text-justify" style=" height:150px">@articulo.Contenido.StripHtml()</p>
-                                <p class="LowImportance">Escrito por <span><a class="PageLink" href="#">@articulo.Usuario.Nombre @articulo.Usuario.Apellido</a></span></p>
-                                <p class="FechaArticulo"></p>
-
-                                <div class="d-flex flex-row">
-                                    <button @*href="@("#Articulo" + articulo.IdArticulo)" *@ class="circleButton bg-danger d-inline-block text-white" data-toggle="tooltip" data-html="true" title="@foreach (var etiquetaArticulo in articulo.EtiquetaArticulo) {<a href='#' class='badge badge-pill badge-primary'>@etiquetaArticulo.Etiqueta.Nombre</a> }"><i class="fa fa-tags  " aria-hidden="true"></i></button>
-                                    <div class="SNShareButton d-inline-block bg-danger ml-2">
-
-                                        <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                        <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                        <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-                                        <i class="fa fa-share-alt pt-2 pl-2 text-white" aria-hidden="true"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
+                
+                    <a href="@Url.Action("BorrarArticulo", new { id = Model.IdArticulo})" class="btn haynyBtn btn-danger text-white p-2 float-right" ><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                
             }
-            <p class="text-center mt-2 text-danger">Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount</p>
-            <div class="d-flex justify-content-center">
-                <div class="d-flex">
-
-
-
-                    @if (Model.PageNumber > 1)
-                    {
-
-                        @Html.ActionLink("Anterior", "Index", new { page = Model.PageNumber - 1 }, new { @class = " SmallHaynyBtn mx-2" })
-
-                    }
-
-                    @if (Model.PageNumber < Model.PageCount)
-                    {
-                        @Html.ActionLink("Siguiente", "Index", new { page = Model.PageNumber + 1 }, new { @class = " SmallHaynyBtn mx-2" })
-
-                    }
-
-                </div>
-                <div class="d-flex">
-
-                </div>
+            </h3>
+            <p class="LowImportance text-center">Escrito por <span><a class="PageLink" href="#">@Model.Usuario.Nombre @Model.Usuario.Apellido</a></span> el @Model.FechaSubida.ToString("dd/MM/yyyy hh:mm tt")</p>
+            <img class="img-fluid d-block mx-auto" src="/ImagenesSubidas/@Model.Imagen.IdImagen@Model.Imagen.Formato"/>
+            <div class="mt-5 px-4">
+                @Html.Raw(@Model.Contenido)
             </div>
+            <hr />
+            <a class="facebook text-center ShareArticle" href="https://www.facebook.com/share.php?u={{url}}&title={{title}}" target="blank"><i class="fa fa-facebook"></i></a>
 
-        }
+            <!-- twitter -->
+            <a class="twitter  text-center ShareArticle" href="https://twitter.com/intent/tweet" target="blank"><i class="fa fa-twitter"></i></a>
 
+            <a class="googleplus  text-center ShareArticle" href="https://plus.google.com/share?url={{url}}" target="blank"><i class="fa fa-google-plus"></i></a>
+
+        </div>
     </div>
     <div class="col-md-3">
         @using (@Html.BeginForm("Index", "Articulo", FormMethod.Get, new { @class = "form-inline" }))
@@ -127,14 +63,24 @@
             </div>
         }
 
-
+        <div class="mt-4">
+            <div class="btn-info rounded-top p-1">
+                <h5><i class="fa fa-tag mx-1"></i>Etiquetas </h5>
+            </div>
+            <div class="bg-white ArticuloDetalleContainer">
+                @foreach (var etiquetaArticulo in Model.EtiquetaArticulo)
+                { @Html.ActionLink(etiquetaArticulo.Etiqueta.Nombre, "Index", new { filtro = etiquetaArticulo.Etiqueta.Nombre }, new { @class = "badge badge-pill badge-info m-1" }) }
+               
+            </div>
+        </div>
     </div>
 </div>
+
 @if (this.User.IsInRole("Administrador"))
 {
     @section OutsideContainer{
-        <form id="frmNuevoArticulo" method="post" enctype="multipart/form-data">
-            <div class="modal fade" id="NuevoArticulo">
+        <form id="frmActualizarArticulo" method="post" enctype="multipart/form-data">
+            <div class="modal fade" id="ActualizarArticulo">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -142,8 +88,8 @@
                                 <button type="button" class="haynyBtn btn-info px-3 mx-2" id="btnLimpiarArticulo">
                                     <span aria-hidden="true">Limpiar <i class="fa fa-asterisk" aria-hidden="true"></i></span>
                                 </button>
-                                <button type="button" class="haynyBtn btn-success px-3" id="btnGuardarArticulo" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">Publicar <i class="fa fa-check-circle" aria-hidden="true"></i></span>
+                                <button type="button" class="haynyBtn btn-success px-3" id="btnActualizarArticulo" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">Actualizar <i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                 </button>
 
                             </div>
@@ -158,8 +104,9 @@
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-md-9">
-                                        <textarea name="Titulo" id="inputTituloArticulo" class="TitleInput ASTextArea requerido" data-title="Titulo" placeholder="Titulo..."></textarea>
+                                        <textarea name="Titulo" id="inputTituloArticulo" class="TitleInput ASTextArea requerido" data-title="Titulo" placeholder="Titulo...">@Model.Titulo</textarea>
                                         <textarea name="Contenido" id="inputContenidoArticulo" data-title="Contenido" class="tinymceTextArea mt-2 tinyMCErequerido">
+                                                    @Html.Raw(Model.Contenido)
 
                                 </textarea>
                                     </div>
@@ -258,12 +205,20 @@
                     $($(this).find(".SettingHeaderAnchor").attr("href")).collapse("toggle");
                 });
 
-                $("#btnGuardarArticulo").click(function () {
-                    GuardarArticulo();
-                })
+                $("#btnActualizarArticulo").click(function () {
+                    ActualizarArticulo();
+                });
                 $("#btnLimpiarArticulo").click(function () {
                     LimpiarCamposArticulo();
-                })
+                });
+
+                @foreach(var e in Model.EtiquetaArticulo)
+                {
+                    <text>
+                    $("#Etiquetas").tagsinput('add',  '</text>@e.Etiqueta.Nombre<text>');</text>
+
+                }
+
             })
             function LimpiarCamposArticulo() {
                 $("#inputImgArticulo").val("");
@@ -272,12 +227,12 @@
                 $("#ImgContainerInputArticulo").css("background-image", "");
                 $("#Etiquetas").tagsinput('removeAll');
             }
-            function GuardarArticulo() {
+            function ActualizarArticulo() {
                 var formData = new FormData();
 
                 var inputImagen = $("#inputImgArticulo")[0];
 
-                var validacion = validarForm("#frmNuevoArticulo");
+                var validacion = validarForm("#frmActualizarArticulo");
                 if (validacion.Estado) {
                     if (!inputImagen.files) {
                         Notificar("prueba", "<p>Su navegador no soporta subida de archivos</p>")
@@ -290,7 +245,7 @@
                     tinymce.get('inputContenidoArticulo').getContent();
                     formData.append("Titulo", $("#inputTituloArticulo").val());
                     formData.append("Contenido", tinymce.get('inputContenidoArticulo').getContent());
-
+                    formData.append("IdArticulo", '@Model.IdArticulo');
 
                     var etiquetas = $("#Etiquetas").val().split(",").filter((val) => val).map(function (value) {
                         object = {
@@ -302,7 +257,7 @@
                     formData.append("Etiquetas", JSON.stringify(etiquetas));
 
                     $.ajax({
-                        url: "/Articulo/GuardarArticulo",
+                        url: "/Articulo/ActualizarArticulo",
                         data: formData,
                         type: "POST",
                         async: false,

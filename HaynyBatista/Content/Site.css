@@ -456,3 +456,47 @@
 .gray-text {
     color: #616161;
 }
+
+.ArtitleTitleLink{
+    text-decoration: none !important;
+    color: black;
+
+}
+
+.ArticuloDetalleContainer{
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.ShareArticle {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    margin: 8px;
+    border-radius: 50%;
+    font-size: 24px;
+    color: #fff;
+    opacity: 0.75;
+    transition: opacity 0.15s linear;
+}
+.ShareArticle:hover {
+        opacity: 1;
+        color: white;
+}
+
+    .ShareArticle i {
+        position: relative;
+        top: 40%;
+        transform: translateY(-50%);
+    }
+
+.facebook {
+    background: #3b5998;
+}
+
+.twitter {
+    background: #55acee;
+}
+
+.googleplus {
+    background: #dd4b39;
+}
