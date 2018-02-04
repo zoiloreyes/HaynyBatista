@@ -42,6 +42,48 @@ namespace HaynyBatista.Migrations
                 manager.Create(user, "Admin123");
                 manager.AddToRole(user.Id, "Administrador");
             }
+            if (!context.EstadosCita.Any(e => e.Nombre == "Pendiente de aprobar"))
+            {
+                context.EstadosCita.Add(new EstadoCita() { Nombre = "Pendiente de aprobar" });
+                context.SaveChanges();
+            }
+            if (!context.EstadosCita.Any(e => e.Nombre == "Aprobada"))
+            {
+                context.EstadosCita.Add(new EstadoCita() { Nombre = "Aprobada" });
+                context.SaveChanges();
+            }
+            if (!context.EstadosCita.Any(e => e.Nombre == "Cancelada"))
+            {
+                context.EstadosCita.Add(new EstadoCita() { Nombre = "Cancelada" });
+                context.SaveChanges();
+            }
+            if (!context.EstadosCita.Any(e => e.Nombre == "Pagada"))
+            {
+                context.EstadosCita.Add(new EstadoCita() { Nombre = "Pagada" });
+                context.SaveChanges();
+            }
+            if (!context.EstadosCita.Any(e => e.Nombre == "Cumplida"))
+            {
+                context.EstadosCita.Add(new EstadoCita() { Nombre = "Cumplida" });
+                context.SaveChanges();
+            }
+            if (!context.EstadosCita.Any(e => e.Nombre == "Ausente"))
+            {
+                context.EstadosCita.Add(new EstadoCita() { Nombre = "Ausente" });
+                context.SaveChanges();
+            }
+
+            if (!context.TiposCita.Any(e => e.Nombre == "Presencial"))
+            {
+                context.TiposCita.Add(new TipoCita() { Nombre = "Presencial" });
+                context.SaveChanges();
+            }
+            if (!context.TiposCita.Any(e => e.Nombre == "Skype"))
+            {
+                context.TiposCita.Add(new TipoCita() { Nombre = "Skype" });
+                context.SaveChanges();
+            }
+
         }
     }
 }

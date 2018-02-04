@@ -33,13 +33,18 @@ namespace HaynyBatista
                       "~/Scripts/Util.js",
                       "~/Plugins/tinymce/tinymce.min.js",
                       "~/Plugins/autosize-master/dist/autosize.min.js",
-                      "~/Plugins/TagsInput/tagsinput.js"
+                      "~/Plugins/TagsInput/tagsinput.js",
+                      "~/Plugins/moment.min.js", 
+                      
+                      "~/Plugins/fullcalendar-3.8.2/fullcalendar.min.js",
+                      "~/Plugins/fullcalendar-3.8.2/locale-all.js"
                       ));
             bundles.Add(new StyleBundle("~/bundles/LayoutCss").Include(
                       "~/Content/Layout.css",
                       "~/Content/animate.min.css",
                       "~/Plugins/FontAwesome/css/font-awesome.min.css",
-                      "~/Plugins/TagsInput/tagsinput.css"));
+                      "~/Plugins/TagsInput/tagsinput.css",
+                      "~/Plugins/fullcalendar-3.8.2/fullcalendar.min.css"));
         }
     }
 }

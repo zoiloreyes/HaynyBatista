@@ -45,7 +45,9 @@ namespace HaynyBatista.Models
         public virtual DbSet<EtiquetaArticulo> EtiquetaArticulo { get; set; }
         public virtual DbSet<Imagen> Imagenes { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
-
+        public virtual DbSet<Cita> Citas { get; set; }
+        public virtual DbSet<TipoCita> TiposCita { get; set; }
+        public virtual DbSet<EstadoCita> EstadosCita { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -61,6 +63,16 @@ namespace HaynyBatista.Models
             modelBuilder.Entity<Articulo>()
                 .HasMany(e => e.EtiquetaArticulo)
                 .WithRequired(e => e.Articulo)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TipoCita>()
+                .HasMany(e => e.Cita)
+                .WithRequired(e => e.TipoCita)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<EstadoCita>()
+                .HasMany(e => e.Cita)
+                .WithRequired(e => e.EstadoCita)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Etiqueta>()

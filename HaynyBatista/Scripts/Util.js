@@ -161,3 +161,11 @@ function objectifyForm(jqueryForm) {
     });
     return paramObj;
 }
+
+function isSameTime(date1, date2) {
+    if (date1.getHours() == date2.getHours() && date1.getMinutes() == date2.getMinutes() && date1.getSeconds() == date2.getSeconds()) {
+        return true;
+    } else {
+        return false;
+    }
+}

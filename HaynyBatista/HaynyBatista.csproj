@@ -201,6 +201,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticuloController.cs" />
+    <Compile Include="Controllers\ConsultaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="DAL\HaynyBatistaInitializer.cs" />
@@ -209,20 +210,23 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201801261840468_initial.cs" />
-    <Compile Include="Migrations\201801261840468_initial.Designer.cs">
-      <DependentUpon>201801261840468_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201802031641110_initial.cs" />
+    <Compile Include="Migrations\201802031641110_initial.Designer.cs">
+      <DependentUpon>201802031641110_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Articulo.cs" />
     <Compile Include="Models\ArticuloViewModels.cs" />
+    <Compile Include="Models\Cita.cs" />
+    <Compile Include="Models\EstadoCita.cs" />
     <Compile Include="Models\Etiqueta.cs" />
     <Compile Include="Models\EtiquetaArticulo.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Imagen.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RetornoJSON.cs" />
+    <Compile Include="Models\TipoCita.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -237,6 +241,8 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\HaynyFondoNegro.png" />
+    <Content Include="Content\Images\HaynyTransparente.png" />
     <Content Include="Content\Layout.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
@@ -289,6 +295,110 @@
     <Content Include="Plugins\FontAwesome\css\font-awesome.css" />
     <Content Include="Plugins\FontAwesome\css\font-awesome.min.css" />
     <Content Include="Plugins\FontAwesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Plugins\fullcalendar-3.8.2\CHANGELOG.txt" />
+    <Content Include="Plugins\fullcalendar-3.8.2\CONTRIBUTING.txt" />
+    <Content Include="Plugins\fullcalendar-3.8.2\demos\agenda-views.html" />
+    <Content Include="Plugins\fullcalendar-3.8.2\demos\background-events.html" />
+    <Content Include="Plugins\fullcalendar-3.8.2\demos\basic-views.html" />
+    <Content Include="Plugins\fullcalendar-3.8.2\demos\default.html" />
+    <Content Include="Plugins\fullcalendar-3.8.2\demos\external-dragging.html" />
+    <Content Include="Plugins\fullcalendar-3.8.2\demos\gcal.html" />
+    <Content Include="Plugins\fullcalendar-3.8.2\demos\json.html" />
+    <Content Include="Plugins\fullcalendar-3.8.2\demos\js\theme-chooser.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\demos\list-views.html" />
+    <Content Include="Plugins\fullcalendar-3.8.2\demos\locales.html" />
+    <Content Include="Plugins\fullcalendar-3.8.2\demos\php\get-events.php" />
+    <Content Include="Plugins\fullcalendar-3.8.2\demos\php\get-timezones.php" />
+    <Content Include="Plugins\fullcalendar-3.8.2\demos\php\utils.php" />
+    <Content Include="Plugins\fullcalendar-3.8.2\demos\selectable.html" />
+    <Content Include="Plugins\fullcalendar-3.8.2\demos\themes.html" />
+    <Content Include="Plugins\fullcalendar-3.8.2\demos\timezones.html" />
+    <Content Include="Plugins\fullcalendar-3.8.2\demos\week-numbers.html" />
+    <Content Include="Plugins\fullcalendar-3.8.2\fullcalendar.css" />
+    <Content Include="Plugins\fullcalendar-3.8.2\fullcalendar.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\fullcalendar.min.css" />
+    <Content Include="Plugins\fullcalendar-3.8.2\fullcalendar.min.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\fullcalendar.print.css" />
+    <Content Include="Plugins\fullcalendar-3.8.2\fullcalendar.print.min.css" />
+    <Content Include="Plugins\fullcalendar-3.8.2\gcal.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\gcal.min.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\lib\jquery-ui.min.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\lib\jquery.min.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\lib\moment.min.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\LICENSE.txt" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale-all.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\af.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\ar-dz.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\ar-kw.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\ar-ly.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\ar-ma.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\ar-sa.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\ar-tn.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\ar.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\bg.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\bs.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\ca.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\cs.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\da.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\de-at.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\de-ch.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\de.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\el.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\en-au.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\en-ca.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\en-gb.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\en-ie.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\en-nz.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\es-do.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\es-us.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\es.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\et.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\eu.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\fa.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\fi.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\fr-ca.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\fr-ch.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\fr.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\gl.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\he.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\hi.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\hr.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\hu.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\id.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\is.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\it.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\ja.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\ka.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\kk.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\ko.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\lb.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\lt.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\lv.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\mk.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\ms-my.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\ms.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\nb.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\nl-be.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\nl.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\nn.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\pl.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\pt-br.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\pt.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\ro.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\ru.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\sk.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\sl.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\sq.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\sr-cyrl.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\sr.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\sv.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\th.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\tr.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\uk.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\vi.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\zh-cn.js" />
+    <Content Include="Plugins\fullcalendar-3.8.2\locale\zh-tw.js" />
+    <Content Include="Plugins\moment.min.js" />
     <Content Include="Plugins\TagsInput\tagsinput.css" />
     <Content Include="Plugins\TagsInput\tagsinput.js" />
     <Content Include="Plugins\tinymce\jquery.tinymce.min.js" />
@@ -411,6 +521,8 @@
     <Content Include="Plugins\TagsInput\package.json" />
     <Content Include="Plugins\TagsInput\README.md" />
     <Content Include="Plugins\Clamp.js-master\README.markdown" />
+    <Content Include="Content\Fonts\FjallaOne-Regular.ttf" />
+    <Content Include="Plugins\fullcalendar-3.8.2\demos\json\events.json" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
@@ -482,6 +594,7 @@
     <Content Include="Views\Articulo\Index.cshtml" />
     <Content Include="Views\Account\Settings.cshtml" />
     <Content Include="Views\Articulo\Detalle.cshtml" />
+    <Content Include="Views\Consulta\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -499,8 +612,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801261840468_initial.resx">
-      <DependentUpon>201801261840468_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201802031641110_initial.resx">
+      <DependentUpon>201802031641110_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
