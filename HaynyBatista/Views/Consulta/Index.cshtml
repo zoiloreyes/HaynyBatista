@@ -9,78 +9,33 @@
 <div class="row DivRowImage " style="margin-top: -20px">
     <div class="DivRowImageForeground" style="margin-left: -20%; margin-top: 30px">
         <h1 class="ImageBannerTextTitle mb-2">Hayny Batista</h1>
-        
+
         <h2 class="ImageBannerTextSubTitle mt-3">Psicóloga terapeuta</h2>
-        <button id="btnSolicitarCita" class="haynyBtn p-3 btn-danger mt-4">Solicitar Cita</button>
+        <a href="#calendar"id="btnSolicitarCita" class="d-inline-block haynyBtn p-3 btn-danger mt-4" style="">Solicitar Cita</a>
     </div>
 </div>
 <div class="row">
     <div id="calendar" class="my-2 p-3 bg-white"></div>
 </div>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.EstadoCita.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TipoCita.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Usuario.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fecha)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HoraInicio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HoraFin)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Costo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Mensaje)
-        </th>
-        <th></th>
-    </tr>
+<div class="row py-3 bg-danger text-white">
+    <div class="d-flex justify-content-center" style="width: 100%">
+        <div class="d-flex flex-column justify-content-center" style="width: 40%">
+            <h4 class="text-center px-2"><i class="fa fa-envelope"></i> HaynyBatista@@haynybatista.com</h4>
+        </div>
+        <div class="d-flex flex-column justify-content-center px-2" style="width: 10%">
+            <img class="m-0" src="http://via.placeholder.com/50x50" />
+        </div>
+        <div class="d-flex flex-column justify-content-center px-2" style="width: 40%">
+            <h3 class="text-center"><i class="fa fa-phone"></i> 829-846-5445</h3>
+        </div>
+    </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.EstadoCita.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TipoCita.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuario.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HoraInicio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HoraFin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Costo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Mensaje)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdCita }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdCita }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdCita })
-        </td>
-    </tr>
-}
+</div>
+<div class="row">
+    <div id="mapaConsultorioHayny">
 
-</table>
+    </div>
+</div>
 @section OutsideContainer{
     <form id="frmNuevaCita" method="post">
         <div class="modal fade" id="NuevaCita">
@@ -88,7 +43,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <div class="d-flex flex-row-reverse">
-                            
+
 
                         </div>
 
@@ -107,17 +62,28 @@
                                 <div class="col-md-6 ">
                                     <h4 class="mt-1 ">Horas Disponibles</h4>
                                     <div id="FechasDisponibles" class="mt-3 d-flex justify-content-around">
-                                        
+
                                     </div>
 
                                     <h4 class="mt-1">Tipo de Cita</h4>
                                     <div id="TiposCita" class="mt-3 d-flex justify-content-around">
 
-                                        <a class="btnTipoCita btn btn-info m-2 text-white"><i class="fa fa-skype"></i> Skype</a>
-                                        <a class="btnTipoCita btn btn-info m-2 text-white"><i class="fa fa-user"></i> Consultorio</a>
+                                        <a class="btnTipoCita btn btn-info m-2 text-white" data-idTipo="2"><i class="fa fa-skype"></i> Skype</a>
+                                        <a class="btnTipoCita btn btn-info m-2 text-white" data-idTipo="2"><i class="fa fa-user"></i> Consultorio</a>
                                     </div>
                                     <h4 for="txtMensaje">Mensaje</h4>
                                     <textarea class="form-control" id="txtMensaje" rows="3"></textarea>
+                                    <h4 class="mt-2 headerTotalConsulta" style="opacity: 0">Total: <span class="text-info" id="totalConsulta">RD$2000</span></h4>
+                                    <div id="MetodosPagoConsulta" class="" style="opacity: 0">
+                                        <h4 class="mt-1 ">Metodos de pago</h4>
+                                        <div class="d-flex justify-content-around">
+                                            <a class="btnTipoPago btn btn-info m-2 text-white" data-idTipo="2"><i class="fa fa-paypal"></i> Paypal</a>
+                                            <a class="btnTipoPago btn btn-info m-2 text-white" data-idTipo="2"><i class="fa fa-money"></i> Consultorio</a>
+
+                                        </div>
+
+                                    </div>
+                                    <button class="btn btn-block btn-success" id="btnReservarCita">Reservar</button>
                                     <input type="text" class="d-none" id="txtFechaInicio" />
                                     <input type="text" class="d-none" id="txtFechaFin" />
                                 </div>
@@ -131,7 +97,22 @@
 
 }
 @section Scripts{
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDeN4HSjQCeTc-2xptNHY0kHVD0v_m5Qg	&callback=initMap">
+    </script>
     <script>
+        //Mapa Inicio
+        function initMap() {
+            var uluru = { lat: 18.491604, lng: -69.922173};
+            var map = new google.maps.Map(document.getElementById('mapaConsultorioHayny'), {
+                zoom: 20,
+                center: uluru
+            });
+            var marker = new google.maps.Marker({
+                position: uluru,
+                map: map
+            });
+        }
         $(document).ready(function () {
             var HorasDeTrabajo = [
                 {
@@ -148,6 +129,11 @@
                 }
             ];
 
+
+
+
+
+            //Mapa fin
             $(".ImageBannerTextTitle").addTempClass({
                 className: "animated fadeInDown"
             });
@@ -155,8 +141,17 @@
             $(".btnTipoCita").click(function () {
                 $(".btnTipoCita").removeClass("btn-danger");
                 $(".btnTipoCita").addClass("btn-info");
-                $(this).removeClass("btn-info")
-                $(this).addClass("btn-danger")
+                $(this).removeClass("btn-info");
+                $(this).addClass("btn-danger");
+                $(".headerTotalConsulta").addClass("animated fadeIn");
+                $("#MetodosPagoConsulta").addClass("animated fadeIn");
+
+            });
+            $(".btnTipoPago").click(function () {
+                $(".btnTipoPago").removeClass("btn-danger");
+                $(".btnTipoPago").addClass("btn-info");
+                $(this).removeClass("btn-info");
+                $(this).addClass("btn-danger");
             });
             setTimeout(function () {
                 $(".ImageBannerTextSubTitle").addClass("animated fadeInDown");
@@ -196,8 +191,8 @@
                         return x.rawEventDefs;
                     }).reduce((a, b) => a.concat(b)).filter(function (e) {
 
-                        
-                        
+
+
                         var fechaFiltrada = new Date(e.start);
 
                         if (fechaClickeada.getFullYear() == fechaFiltrada.getFullYear() && fechaClickeada.getMonth() == fechaFiltrada.getMonth() && fechaClickeada.getDay() == fechaFiltrada.getDay()) {
@@ -209,7 +204,7 @@
                     //Encuentrame las horas que no estan en los eventos
                     HorasDeTrabajo.forEach(function (hora) {
                         var horasTemp = eventosArray.filter(function (ev) {
-                            
+
                             if (isSameTime(hora.inicio, new Date(ev.start))) {
                                 return hora;
                             }
@@ -243,11 +238,11 @@
                     } else {
                         $("#FechasDisponibles").append("<p class='LowImportance'>No hay horas disponibles</p>");
                     }
-                    
-                   
+
+
                     //console.log(eventosArray);
-                    
-                    
+
+
                     //alert('Clicked on: ' + date.format());
 
                     //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
@@ -297,4 +292,4 @@
             ]);
         });
     </script>
-    }
+}
