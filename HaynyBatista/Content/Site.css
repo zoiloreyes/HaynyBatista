@@ -3,8 +3,32 @@
     src: url("Fonts/FjallaOne-Regular.ttf")
 
 }
+@font-face {
+    font-family: "Italianno";
+    src: url("Fonts/Italianno-Regular.ttf")
+}
+@font-face {
+    font-family: "Roboto";
+    src: url("Fonts/Roboto-Regular.ttf")
+}   
 body {
     background-color: #eeeeee;
+}
+
+.bg-purple {
+    background-color: #742377;
+    color: white;
+}
+
+
+.fg-purple {
+    color: #742377;
+}
+
+#NavLogo {
+    width: 250px;
+    height: 70px;
+    margin-left: 50px;
 }
 
 .RegisterFormContainer {
@@ -21,6 +45,11 @@ body {
     border: none;
     text-decoration: none !important;
 }
+
+    .haynyBtn.bg-purple:hover {
+        background-color: #561a59;
+        color: white;
+    }
 
 @keyframes Gradient {
     0% {
@@ -507,7 +536,7 @@ body {
 }
 
 .DivRowImage {
-    background: radial-gradient( rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0) ), url("/Content/Images/HaynyFondoNegro.jpg");
+    background: radial-gradient( rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0) ), url("/Content/Images/HaynyPq.jpg");
     background-repeat: no-repeat;
     background-color: black;
     background-position: center center;
@@ -529,6 +558,19 @@ body {
     font-family: "FjallaOne";
 }
 
+.fnt-Italianno {
+    font-family: Italianno;
+}
+
+.fnt-Fjalla {
+    font-family: "FjallaOne";
+}
+.fnt-Roboto {
+    font-family: "Roboto";
+}
+.fnt-serif {
+    font-family: serif;
+}
 .ImageBannerTextSubTitle {
     font-size: 2em;
     opacity: 0;
@@ -539,10 +581,79 @@ body {
     opacity: 0;
     font-family: "FjallaOne";
     font-size: 1em;
+    text-decoration: none;
 }
+
+    #btnSolicitarCita:hover {
+        background-color: #561a59;
+        color: white;
+    }
 
 #mapaConsultorioHayny{
     width: 100%;
     height: 500px;
     background-color: gray;
+}
+
+
+.SummaryDiv {
+    background-color: white;
+    min-height: 400px;
+}
+
+.DetailsDiv {
+    background-color: white;
+    min-height: 400px;
+    position: relative;
+    top: -400px;
+    margin-bottom: -400px;
+    overflow: hidden;
+    right: 100%;
+    transition: right 1s;
+}
+
+    .DetailsDiv.Showed {
+        right: 0%;
+    }
+
+.SummaryElement {
+    transition: color 0.9s, background-color 0.9s;
+    cursor: pointer;
+    color: #742477;
+    width: 25%;
+}
+
+.SummaryDivTitle {
+    display: table;
+    white-space: nowrap;
+    border-spacing: 25px 0;
+}
+
+    .SummaryDivTitle:before, .SummaryDivTitle:after {
+        content: "";
+        display: table-cell;
+        width: 50%;
+        background: -webkit-linear-gradient(#742477, #aaa) repeat-x left center;
+        background: -moz-linear-gradient(#742477, #aaa) repeat-x left center;
+        background: -ms-linear-gradient(#742477, #aaa) repeat-x left center;
+        background: linear-gradient(#742477, #aaa) repeat-x left center;
+        background-size: 1px 1px;
+    }
+
+.SummaryElement:hover {
+    background-color: #742477;
+    color: white;
+}
+
+.SummaryElementDescription {
+    display: none;
+}
+
+.DetailsDivImageContainer {
+    width: 30%;
+}
+
+
+.DetailsDivDescriptionContainer {
+    width: 70%;
 }

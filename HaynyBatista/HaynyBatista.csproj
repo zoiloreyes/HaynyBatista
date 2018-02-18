@@ -241,8 +241,16 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\DSC_2527.jpg" />
     <Content Include="Content\Images\HaynyFondoNegro.png" />
+    <Content Include="Content\Images\HaynyPq.jpg" />
     <Content Include="Content\Images\HaynyTransparente.png" />
+    <Content Include="Content\Images\Individual.jpeg" />
+    <Content Include="Content\Images\logo 11_17.jpg" />
+    <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\logoPequeno.png" />
+    <Content Include="Content\Images\Pareja.jpeg" />
+    <Content Include="Content\Images\Skype.jpeg" />
     <Content Include="Content\Layout.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
@@ -523,6 +531,8 @@
     <Content Include="Plugins\Clamp.js-master\README.markdown" />
     <Content Include="Content\Fonts\FjallaOne-Regular.ttf" />
     <Content Include="Plugins\fullcalendar-3.8.2\demos\json\events.json" />
+    <Content Include="Content\Fonts\Italianno-Regular.ttf" />
+    <Content Include="Content\Fonts\Roboto-Regular.ttf" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />

@@ -6,12 +6,51 @@
 @section head{
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Anton|Fjalla+One" rel="stylesheet">
 }
-<div class="row DivRowImage " style="margin-top: -20px">
-    <div class="DivRowImageForeground" style="margin-left: -20%; margin-top: 30px">
-        <h1 class="ImageBannerTextTitle mb-2">Hayny Batista</h1>
+<div class="row py-4" style="margin-top: -20px">
+    <div class="col-md-2 offset-md-1">
+        <img class="img-fluid img-thumbnail rounded-circle" src="~/Content/Images/HaynyPq.jpg" />
+    </div>
+    <div class="col-md-9 text-center">
+        <h2 class="text-center fnt-Italianno fg-purple font-weight-bold">Hayny Batista</h2>
+        <h4 class="text-center fnt-Italianno fg-purple font-weight-bold" style="margin-top: -10px">Psicóloga terapeuta</h4>
+        <p class="fnt-Roboto">Bienvenido a este espacio donde puedes consultar los múltiples servicios psicológicos que ofrezco: terapia individual o de pareja o, productos de estimulación sexual, y artículos educativos para una vida en plenitud. Espero sea de utilidad para ti.</p>
+        <a href="#calendar" id="btnSolicitarCita" class="SmoothScroll p-3 bg-purple d-inline-block mx-auto"> Solicitar Cita</a>
+    </div>
+</div>
+<div class="row">
+    <div class="SummaryDiv w-100">
+        <h3 class='text-center mt-4 fg-purple font-weight-bold SummaryDivTitle'>Terapias</h3>
+        <div class="d-flex w-100 justify-content-around">
+            <div class='d-flex mt-3 p-2 flex-column SummaryElement'>
+                <img class='SummaryImg img-fluid' src='~/Content/Images/Skype.jpeg' />
+                <h3 class='text-center mt-4 SummaryElementTitle'>Skype</h3>
+                <span class="SummaryElementDescription">La alternativa para que lleves tu tratamiento aunque no puedas asistir al consultorio, ya sea porque vives en una provincia del interior de la república Dominicana, o en otro país. Tiene las mismas características que una terapia normal, sólo que es vía Skype desde la comodidad de tu hogar u oficina.</span>
+            </div>
+            <div class='d-flex mt-3 p-2 flex-column SummaryElement'>
+                <img class='SummaryImg img-fluid' src='~/Content/Images/Pareja.jpeg' />
+                <h3 class='text-center mt-4 SummaryElementTitle'>Pareja</h3>
+                <span class="SummaryElementDescription">
+                    Con el proposito de resolver conflictos que afectan la sana dinamica marital, conflictos sociales, familiares, economico, sexuales, y psicologicos, educando y fortaleciendo los puntos positivos de la relacion y conjuntamente modificando los negativos.
+                    Un acompañamiento en el proceso del divorcio y los niños, como superar el duelo ante la ruptura matrimonial
+                </span>
+            </div>
 
-        <h2 class="ImageBannerTextSubTitle mt-3">Psicóloga terapeuta</h2>
-        <a href="#calendar"id="btnSolicitarCita" class="d-inline-block haynyBtn p-3 btn-danger mt-4" style="">Solicitar Cita</a>
+            <div class='d-flex mt-3 p-2 flex-column SummaryElement'>
+                <img class='SummaryImg img-fluid' src='~/Content/Images/Individual.jpeg' />
+                <h3 class='text-center mt-4 SummaryElementTitle'>Individual</h3>
+                <span class="SummaryElementDescription">Su objetivo es ayudarte con el sentimiento de soledad, angustia e inseguridad, mejorar tu autoestima, aliviar traumas de infancia, aprender a ser asertivo, terapias sexuales para tratar las disfunciones sexuales y reducir los tabúes sociales, educación para empoderarte y lograr la igualdad de genero, acompañamiento en el duelo por perdida de la pareja, de seres queridos, así como orientarte y educar para lograr tener una estabilidad emocional</span>
+            </div>
+        </div>
+    </div>
+    <div class="DetailsDiv d-flex">
+        <div class='d-flex DetailsDivImageContainer flex-column justify-content-center'>
+            <img class='m-3 img-fluid img-thumbnail DetailsImage' src='~/Content/Images/Skype.jpeg' />
+        </div>
+        <div class='d-flex DetailsDivDescriptionContainer flex-column justify-content-around m-3'>
+            <h2 class="my-3 text-center DetailTitle fg-purple font-weight-bold">Skype</h2>
+            <span class="text-justify DetailDescription">Su objetivo es ayudarte con el sentimiento de soledad, angustia e inseguridad, mejorar tu autoestima, aliviar traumas de infancia, aprender a ser asertivo, terapias sexuales para tratar las disfunciones sexuales y reducir los tabúes sociales, educación para empoderarte y lograr la igualdad de genero, acompañamiento en el duelo por perdida de la pareja, de seres queridos, así como orientarte y educar para lograr tener una estabilidad emocional</span>
+            <a href="#calendar" class='SmoothScroll p-3 haynyBtn bg-purple d-inline-block mx-auto'>Reservar</a>
+        </div>
     </div>
 </div>
 <div class="row">
@@ -31,6 +70,7 @@
     </div>
 
 </div>
+
 <div class="row">
     <div id="mapaConsultorioHayny">
 
@@ -156,7 +196,7 @@
             setTimeout(function () {
                 $(".ImageBannerTextSubTitle").addClass("animated fadeInDown");
                 $("#btnSolicitarCita").addClass("animated fadeInDown")
-            }, 1000)
+            }, 500)
             $("#calendar").fullCalendar({
                 locale: "es",
                 aspectRatio: 2.0,
@@ -290,6 +330,16 @@
                     end: "2018-02-06T12:30:00"
                 }
             ]);
+            $(".SummaryElement").click(function () {
+                var that = this;
+                $(".DetailsDiv .DetailsImage").attr("src", $(this).find(".SummaryImg").attr("src"));
+                $(".DetailsDiv .DetailDescription").text($(this).find(".SummaryElementDescription").text());
+                $(".DetailsDiv .DetailTitle").text($(this).find(".SummaryElementTitle").text());
+                $(".DetailsDiv").toggleClass("Showed");
+            });
+            $(".DetailsDiv").click(function () {
+                $(".DetailsDiv").toggleClass("Showed");
+            });
         });
     </script>
 }

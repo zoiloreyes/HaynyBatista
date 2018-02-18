@@ -55,6 +55,22 @@ $(document).ready(function () {
                 $(this).find(".fab").toggleClass("active");
                 //$('.share, .fab').toggleClass("active");
             });
+            $(".SmoothScroll").click(function (event) {
+                event.preventDefault();
+                var objetivo = this.hash;
+                $('html, body').animate({
+                    scrollTop: $(objetivo).offset().top
+                }, 1000, function () {
+                    var $objetivo = $(objetivo);
+                    $objetivo.focus();
+                    if ($objetivo.is(":focus")) {
+                        return false;
+                    } else {
+                        $objetivo.attr('tabindex', '-1');
+                        $objetivo.focus();
+                    };
+                });
+            });
         }
         var InitLayout = function () {
             InitNav();
