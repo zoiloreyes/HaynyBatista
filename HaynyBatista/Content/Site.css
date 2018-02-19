@@ -21,6 +21,9 @@ body {
 }
 
 
+.text-black {
+    color: black;
+}
 .fg-purple {
     color: #742377;
 }

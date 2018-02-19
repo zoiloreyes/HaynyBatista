@@ -53,27 +53,42 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div id="calendar" class="my-2 p-3 bg-white"></div>
+<div class="row py-4" style="background-color: #D2D2D2">
+    <div id="calendar" class="my-2 p-3 bg-white text-black col-md-10 offset-md-1 "></div>
 </div>
-<div class="row py-3 bg-danger text-white">
-    <div class="d-flex justify-content-center" style="width: 100%">
-        <div class="d-flex flex-column justify-content-center" style="width: 40%">
-            <h4 class="text-center px-2"><i class="fa fa-envelope"></i> HaynyBatista@@haynybatista.com</h4>
-        </div>
-        <div class="d-flex flex-column justify-content-center px-2" style="width: 10%">
-            <img class="m-0" src="http://via.placeholder.com/50x50" />
-        </div>
-        <div class="d-flex flex-column justify-content-center px-2" style="width: 40%">
-            <h3 class="text-center"><i class="fa fa-phone"></i> 829-846-5445</h3>
+<div class="row bg-white px-4 pb-4">
+    <h3 class='text-center mt-4 mb-4 fg-purple font-weight-bold SummaryDivTitle'>Contacto</h3>
+    <div class="col-md-6">
+        <div id="mapaConsultorioHayny">
+            
         </div>
     </div>
+    <div class="col-md-6">
+        <div class="d-flex w-100 flex-column justify-content-between" style="height: 100%">
+            <div class="d-flex flex-column">
+                <p class="fg-purple my-4" style="font-size: 1.2em"><i class="fa fa-map-marker"></i> HaynyBatista@haynybatista.com</p>
+                <p class="fg-purple my-4" style="font-size: 1.2em"><i class="fa fa-phone"></i> 829-846-5445</p>
+                <p class="fg-purple my-4" style="font-size: 1.2em"><i class="fa fa-envelope"></i> HaynyBatista@haynybatista.com</p>
+                <p class="fg-purple my-4" style="font-size: 1.2em"><i class="fa fa-calendar"></i> Lunes - Sábado : 9:30 A.M - 12:30 P.M </p>
+            </div>
+            <div class="d-flex">
+                <div class="d-flex">
+                    <a class="facebook text-center ShareArticle" href="https://www.facebook.com/share.php?u={{url}}&title={{title}}" target="blank"><i class="fa fa-facebook"></i></a>
 
-</div>
+                </div>
+                <div class="d-flex">
+                    <a class="twitter  text-center ShareArticle" href="https://twitter.com/intent/tweet" target="blank"><i class="fa fa-twitter"></i></a>
+                </div>
+                <div class="d-flex">
+                    <a class="googleplus  text-center ShareArticle" href="https://plus.google.com/share?url={{url}}" target="blank"><i class="fa fa-google-plus"></i></a>
 
-<div class="row">
-    <div id="mapaConsultorioHayny">
+                </div>
 
+            </div>
+        </div>
+        @*<p class="fg-purple my-4" style="font-size: 1.4em"><i class="fa fa-map-marker"></i> HaynyBatista@haynybatista.com</p>
+        <p class="fg-purple my-4" style="font-size: 1.4em"><i class="fa fa-phone"></i> 829-846-5445</p>
+        <p class="fg-purple my-4" style="font-size: 1.4em"><i class="fa fa-envelope"></i> HaynyBatista@haynybatista.com</p>*@
     </div>
 </div>
 @section OutsideContainer{
@@ -145,7 +160,7 @@
         function initMap() {
             var uluru = { lat: 18.491604, lng: -69.922173};
             var map = new google.maps.Map(document.getElementById('mapaConsultorioHayny'), {
-                zoom: 20,
+                zoom: 18,
                 center: uluru
             });
             var marker = new google.maps.Marker({
@@ -225,91 +240,114 @@
                 dayClick: function (date, jsEvent, view) {
 
                     var fechaClickeada = new Date(date.format());
+                    
                     fechaClickeada.setDate(fechaClickeada.getDate() + 1);
-                    //Obtiene los eventos del calendario de este dia
-                    var eventosArray = $("#calendar").fullCalendar('getEventSources').map(function (x) {
-                        return x.rawEventDefs;
-                    }).reduce((a, b) => a.concat(b)).filter(function (e) {
+                    if (fechaClickeada.getDay() == 0) {
+                        $(this).css("transition", "background-color 1s");
+                        $(this).addTempClass({
+                            className: "bg-danger",
+                            timeOut: 500
+                        });
+                        Notificar(" ", "Dia no disponible");
+                    } else {
+                        var eventosArray = $("#calendar").fullCalendar('getEventSources').map(function (x) {
+                            return x.rawEventDefs;
+                        }).reduce((a, b) => a.concat(b)).filter(function (e) {
 
 
 
-                        var fechaFiltrada = new Date(e.start);
+                            var fechaFiltrada = new Date(e.start);
 
-                        if (fechaClickeada.getFullYear() == fechaFiltrada.getFullYear() && fechaClickeada.getMonth() == fechaFiltrada.getMonth() && fechaClickeada.getDay() == fechaFiltrada.getDay()) {
-                            return e
-                        }
-                    });
-
-                    var HorasDisponibles = [];
-                    //Encuentrame las horas que no estan en los eventos
-                    HorasDeTrabajo.forEach(function (hora) {
-                        var horasTemp = eventosArray.filter(function (ev) {
-
-                            if (isSameTime(hora.inicio, new Date(ev.start))) {
-                                return hora;
+                            if (fechaClickeada.getFullYear() == fechaFiltrada.getFullYear() && fechaClickeada.getMonth() == fechaFiltrada.getMonth() && fechaClickeada.getDate() == fechaFiltrada.getDate()) {
+                                return e
                             }
                         });
-                        if (horasTemp.length === 0) {
-                            HorasDisponibles.push(hora);
+
+                        var HorasDisponibles = [];
+                        //Encuentrame las horas que no estan en los eventos
+                        HorasDeTrabajo.forEach(function (hora) {
+                            var horasTemp = eventosArray.filter(function (ev) {
+
+                                if (isSameTime(hora.inicio, new Date(ev.start))) {
+                                    return hora;
+                                }
+                            });
+                            if (horasTemp.length === 0) {
+                                HorasDisponibles.push(hora);
+                            }
+                        });
+
+                        $(this).css("transition", "background-color 1s");
+                        $(this).addTempClass({
+                            className: "bg-success",
+                            timeOut: 500
+                        });
+                        if (HorasDisponibles.length > 0) {
+                            HorasDisponibles.forEach(function (hora) {
+                                var horaInicio = moment(hora.inicio).format('YYYY-MM-DD[T]HH:mm:ss');
+                                console.log(horaInicio);
+                                var horaFin = moment(hora.fin).format('YYYY-MM-DD[T]HH:mm:ss');
+                                console.log(horaFin);
+                                $("#FechasDisponibles").append(
+                                    $("<a>", {
+                                        class: "btnFechaCita btn btn-info m-2 text-white"
+                                    }).text(hora.inicio.getHours() + ":" + hora.inicio.getMinutes() + "-" + hora.fin.getHours() + ":" + hora.fin.getMinutes())
+                                        .click(function () {
+                                            $(".btnFechaCita").removeClass("btn-danger");
+                                            $(".btnFechaCita").addClass("btn-info");
+                                            $(this).removeClass("btn-info")
+                                            $(this).addClass("btn-danger")
+                                            $("#txtFechaInicio").val(horaInicio);
+                                            $("#txtFechaFin").val(horaFin);
+                                        })
+                                )
+
+                            })
+                            $("#dayAgenda").fullCalendar('destroy');
+                            $("#dayAgenda").fullCalendar({
+                                locale: "es",
+                                events: eventosArray,
+                                header: {
+                                    left: 'title',
+                                    center: '',
+                                    right: ''
+                                }
+                            });
+                            $('#NuevaCita').on('hidden.bs.modal', function (e) {
+                                $("#FechasDisponibles").empty();
+                                $('#dayAgenda').css("opacity", '0');
+                            })
+                            $('#NuevaCita').modal('show');
+                            setTimeout(function () {
+                                $('#dayAgenda').fullCalendar('changeView', 'listDay', fechaClickeada)
+                                $('#dayAgenda').addTempClass({ className: 'animated fadeIn' })
+                                $('#dayAgenda').css("opacity", '1');
+                            }, 500)
+                        } else {
+                            //$("#FechasDisponibles").append("<p class='LowImportance'>No hay horas disponibles</p>");
+                            Notificar(" ", "No hay horas disponibles");
+                            $(this).css("transition", "background-color 1s");
+                            $(this).addTempClass({
+                                className: "bg-danger",
+                                timeOut: 500
+                            });
                         }
-                    });
 
-                    if (HorasDisponibles.length > 0) {
-                        HorasDisponibles.forEach(function (hora) {
-                            var horaInicio = moment(hora.inicio).format('YYYY-MM-DD[T]HH:mm:ss');
-                            console.log(horaInicio);
-                            var horaFin = moment(hora.fin).format('YYYY-MM-DD[T]HH:mm:ss');
-                            console.log(horaFin);
-                            $("#FechasDisponibles").append(
-                                $("<a>", {
-                                    class: "btnFechaCita btn btn-info m-2 text-white"
-                                }).text(hora.inicio.getHours() + ":" + hora.inicio.getMinutes() + "-" + hora.fin.getHours() + ":" + hora.fin.getMinutes())
-                                    .click(function () {
-                                        $(".btnFechaCita").removeClass("btn-danger");
-                                        $(".btnFechaCita").addClass("btn-info");
-                                        $(this).removeClass("btn-info")
-                                        $(this).addClass("btn-danger")
-                                        $("#txtFechaInicio").val(horaInicio);
-                                        $("#txtFechaFin").val(horaFin);
-                                    })
-                            )
 
-                        })
-                    } else {
-                        $("#FechasDisponibles").append("<p class='LowImportance'>No hay horas disponibles</p>");
+                        //console.log(eventosArray);
+
+
+                        //alert('Clicked on: ' + date.format());
+
+                        //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+
+                        //alert('Current view: ' + view.name);
+
+                        // change the day's background color just for fun
+                        
                     }
-
-
-                    //console.log(eventosArray);
-
-
-                    //alert('Clicked on: ' + date.format());
-
-                    //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-
-                    //alert('Current view: ' + view.name);
-
-                    // change the day's background color just for fun
-                    $("#dayAgenda").fullCalendar('destroy');
-                    $("#dayAgenda").fullCalendar({
-                        locale: "es",
-                        events: eventosArray,
-                        header: {
-                            left: 'title',
-                            center: '',
-                            right: ''
-                        }
-                    });
-                    $('#NuevaCita').on('hidden.bs.modal', function (e) {
-                        $("#FechasDisponibles").empty();
-                        $('#dayAgenda').css("opacity", '0');
-                    })
-                    $('#NuevaCita').modal('show');
-                    setTimeout(function () {
-                        $('#dayAgenda').fullCalendar('changeView', 'listDay', fechaClickeada)
-                        $('#dayAgenda').addTempClass({ className: 'animated fadeIn' })
-                        $('#dayAgenda').css("opacity", '1');
-                    }, 500)
+                    //Obtiene los eventos del calendario de este dia
+                    
 
                 }
             });
@@ -318,11 +356,6 @@
                     title: 'Cita con el Juan',
                     start: "2018-02-06T09:30:00",
                     end: "2018-02-06T10:30:00"
-                },
-                {
-                    title: 'Cita con el Maria',
-                    start: "2018-02-06T10:30:00",
-                    end: "2018-02-06T11:30:00"
                 },
                 {
                     title: 'Cita con el Pedro',
