@@ -11,7 +11,7 @@ namespace HaynyBatista.Models
         [Key]
         public int IdCita { get; set; }
 
-        public int? IdUsuario { get; set; }
+        //public int? IdUsuario { get; set; }
 
         public int? IdEstadoCita { get; set; }
 
@@ -34,6 +34,6 @@ namespace HaynyBatista.Models
 
         public virtual TipoCita TipoCita { get; set; }
         public virtual EstadoCita EstadoCita { get; set; }
-        public virtual Usuario Usuario { get; set; }
+        public virtual ICollection<Usuario> Usuarios { get; set; }
     }
 }

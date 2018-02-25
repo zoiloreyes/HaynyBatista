@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HaynyBatista.Models.Cita>
+﻿@model HaynyBatista.Models.IndiceConsulta
 
 @{
     ViewBag.Title = "Index";
@@ -115,7 +115,7 @@
                                     <div id="dayAgenda" style="opacity: 0"></div>
                                 </div>
                                 <div class="col-md-6 ">
-                                    <h4 class="mt-1 ">Horas Disponibles</h4>
+                                    @*<h4 class="mt-1 ">Horas Disponibles</h4>
                                     <div id="FechasDisponibles" class="mt-3 d-flex justify-content-around">
 
                                     </div>
@@ -140,7 +140,7 @@
                                     </div>
                                     <button class="btn btn-block btn-success" id="btnReservarCita">Reservar</button>
                                     <input type="text" class="d-none" id="txtFechaInicio" />
-                                    <input type="text" class="d-none" id="txtFechaFin" />
+                                    <input type="text" class="d-none" id="txtFechaFin" />*@
                                 </div>
                             </div>
                         </div>
@@ -149,7 +149,42 @@
             </div>
         </div>
     </form>
+<div class="SlideDivContainer" id="OptionsSlideDiv">
+    <div class="SlideDiv" title="Horarios">
+        <div class="d-flex justify-content-around flex-column w-100" id="FechasDisponibles" >
 
+        </div>
+    </div>
+    <div class="SlideDiv" title="Tipo de Cita">
+        <div class="d-flex justify-content-around flex-column w-100" id="TiposCita">
+            @foreach (var i in Model.TiposCita)
+            {
+                <div data-TipoCita="@i.IdTipoCita" class="d-flex flex-column justify-content-center SlideDivFormOption w-50 my-2" style="margin: 0 auto ">
+                    <div class='text-center py-4'>
+                        <h5 class=''>@i.Nombre</h5>
+                    </div>
+                </div>
+            }
+        </div>
+        
+    </div>
+    <div class="SlideDiv" title="Mensaje">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <textarea class="form-control" id="txtMensaje" rows="5"></textarea>
+            </div>
+        </div>
+        
+        <div class="d-flex justify-content-center">
+            <input id="btnReservarCita" type="button" class="p-3 haynyBtn bg-purple my-3 mx-0" value="Reservar" />
+        </div>
+        <input type="text" class="d-none" id="txtFechaInicio" />
+        <input type="text" class="d-none" id="txtFechaFin" />
+        <input type="text" class="d-none" id="txtTipoCita" />
+        
+
+    </div>
+</div>
 }
 @section Scripts{
     <script async defer
@@ -168,30 +203,115 @@
                 map: map
             });
         }
+
+        function validarCita() {
+            var retorno;
+            if (!$("#txtFechaInicio").val() || !$("#txtFechaFin").val()) {
+                Notificar("","No hay hora seleccionada.");
+                return false;
+            }
+
+            if (!$("#txtTipoCita").val()) {
+                Notificar("","No hay tipo de cita seleccionada.")
+                return false;
+            }
+            return true
+        }
+
+        function grabarCita() {
+            if (validarCita()) {
+                Notificar("","Grabando");
+                var data = {
+                    FechaInicio: $("#txtFechaInicio").val(),
+                    FechaFin: $("#txtFechaFin").val(),
+                    Mensaje: $("#txtMensaje").val(),
+                    IdTipoCita: $("#txtTipoCita").val()
+                }
+                
+                $.ajax({
+                    url: "/Consulta/GuardarCita",
+                    data: JSON.stringify(data),
+                    type: "POST",
+                    async: true,
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    success: function (result) {
+                        $('#NuevaCita').modal('hide');
+                        if (result.Success) {
+                            Notificar("", "<p>" + result.Message + "</p>");
+                            //setTimeout(function () {
+                            //    location.reload();
+                            //}, 2000)
+                        } else {
+                            Notificar("asd", "<p>" + result.Message + "</p>");
+                        }
+                    },
+                    error: function (errorMessage) {
+                        alert(errorMessage.responseText);
+                    }
+                });
+                limpiarCita();
+            }
+        }
+        function cargarEventosMes() {
+            $.ajax({
+                url: "/Consulta/GetEventosMes",
+                type: "GET",
+                async: true,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    console.log(result);
+                    //$('#NuevaCita').modal('hide');
+                    //if (result.Success) {
+                    //    Notificar("", "<p>" + result.Message + "</p>");
+                    //    //setTimeout(function () {
+                    //    //    location.reload();
+                    //    //}, 2000)
+                    //} else {
+                    //    Notificar("asd", "<p>" + result.Message + "</p>");
+                    //}
+                },
+                error: function (errorMessage) {
+                    alert(errorMessage.responseText);
+                }
+            });
+            return true;
+        }
+        function limpiarCita() {
+            $("#FechasDisponibles .SlideDivFormOption").removeClass("Active");
+            $("#TiposCita .SlideDivFormOption").removeClass("Active");
+            $("#txtMensaje").val("");
+            $("#txtFechaInicio").val("");
+            $("#txtFechaFin").val("");
+        }
         $(document).ready(function () {
             var HorasDeTrabajo = [
                 {
-                    inicio: new Date(2017, 1, 1, 9, 30),
-                    fin: new Date(2017, 1, 1, 10, 30)
+                    inicio: new Date((new Date()).getFullYear(), 1, 1, 9, 30),
+                    fin: new Date((new Date()).getFullYear(), 1, 1, 10, 30)
                 },
                 {
-                    inicio: new Date(2017, 1, 1, 10, 30),
-                    fin: new Date(2017, 1, 1, 11, 30)
+                    inicio: new Date((new Date()).getFullYear(), 1, 1, 10, 30),
+                    fin: new Date((new Date()).getFullYear(), 1, 1, 11, 30)
                 },
                 {
-                    inicio: new Date(2017, 1, 1, 11, 30),
-                    fin: new Date(2017, 1, 1, 12, 30)
+                    inicio: new Date((new Date()).getFullYear(), 1, 1, 11, 30),
+                    fin: new Date((new Date()).getFullYear(), 1, 1, 12, 30)
                 }
             ];
 
 
 
 
-
+            $(".SlideDivContainer").SlideMyDivs();
+            var SlideDiv = $("#OptionsSlideDiv").detach();
+            
             //Mapa fin
             $(".ImageBannerTextTitle").addTempClass({
                 className: "animated fadeInDown"
             });
+            $("#NuevaCita .modal-body .col-md-6:last-child").append(SlideDiv);
 
             $(".btnTipoCita").click(function () {
                 $(".btnTipoCita").removeClass("btn-danger");
@@ -215,32 +335,14 @@
             $("#calendar").fullCalendar({
                 locale: "es",
                 aspectRatio: 2.0,
-                events: [
-                    {
-                        title: 'Cita con el Pedro',
-                        start: "2018-02-04T11:30:00",
-                        end: "2018-02-04T12:30:00"
-                    },
-                    {
-                        title: 'Cita con el Juan',
-                        start: "2018-02-05T09:30:00",
-                        end: "2018-02-05T10:30:00"
-                    },
-                    {
-                        title: 'Cita con el Maria',
-                        start: "2018-02-05T10:30:00",
-                        end: "2018-02-05T11:30:00"
-                    },
-                    {
-                        title: 'Cita con el Pedro',
-                        start: "2018-02-05T11:30:00",
-                        end: "2018-02-05T12:30:00"
-                    }
-                ],
+                events: "/Consulta/GetEventosMes/",
                 dayClick: function (date, jsEvent, view) {
 
                     var fechaClickeada = new Date(date.format());
+
+                    var caca = new Date(fechaClickeada.getFullYear() + 1, fechaClickeada.getMonth(), fechaClickeada.getDate + 1)
                     
+                    //console.log(caca);
                     fechaClickeada.setDate(fechaClickeada.getDate() + 1);
                     if (fechaClickeada.getDay() == 0) {
                         $(this).css("transition", "background-color 1s");
@@ -267,11 +369,16 @@
                         //Encuentrame las horas que no estan en los eventos
                         HorasDeTrabajo.forEach(function (hora) {
                             var horasTemp = eventosArray.filter(function (ev) {
+                                console.log("ev");
+                                console.log(ev.start);
+                                console.log("hora");
+                                console.log(hora)
 
                                 if (isSameTime(hora.inicio, new Date(ev.start))) {
                                     return hora;
                                 }
                             });
+                            
                             if (horasTemp.length === 0) {
                                 HorasDisponibles.push(hora);
                             }
@@ -285,22 +392,23 @@
                         if (HorasDisponibles.length > 0) {
                             HorasDisponibles.forEach(function (hora) {
                                 var horaInicio = moment(hora.inicio).format('YYYY-MM-DD[T]HH:mm:ss');
-                                console.log(horaInicio);
+                                
                                 var horaFin = moment(hora.fin).format('YYYY-MM-DD[T]HH:mm:ss');
-                                console.log(horaFin);
+
                                 $("#FechasDisponibles").append(
-                                    $("<a>", {
-                                        class: "btnFechaCita btn btn-info m-2 text-white"
-                                    }).text(hora.inicio.getHours() + ":" + hora.inicio.getMinutes() + "-" + hora.fin.getHours() + ":" + hora.fin.getMinutes())
-                                        .click(function () {
-                                            $(".btnFechaCita").removeClass("btn-danger");
-                                            $(".btnFechaCita").addClass("btn-info");
-                                            $(this).removeClass("btn-info")
-                                            $(this).addClass("btn-danger")
-                                            $("#txtFechaInicio").val(horaInicio);
-                                            $("#txtFechaFin").val(horaFin);
-                                        })
-                                )
+                                    $("<div>", {
+                                        class: "d-flex flex-column justify-content-center SlideDivFormOption w-50 my-2"
+                                    }).data("FechaInicio", horaInicio).data("FechaFin",horaFin).css({ "margin": "0 auto" }).append($("<div>", {
+                                        class: "text-center py-4"
+                                        }).append($("<h5>", {
+                                            text: hora.inicio.getHours() + ":" + hora.inicio.getMinutes() + " - " + hora.fin.getHours() + ":" + hora.fin.getMinutes()
+                                            }))).click(function () {
+                                                $(this).parent().find(".SlideDivFormOption").removeClass("Active");
+                                                $(this).toggleClass("Active");
+                                                $("#txtFechaInicio").val($(this).data("FechaInicio"));
+                                                $("#txtFechaFin").val($(this).data("FechaFin"));
+                                        }))
+                                    
 
                             })
                             $("#dayAgenda").fullCalendar('destroy');
@@ -363,6 +471,15 @@
                     end: "2018-02-06T12:30:00"
                 }
             ]);
+            $("#TiposCita .SlideDivFormOption ").click(function () {
+                $(this).parent().find(".SlideDivFormOption").removeClass("Active");
+                $(this).toggleClass("Active");
+                var TipoCita = $(this).data("tipocita");
+                $("#txtTipoCita").val(TipoCita);
+            });
+            $("#btnReservarCita").click(function () {
+                grabarCita();
+            });
             $(".SummaryElement").click(function () {
                 var that = this;
                 $(".DetailsDiv .DetailsImage").attr("src", $(this).find(".SummaryImg").attr("src"));

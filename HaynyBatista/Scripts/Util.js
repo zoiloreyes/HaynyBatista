@@ -23,6 +23,142 @@ $.fn.addTempClass = function (options) {
         }
     });
 };
+$.fn.SlideMyDivs = function () {
+    var maxHeight;
+    return this.each(function () {
+        $(this).find(".SlideDiv").each(function () {
+            var currentSlide = $(this);
+            //currentSlide.height(maxHeight);
+            if ($(this).is(".SlideDiv:first-child")) {
+                $(this).css("display", "block");
+                $(this).prepend($("<div>", {
+                    class: "d-flex justify-content-between w-100"
+                }).append($("<a>", {
+                    href: "#",
+                    class: "SlideDivPrev d-flex NoDecor",
+                    html: "<i class='fa fa-2x fa-chevron-left p-2'></i>"
+                })).append($("<h2>", {
+                    href: "#",
+                    class: "NoDecor",
+                    text: currentSlide.attr("title")
+                })).append($("<a>", {
+                    href: "#",
+                    class: "NoDecor SlideDivNext Active",
+                    html: "<i class='fa fa-2x fa-chevron-right p-2'></i>"
+                }).click(function () {
+                    var next = currentSlide.next(".SlideDiv");
+                    currentSlide.animate({
+                        opacity: 0,
+                        right: currentSlide.width()
+                    }, 500);
+                    setTimeout(function () {
+                        currentSlide.hide();
+                    }, 500)
+                    next.show().css({
+                        opacity: 0,
+                        right: -(next.width())
+                    }).animate({
+                        opacity: 1,
+                        right: 0
+                    }, 500);
+                }))
+                )
+            } else if ($(this).is(".SlideDiv:last-child")) {
+                $(this).prepend($("<div>", {
+                    class: "d-flex justify-content-between"
+                }).append($("<a>", {
+                    href: "#",
+                    class: "SlideDivPrev d-flex NoDecor Active",
+                    html: "<i class='fa fa-2x fa-chevron-left p-2'></i>"
+                }).click(function () {
+                    var prev = currentSlide.prev(".SlideDiv");
+                    currentSlide.animate({
+                        right: -(currentSlide.width()),
+                        opacity: 0
+                    }, 500);
+                    setTimeout(function () {
+                        currentSlide.hide();
+                    }, 500)
+                    prev.show().css({
+                        opacity: 0,
+                        rigt: -(prev.width())
+                    }).animate({
+                        opacity: 1,
+                        right: 0
+                    }, 500);
+                })).append($("<h2>", {
+                    href: "#",
+                    class: "NoDecor",
+                    text: currentSlide.attr("title")
+                })).append($("<a>", {
+                    href: "#",
+                    class: "NoDecor SlideDivNext ",
+                    html: "<i class='fa fa-2x fa-chevron-right p-2'></i>"
+                }))
+                )
+            } else {
+                $(this).prepend($("<div>", {
+                    class: "d-flex justify-content-between"
+                }).append($("<a>", {
+                    href: "#",
+                    class: "SlideDivPrev d-flex NoDecor Active",
+                    html: "<i class='fa fa-2x fa-chevron-left p-2'></i>"
+                }).click(function () {
+                    var prev = currentSlide.prev(".SlideDiv");
+                    currentSlide.animate({
+                        opacity: 0,
+                        right: -(currentSlide.width())
+                    }, 500);
+                    setTimeout(function () {
+                        currentSlide.hide();
+                    }, 500)
+                    prev.show().css({
+                        opacity: 0,
+                        rigt: -(prev.width())
+                    }).animate({
+                        opacity: 1,
+                        right: 0
+                    }, 500);
+                })).append($("<h2>", {
+                    href: "#",
+                    class: "NoDecor",
+                    text: currentSlide.attr("title")
+                })).append($("<a>", {
+                    href: "#",
+                    class: "NoDecor SlideDivNext Active",
+                    html: "<i class='fa fa-2x fa-chevron-right p-2'></i>"
+                }).click(function () {
+                    var next = currentSlide.next(".SlideDiv");
+                    currentSlide.animate({
+                        opacity: 0,
+                        right: currentSlide.width()
+                    }, 500);
+                    setTimeout(function () {
+                        currentSlide.hide();
+                    }, 500)
+                    next.show().css({
+                        opacity: 0,
+                        right: -(next.width())
+                    }).animate({
+                        opacity: 1,
+                        right: 0
+                    }, 500);
+                }))
+                )
+            }
+        })
+
+        var heights = $(this).find(".SlideDiv").map(function () {
+            return $(this).height();
+        }).get(),
+
+            maxHeight = Math.max.apply(null, heights);
+
+        $(this).find(".SlideDiv").height(maxHeight);
+        $(this).height(maxHeight);
+    });
+
+}
 
 var Notificar = function (classes, content) {
     var snack = $("<div>", {

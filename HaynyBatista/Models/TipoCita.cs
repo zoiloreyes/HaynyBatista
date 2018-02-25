@@ -11,6 +11,10 @@ namespace HaynyBatista.Models
         [Required]
         public string Nombre { get; set; }
 
+        [Required]
+        public double Costo { get; set; }
+
+
         public virtual ICollection<Cita> Cita { get; set; }
         public virtual ICollection<Imagen> Imagen { get; set; }
     }

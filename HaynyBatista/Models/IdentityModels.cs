@@ -87,6 +87,16 @@ namespace HaynyBatista.Models
             modelBuilder.Entity<Imagen>()
                 .Property(e => e.Formato)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Usuario>()
+                .HasMany<Cita>(u => u.Citas)
+                .WithMany(c => c.Usuarios)
+                .Map(cs =>
+                {
+                    cs.MapLeftKey("UsuarioId");
+                    cs.MapRightKey("CitaId");
+                    cs.ToTable("UsuarioCita");
+                });
         }
     }
 }

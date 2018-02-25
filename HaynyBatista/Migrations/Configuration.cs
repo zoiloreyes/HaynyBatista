@@ -73,9 +73,14 @@ namespace HaynyBatista.Migrations
                 context.SaveChanges();
             }
 
-            if (!context.TiposCita.Any(e => e.Nombre == "Presencial"))
+            if (!context.TiposCita.Any(e => e.Nombre == "Pareja"))
             {
-                context.TiposCita.Add(new TipoCita() { Nombre = "Presencial" });
+                context.TiposCita.Add(new TipoCita() { Nombre = "Pareja" });
+                context.SaveChanges();
+            }
+            if (!context.TiposCita.Any(e => e.Nombre == "Individual"))
+            {
+                context.TiposCita.Add(new TipoCita() { Nombre = "Individual" });
                 context.SaveChanges();
             }
             if (!context.TiposCita.Any(e => e.Nombre == "Skype"))

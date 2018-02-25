@@ -660,3 +660,54 @@ body {
 .DetailsDivDescriptionContainer {
     width: 70%;
 }
+
+
+.SlideDivContainer {
+    overflow: hidden;
+}
+
+.SlideDiv {
+    background-color: white;
+    position: absolute;
+    width: 100%;
+    display: none;
+}
+
+.NoDecor {
+    text-decoration: none !important;
+}
+
+.SlideDivPrev, .SlideDivNext {
+    color: gray;
+}
+
+    .SlideDivPrev.Active, .SlideDivNext.Active {
+        color: purple;
+    }
+
+        .SlideDivPrev.Active:hover, .SlideDivNext.Active:hover {
+            color: red;
+        }
+
+#FechasDisponibles {
+    overflow-y: scroll;
+}
+.SlideDivFormOption {
+    background-color: purple;
+    color: white;
+    transition: color 0.2s, background-color 0.2s;
+    cursor: pointer;
+}
+
+    .SlideDivFormOption.Active {
+        background-color: white;
+        border: 1px solid purple;
+        color: purple;
+        cursor: pointer;
+    }
+
+.SlideDivFormOption:hover {
+    background-color: white;
+    border: 1px solid purple;
+    color: purple;
+}
