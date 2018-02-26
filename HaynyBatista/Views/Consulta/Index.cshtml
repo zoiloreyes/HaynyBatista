@@ -352,14 +352,9 @@
                         });
                         Notificar(" ", "Dia no disponible");
                     } else {
-                        var eventosArray = $("#calendar").fullCalendar('getEventSources').map(function (x) {
-                            return x.rawEventDefs;
-                        }).reduce((a, b) => a.concat(b)).filter(function (e) {
-
-
-
-                            var fechaFiltrada = new Date(e.start);
-
+                        var eventosArray = $("#calendar").fullCalendar('clientEvents');
+                        eventosArray = eventosArray.filter(function (e) {
+                            var fechaFiltrada = new Date(e.start["_i"]);
                             if (fechaClickeada.getFullYear() == fechaFiltrada.getFullYear() && fechaClickeada.getMonth() == fechaFiltrada.getMonth() && fechaClickeada.getDate() == fechaFiltrada.getDate()) {
                                 return e
                             }
@@ -369,12 +364,8 @@
                         //Encuentrame las horas que no estan en los eventos
                         HorasDeTrabajo.forEach(function (hora) {
                             var horasTemp = eventosArray.filter(function (ev) {
-                                console.log("ev");
-                                console.log(ev.start);
-                                console.log("hora");
-                                console.log(hora)
-
-                                if (isSameTime(hora.inicio, new Date(ev.start))) {
+                                
+                                if (isSameTime(hora.inicio, new Date(ev.start["_i"]))) {
                                     return hora;
                                 }
                             });
@@ -459,18 +450,6 @@
 
                 }
             });
-            $("#calendar").fullCalendar('addEventSource', [
-                {
-                    title: 'Cita con el Juan',
-                    start: "2018-02-06T09:30:00",
-                    end: "2018-02-06T10:30:00"
-                },
-                {
-                    title: 'Cita con el Pedro',
-                    start: "2018-02-06T11:30:00",
-                    end: "2018-02-06T12:30:00"
-                }
-            ]);
             $("#TiposCita .SlideDivFormOption ").click(function () {
                 $(this).parent().find(".SlideDivFormOption").removeClass("Active");
                 $(this).toggleClass("Active");
