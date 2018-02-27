@@ -44,32 +44,32 @@ namespace HaynyBatista.Migrations
             }
             if (!context.EstadosCita.Any(e => e.Nombre == "Pendiente de aprobar"))
             {
-                context.EstadosCita.Add(new EstadoCita() { Nombre = "Pendiente de aprobar" });
+                context.EstadosCita.Add(new EstadoCita() { Nombre = "Pendiente de aprobar" , Color = "#e1bee7" });
                 context.SaveChanges();
             }
             if (!context.EstadosCita.Any(e => e.Nombre == "Aprobada"))
             {
-                context.EstadosCita.Add(new EstadoCita() { Nombre = "Aprobada" });
+                context.EstadosCita.Add(new EstadoCita() { Nombre = "Aprobada", Color = "#4285F4" });
                 context.SaveChanges();
             }
             if (!context.EstadosCita.Any(e => e.Nombre == "Cancelada"))
             {
-                context.EstadosCita.Add(new EstadoCita() { Nombre = "Cancelada" });
+                context.EstadosCita.Add(new EstadoCita() { Nombre = "Cancelada", Color = "#CC0000" });
                 context.SaveChanges();
             }
             if (!context.EstadosCita.Any(e => e.Nombre == "Pagada"))
             {
-                context.EstadosCita.Add(new EstadoCita() { Nombre = "Pagada" });
+                context.EstadosCita.Add(new EstadoCita() { Nombre = "Pagada", Color = "#00C851" });
                 context.SaveChanges();
             }
             if (!context.EstadosCita.Any(e => e.Nombre == "Cumplida"))
             {
-                context.EstadosCita.Add(new EstadoCita() { Nombre = "Cumplida" });
+                context.EstadosCita.Add(new EstadoCita() { Nombre = "Cumplida", Color= "#f8bbd0" });
                 context.SaveChanges();
             }
             if (!context.EstadosCita.Any(e => e.Nombre == "Ausente"))
             {
-                context.EstadosCita.Add(new EstadoCita() { Nombre = "Ausente" });
+                context.EstadosCita.Add(new EstadoCita() { Nombre = "Ausente", Color= "#ffeb3b" });
                 context.SaveChanges();
             }
 
@@ -88,7 +88,38 @@ namespace HaynyBatista.Migrations
                 context.TiposCita.Add(new TipoCita() { Nombre = "Skype" });
                 context.SaveChanges();
             }
+            if (!context.FormasPago.Any(e => e.Nombre == "Efectivo"))
+            {
+                context.FormasPago.Add(new FormaPago() { FormaPagoID = 1, Nombre = "Efectivo" });
+                context.SaveChanges();
+            }
+            if (!context.FormasPago.Any(e => e.Nombre == "PayPal"))
+            {
+                context.FormasPago.Add(new FormaPago() { FormaPagoID = 2, Nombre = "PayPal" });
+                context.SaveChanges();
+            }
 
         }
     }
 }
+
+//namespace HaynyBatista.Migrations
+//{
+//    using System;
+//    using System.Data.Entity;
+//    using System.Data.Entity.Migrations;
+//    using System.Linq;
+
+//    internal sealed class Configuration : DbMigrationsConfiguration<HaynyBatista.Models.ApplicationDbContext>
+//    {
+//        public Configuration()
+//        {
+//            AutomaticMigrationsEnabled = false;
+//        }
+
+//        protected override void Seed(HaynyBatista.Models.ApplicationDbContext context)
+//        {
+          
+//        }
+//    }
+//}

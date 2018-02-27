@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using HaynyBatista.Models;
 using Microsoft.AspNet.Identity;
+using System.Web.Helpers;
+using HaynyBatista.UtilClasses;
 
 namespace HaynyBatista.Controllers
 {
@@ -42,7 +44,8 @@ namespace HaynyBatista.Controllers
         [HttpPost]
         public ActionResult GuardarCita(NuevaCitaViewModel NuevaCita)
         {
-            Retorno retorno;
+      
+          Retorno retorno;
             if (User.Identity.IsAuthenticated)
             {
                 try
@@ -66,7 +69,14 @@ namespace HaynyBatista.Controllers
 
                     db.Citas.Add(Cita);
                     db.SaveChanges();
-                    retorno = new Retorno() { Success = true, Message = "Nueva cita Registrada." };
+                    if (MailSender.SendBasicEmail("zoiloismaelreyes1@gmail.com", "scottie5", "zoiloismaelreyes1@gmail.com", "Probando esto", "jojojo")){
+                        retorno = new Retorno() { Success = true, Message = "Nueva cita Registrada." };
+                    }
+                    else
+                    {
+                        retorno = new Retorno() { Success = true, Message = "Nueva cita Registrada. No se pudo generar el correo." };
+                    }
+                    
                 }
                 catch(Exception e)
                 {

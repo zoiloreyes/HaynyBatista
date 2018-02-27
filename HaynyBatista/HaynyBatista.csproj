@@ -210,29 +210,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201802031641110_initial.cs" />
-    <Compile Include="Migrations\201802031641110_initial.Designer.cs">
-      <DependentUpon>201802031641110_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802242318055_Citas.cs" />
-    <Compile Include="Migrations\201802242318055_Citas.Designer.cs">
-      <DependentUpon>201802242318055_Citas.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802250419091_Precios.cs" />
-    <Compile Include="Migrations\201802250419091_Precios.Designer.cs">
-      <DependentUpon>201802250419091_Precios.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802251448184_RelationFix.cs" />
-    <Compile Include="Migrations\201802251448184_RelationFix.Designer.cs">
-      <DependentUpon>201802251448184_RelationFix.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802251558314_color.cs" />
-    <Compile Include="Migrations\201802251558314_color.Designer.cs">
-      <DependentUpon>201802251558314_color.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802251601575_ColorEstado.cs" />
-    <Compile Include="Migrations\201802251601575_ColorEstado.Designer.cs">
-      <DependentUpon>201802251601575_ColorEstado.cs</DependentUpon>
+    <Compile Include="Migrations\201802271828207_initial.cs" />
+    <Compile Include="Migrations\201802271828207_initial.Designer.cs">
+      <DependentUpon>201802271828207_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -240,9 +220,11 @@
     <Compile Include="Models\ArticuloViewModels.cs" />
     <Compile Include="Models\Cita.cs" />
     <Compile Include="Models\ConsultaViewModels.cs" />
+    <Compile Include="Models\CorreoViewModel.cs" />
     <Compile Include="Models\EstadoCita.cs" />
     <Compile Include="Models\Etiqueta.cs" />
     <Compile Include="Models\EtiquetaArticulo.cs" />
+    <Compile Include="Models\FormaPago.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Imagen.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -253,6 +235,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="UtilClasses\HttpPostedFileBaseExtensions.cs" />
     <Compile Include="UtilClasses\LogFileCreator.cs" />
+    <Compile Include="UtilClasses\MailSender.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\animate.min.css" />
@@ -632,6 +615,7 @@
     <Folder Include="ImagenesSubidas\" />
     <Folder Include="Logs\" />
     <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Correo\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -643,23 +627,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201802031641110_initial.resx">
-      <DependentUpon>201802031641110_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802242318055_Citas.resx">
-      <DependentUpon>201802242318055_Citas.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802250419091_Precios.resx">
-      <DependentUpon>201802250419091_Precios.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802251448184_RelationFix.resx">
-      <DependentUpon>201802251448184_RelationFix.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802251558314_color.resx">
-      <DependentUpon>201802251558314_color.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802251601575_ColorEstado.resx">
-      <DependentUpon>201802251601575_ColorEstado.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201802271828207_initial.resx">
+      <DependentUpon>201802271828207_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

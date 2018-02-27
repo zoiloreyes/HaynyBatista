@@ -48,7 +48,7 @@ namespace HaynyBatista.Models
         public virtual DbSet<Cita> Citas { get; set; }
         public virtual DbSet<TipoCita> TiposCita { get; set; }
         public virtual DbSet<EstadoCita> EstadosCita { get; set; }
-
+        public virtual DbSet<FormaPago> FormasPago { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -78,6 +78,11 @@ namespace HaynyBatista.Models
             modelBuilder.Entity<Etiqueta>()
                 .Property(e => e.Nombre)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<FormaPago>()
+                .HasMany(e => e.Citas)
+                .WithRequired(e => e.FormaPago)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Etiqueta>()
                 .HasMany(e => e.EtiquetaArticulo)
