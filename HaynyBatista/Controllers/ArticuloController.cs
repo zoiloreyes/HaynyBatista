@@ -68,7 +68,7 @@ namespace HaynyBatista.Controllers
 
             return View(articulos);
         }
-        
+        [Authorize(Roles = "Administrador")]
         public ActionResult BorrarArticulo(int? id)
         {
             Retorno retorno = new Retorno() { Success = true, Message = "Articulo Borrado correctamente" };
@@ -142,6 +142,7 @@ namespace HaynyBatista.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
+        [Authorize(Roles = "Administrador")]
         public ActionResult ActualizarArticulo(ActualizarArticuloViewModel model)
         {
             Retorno retorno = new Retorno() { Success = true, Message = "Articulo actualizado correctamente" };
@@ -267,6 +268,7 @@ namespace HaynyBatista.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrador")]
         public ActionResult GuardarArticulo(GuardarArticuloViewModel model)
         {
             Retorno retorno = new Retorno() { Success = true, Message = "Articulo añadido correctamente" };

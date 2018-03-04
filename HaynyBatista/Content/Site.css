@@ -711,3 +711,43 @@ body {
     border: 1px solid purple;
     color: purple;
 }
+
+
+.AdminMenu {
+    top: -15px;
+    height: 100vh;
+    border: 1px solid #e0e0e0;
+    background-color: white;
+}
+
+.HaynyLink{
+    text-decoration: none;
+    color: purple;
+}
+
+.HaynyLink:hover{
+    text-decoration: none;
+    color: purple;
+    font-weight: bold;
+}
+
+.AdminMenuItem {
+    border-left: 0px purple solid;
+    transition: border-left 0.3s;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+    .AdminMenuItem:hover {
+        border-left: 5px purple solid;
+    }
+
+    .AdminMenuItem.Active  {
+        border-left: 5px purple solid;
+        color: white !important;
+        background-color: purple;
+    }
+
+    .AdminMenuItem.Active .HaynyLink {
+        color: white ;
+        background-color: purple;
+    }

@@ -34,8 +34,8 @@ namespace HaynyBatista
                       "~/Plugins/tinymce/tinymce.min.js",
                       "~/Plugins/autosize-master/dist/autosize.min.js",
                       "~/Plugins/TagsInput/tagsinput.js",
-                      "~/Plugins/moment.min.js", 
-                      
+                      "~/Plugins/moment.min.js",
+                      "~/Plugins/DataTables/datatables.min.js",
                       "~/Plugins/fullcalendar-3.8.2/fullcalendar.min.js",
                       "~/Plugins/fullcalendar-3.8.2/locale-all.js"
                       ));
@@ -44,6 +44,7 @@ namespace HaynyBatista
                       "~/Content/animate.min.css",
                       "~/Plugins/FontAwesome/css/font-awesome.min.css",
                       "~/Plugins/TagsInput/tagsinput.css",
+                      "~/Plugins/DataTables/datatables.min.css",
                       "~/Plugins/fullcalendar-3.8.2/fullcalendar.min.css"));
         }
     }

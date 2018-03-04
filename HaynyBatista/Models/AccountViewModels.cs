@@ -134,4 +134,15 @@ namespace HaynyBatista.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
+
+    public class UsersInRoleViewModel
+    {
+        public string UserId { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string Role { get; set; }
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
+        public virtual ICollection<Cita> Citas { get; set; }
+    }
 }

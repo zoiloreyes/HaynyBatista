@@ -200,6 +200,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ArticuloController.cs" />
     <Compile Include="Controllers\ConsultaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -271,6 +272,39 @@
     <Content Include="Plugins\Clamp.js-master\clamp.js" />
     <Content Include="Plugins\Clamp.js-master\clamp.min.js" />
     <Content Include="Plugins\Clamp.js-master\examples\example1.html" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\css\dataTables.bootstrap.css" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\css\dataTables.bootstrap.min.css" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\css\dataTables.bootstrap4.css" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\css\dataTables.bootstrap4.min.css" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\css\dataTables.foundation.css" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\css\dataTables.foundation.min.css" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\css\dataTables.jqueryui.css" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\css\dataTables.jqueryui.min.css" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\css\dataTables.semanticui.css" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\css\dataTables.semanticui.min.css" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\css\jquery.dataTables.css" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\css\jquery.dataTables.min.css" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\images\sort_asc.png" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\images\sort_asc_disabled.png" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\images\sort_both.png" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\images\sort_desc.png" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\images\sort_desc_disabled.png" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\js\dataTables.bootstrap.js" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\js\dataTables.bootstrap.min.js" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\js\dataTables.bootstrap4.js" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\js\dataTables.bootstrap4.min.js" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\js\dataTables.foundation.js" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\js\dataTables.foundation.min.js" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\js\dataTables.jqueryui.js" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\js\dataTables.jqueryui.min.js" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\js\dataTables.semanticui.js" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\js\dataTables.semanticui.min.js" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\js\jquery.dataTables.js" />
+    <Content Include="Plugins\DataTables\DataTables-1.10.16\js\jquery.dataTables.min.js" />
+    <Content Include="Plugins\DataTables\datatables.css" />
+    <Content Include="Plugins\DataTables\datatables.js" />
+    <Content Include="Plugins\DataTables\datatables.min.css" />
+    <Content Include="Plugins\DataTables\datatables.min.js" />
     <Content Include="Plugins\FontAwesome\fonts\fontawesome-webfont.eot" />
     <Content Include="Plugins\FontAwesome\fonts\fontawesome-webfont.ttf" />
     <Content Include="Plugins\FontAwesome\fonts\fontawesome-webfont.woff" />
@@ -609,12 +643,14 @@
     <Content Include="Views\Account\Settings.cshtml" />
     <Content Include="Views\Articulo\Detalle.cshtml" />
     <Content Include="Views\Consulta\Index.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Shared\_AdminMenu.cshtml" />
+    <Content Include="Views\Admin\Usuario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ImagenesSubidas\" />
     <Folder Include="Logs\" />
-    <Folder Include="Views\Admin\" />
     <Folder Include="Views\Correo\" />
   </ItemGroup>
   <ItemGroup>
