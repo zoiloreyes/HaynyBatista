@@ -19,7 +19,8 @@ namespace HaynyBatista.Controllers
             IndiceConsulta ic = new IndiceConsulta()
             {
                 Citas = db.Citas.ToList(),
-                TiposCita = db.TiposCita.ToList()
+                TiposCita = db.TiposCita.ToList(),
+                FormasPago = db.FormasPago.ToList()
             };
             return View(ic);
         }
@@ -58,7 +59,8 @@ namespace HaynyBatista.Controllers
                         Fecha = NuevaCita.FechaInicio.Date,
                         HoraInicio = NuevaCita.FechaInicio.TimeOfDay,
                         HoraFin = NuevaCita.FechaFin.TimeOfDay,
-                        TipoCita = TipoCita,
+                        IdFormaPago = NuevaCita.FormaPagoID,
+                        IdTipoCita = NuevaCita.IdTipoCita,
                         Mensaje = NuevaCita.Mensaje,
                         Costo = TipoCita.Costo,
                         IdEstadoCita = 1
@@ -69,7 +71,7 @@ namespace HaynyBatista.Controllers
 
                     db.Citas.Add(Cita);
                     db.SaveChanges();
-                    if (MailSender.SendBasicEmail("zoiloismaelreyes1@gmail.com", "scottie5", "zoiloismaelreyes1@gmail.com", "Probando esto", "jojojo")){
+                    if (MailSender.SendBasicEmail("zoiloismaelreyes1@gmail.com", "scottie5", "zoiloismaelreyes1@gmail.com", "Cita Solicitada", String.Format("{0} {1} ha solicitado una cita para el dia {2}, las {3}", usuarioHayny.Nombre, usuarioHayny.Apellido, Cita.Fecha.ToString("dd/MM/yyyy"), Cita.HoraInicio))){
                         retorno = new Retorno() { Success = true, Message = "Nueva cita Registrada." };
                     }
                     else

@@ -165,6 +165,19 @@
         </div>
         
     </div>
+    <div class="SlideDiv" title="Forma de Pago">
+        <div class="d-flex justify-content-around flex-column w-100" id="FormasPago">
+            @foreach (var i in Model.FormasPago)
+            {
+                <div data-formapago="@i.FormaPagoID" class="d-flex flex-column justify-content-center SlideDivFormOption w-50 my-2" style="margin: 0 auto ">
+                    <div class='text-center py-4'>
+                        <h5 class=''>@i.Nombre</h5>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
     <div class="SlideDiv" title="Mensaje">
         <div class="row">
             <div class="col-md-8 offset-md-2">
@@ -178,7 +191,8 @@
         <input type="text" class="d-none" id="txtFechaInicio" />
         <input type="text" class="d-none" id="txtFechaFin" />
         <input type="text" class="d-none" id="txtTipoCita" />
-        
+        <input type="text" class="d-none" id="txtFormaPago" />
+
 
     </div>
 </div>
@@ -212,6 +226,11 @@
                 Notificar("","No hay tipo de cita seleccionada.")
                 return false;
             }
+
+            if (!$("#txtFormaPago").val()) {
+                Notificar("", "No hay forma de pago seleccionada.")
+                return false;
+            }
             return true
         }
 
@@ -222,7 +241,8 @@
                     FechaInicio: $("#txtFechaInicio").val(),
                     FechaFin: $("#txtFechaFin").val(),
                     Mensaje: $("#txtMensaje").val(),
-                    IdTipoCita: $("#txtTipoCita").val()
+                    IdTipoCita: $("#txtTipoCita").val(),
+                    FormaPagoID: $("#txtFormaPago").val()
                 }
                 
                 $.ajax({
@@ -236,6 +256,7 @@
                         $('#NuevaCita').modal('hide');
                         if (result.Success) {
                             Notificar("", "<p>" + result.Message + "</p>");
+                            $("#calendar").fullCalendar('refetchEvents');
                             //setTimeout(function () {
                             //    location.reload();
                             //}, 2000)
@@ -278,6 +299,7 @@
         function limpiarCita() {
             $("#FechasDisponibles .SlideDivFormOption").removeClass("Active");
             $("#TiposCita .SlideDivFormOption").removeClass("Active");
+            $("#FormasPago .SlideDivFormOption").removeClass("Active");
             $("#txtMensaje").val("");
             $("#txtFechaInicio").val("");
             $("#txtFechaFin").val("");
@@ -353,28 +375,31 @@
                         Notificar(" ", "Dia no disponible");
                     } else {
                         var eventosArray = $("#calendar").fullCalendar('clientEvents');
+                        console.log(eventosArray);
                         eventosArray = eventosArray.filter(function (e) {
                             var fechaFiltrada = new Date(e.start["_i"]);
                             if (fechaClickeada.getFullYear() == fechaFiltrada.getFullYear() && fechaClickeada.getMonth() == fechaFiltrada.getMonth() && fechaClickeada.getDate() == fechaFiltrada.getDate()) {
                                 return e
                             }
                         });
-
+                        console.log(eventosArray);
                         var HorasDisponibles = [];
                         //Encuentrame las horas que no estan en los eventos
                         HorasDeTrabajo.forEach(function (hora) {
                             var horasTemp = eventosArray.filter(function (ev) {
-                                
+                               
                                 if (isSameTime(hora.inicio, new Date(ev.start["_i"]))) {
                                     return hora;
                                 }
                             });
+
+                            
                             
                             if (horasTemp.length === 0) {
                                 HorasDisponibles.push(hora);
                             }
                         });
-
+                        
                         $(this).css("transition", "background-color 1s");
                         $(this).addTempClass({
                             className: "bg-success",
@@ -382,9 +407,9 @@
                         });
                         if (HorasDisponibles.length > 0) {
                             HorasDisponibles.forEach(function (hora) {
-                                var horaInicio = moment(hora.inicio).format('YYYY-MM-DD[T]HH:mm:ss');
+                                var horaInicio = moment(new Date(fechaClickeada.getFullYear(), fechaClickeada.getMonth(), fechaClickeada.getDate(), hora.inicio.getHours(), hora.inicio.getMinutes())).format('YYYY-MM-DD[T]HH:mm:ss');
                                 
-                                var horaFin = moment(hora.fin).format('YYYY-MM-DD[T]HH:mm:ss');
+                                var horaFin = moment(new Date(fechaClickeada.getFullYear(), fechaClickeada.getMonth(), fechaClickeada.getDate(), hora.fin.getHours(), hora.fin.getMinutes())).format('YYYY-MM-DD[T]HH:mm:ss');
 
                                 $("#FechasDisponibles").append(
                                     $("<div>", {
@@ -455,6 +480,12 @@
                 $(this).toggleClass("Active");
                 var TipoCita = $(this).data("tipocita");
                 $("#txtTipoCita").val(TipoCita);
+            });
+            $("#FormasPago .SlideDivFormOption ").click(function () {
+                $(this).parent().find(".SlideDivFormOption").removeClass("Active");
+                $(this).toggleClass("Active");
+                var FormaPago = $(this).data("formapago");
+                $("#txtFormaPago").val(FormaPago);
             });
             $("#btnReservarCita").click(function () {
                 grabarCita();

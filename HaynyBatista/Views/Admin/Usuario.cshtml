@@ -7,7 +7,7 @@
 <div class="row">
     @Html.Partial("~/Views/Shared/_AdminMenu.cshtml")
     <div class="col-md-8 offset-md-1 bg-white p-4 rounded border-light">
-        <table class="DataTable w-100">
+        <table id="UserTable" class="DataTable w-100">
             <thead>
                 <tr>
                     <th>Nombre</th>
@@ -15,6 +15,7 @@
                     <th>Username</th>
                     <th>Email</th>
                     <th>Roles</th>
+                    <th><i class="fa fa-envelope-o"></i></th>
                 </tr>
             </thead>
             <tbody>
@@ -26,10 +27,110 @@
                         <td>@i.UserName</td>
                         <td>@i.Email</td>
                         <td>@i.Role</td>
+                        <td><a href="#" data-toggle="modal" data-target="#mailModal" data-nombre="@i.Nombre @i.Apellido" data-id="@i.UserId" class="SendEmail HaynyLink"><i class="fa fa-paper-plane"></i></a></td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
 </div>
+@section OutsideContainer{
+    
+<div class="modal fade" id="mailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="frmMail">
+                    <input class="d-none requerido" type="text" id="txtId" data-title="Id"/>
+                    <div class="form-group">
+                        <label for="recipient-name" class="form-control-label">Asunto:</label>
+                        <input type="text" class="form-control requerido" id="txtAsunto" data-title="Asunto">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="form-control-label">Mensaje:</label>
+                        <textarea class="form-control tinymceTextArea tinyMCErequerido" id="txtMensaje" data-title="Mensaje"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" id="btnEnviarMail" class="btn btn-primary">Enviar Email</button>
+            </div>
+        </div>
+    </div>
+</div>
+    }
 
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+            $("#UserTable").on('click', '.SendEmail', function () {
+                $('#myModal').modal('show');
+            });
+
+            //$("#mailModal").modal();
+            $('#mailModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var recipient = button.data('nombre');
+                var id = button.data("id");
+                var modal = $(this)
+                modal.find('.modal-title').text('Nuevo mensaje para ' + recipient)
+                modal.find("#txtId").val(id);
+                //modal.find('.modal-body input').val(recipient)
+            })
+            $("#btnEnviarMail").click(function () {
+                enviarMail();
+            });
+
+            function validarMail() {
+                
+            }
+
+            function enviarMail() {
+                var validacion = validarForm("#frmMail");
+                $('#mailModal').modal("hide");
+                if (validacion.Estado) {
+                    Notificar("", "Grabando");
+                    var data = {
+                        Id: $("#txtId").val(),
+                        Asunto: $("#txtAsunto").val(),
+                        Mensaje: tinymce.get('txtMensaje').getContent()
+                    }
+
+                    $.ajax({
+                        url: "/Consulta/GuardarCita",
+                        data: JSON.stringify(data),
+                        type: "POST",
+                        async: true,
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            $('#NuevaCita').modal('hide');
+                            if (result.Success) {
+                                Notificar("", "<p>" + result.Message + "</p>");
+                                //setTimeout(function () {
+                                //    location.reload();
+                                //}, 2000)
+                            } else {
+                                Notificar("asd", "<p>" + result.Message + "</p>");
+                            }
+                        },
+                        error: function (errorMessage) {
+                            alert(errorMessage.responseText);
+                        }
+                    });
+                } else {
+                    Notificar("", "Llene todos los campos");
+                }
+            }
+
+        });
+    </script>
+    }

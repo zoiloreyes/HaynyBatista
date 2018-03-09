@@ -8,7 +8,7 @@ namespace HaynyBatista.Models
     public class IndiceConsulta {
         public List<Cita> Citas { get; set; }
         public List<TipoCita> TiposCita { get; set; }
-
+        public List<FormaPago> FormasPago { get; set; }
     }
 
     public class NuevaCitaViewModel
@@ -17,5 +17,6 @@ namespace HaynyBatista.Models
         public DateTime FechaFin { get; set; }
         public String Mensaje { get; set; }
         public int IdTipoCita { get; set; }
+        public int FormaPagoID { get; set; }
     }
 }

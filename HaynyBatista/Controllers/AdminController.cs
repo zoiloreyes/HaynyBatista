@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using System.Data.Entity;
 namespace HaynyBatista.Controllers
 {
     
@@ -53,7 +53,8 @@ namespace HaynyBatista.Controllers
 
         public ActionResult Cita()
         {
-            return View();
+            var vistas = db.Citas.Include(c => c.Usuarios).OrderBy(c => c.Fecha).ThenBy(c => c.HoraInicio).ToList();
+            return View(vistas);
         }
 
         public ActionResult Tienda()

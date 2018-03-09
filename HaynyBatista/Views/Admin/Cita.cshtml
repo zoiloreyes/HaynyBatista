@@ -1,0 +1,87 @@
+﻿@model IEnumerable<HaynyBatista.Models.Cita>
+
+@{
+    ViewBag.Title = "Cita";
+}
+
+<div class="row">
+    @Html.Partial("~/Views/Shared/_AdminMenu.cshtml")
+    <div class="col-md-8 offset-md-1 bg-white p-4 rounded border-light">
+        <table id="CitaTable" class="DataTable table-hover w-100">
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                    <th>Hora Inicio</th>
+                    <th>Hora Fin</th>
+                    <th>Costo</th>
+                    <th>Mensaje</th>
+                    <th>Forma Pago</th>
+                    <th><i class="fa fa-pencil"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cita in Model)
+                {
+                    <tr>
+                        <td>@cita.TipoCita.Nombre</td>
+                        <td><span style="background-color: @cita.EstadoCita.Color" class="badge badge-pill">@cita.EstadoCita.Nombre</span></td>
+                        <td>@cita.Fecha.ToString("dd/MM/yyyy")</td>
+                        <td>@cita.HoraInicio</td>
+                        <td>@cita.HoraFin</td>
+                        <td>@cita.Costo</td>
+                        <td><a href="#" data-toggle="tooltip" data-html="true" title="@cita.Mensaje" class="HaynyLink"><i class="fa fa-commenting"></i></a></td>
+
+                        <td>@cita.FormaPago.Nombre</td>
+                        <td><a href="#" data-toggle="modal" data-target="#EditarCitaModal" data-id="@cita.IdCita" class="HaynyLink"><i class="fa fa-edit"></i></a></td>
+                        @*<td><a href="#" data-toggle="modal" data-target="#mailModal" data-nombre="i.Nombre @i.Apellido" data-id="@i.UserId" class="SendEmail HaynyLink"><i class="fa fa-paper-plane"></i></a></td>*@
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@section OutsideContainer{
+
+    <div class="modal fade" id="EditarCitaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="frmCita">
+                        <input class="d-none requerido" type="text" id="txtId" data-title="Id" />
+                        <div class="form-group">
+                            <label for="recipient-name" class="form-control-label">Asunto:</label>
+                            <input type="text" class="form-control requerido" id="txtAsunto" data-title="Asunto">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="form-control-label">Mensaje:</label>
+                            <textarea class="form-control tinymceTextArea tinyMCErequerido" id="txtMensaje" data-title="Mensaje"></textarea>
+                        </div>
+                    </form>
+                    <form id="frmMail">
+                        <input class="d-none requerido" type="text" id="txtId" data-title="Id" />
+                        <div class="form-group">
+                            <label for="recipient-name" class="form-control-label">Asunto:</label>
+                            <input type="text" class="form-control requerido" id="txtAsunto" data-title="Asunto">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="form-control-label">Mensaje:</label>
+                            <textarea class="form-control tinymceTextArea tinyMCErequerido" id="txtMensaje" data-title="Mensaje"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" id="btnEditarCita" class="btn btn-primary">Enviar Email</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
