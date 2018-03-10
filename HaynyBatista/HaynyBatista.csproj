@@ -232,6 +232,7 @@
     <Compile Include="Models\RetornoJSON.cs" />
     <Compile Include="Models\TipoCita.cs" />
     <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Models\ViewModels\AdminCitaViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="UtilClasses\HttpPostedFileBaseExtensions.cs" />
@@ -264,6 +265,24 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Plugins\alertifyjs\alertify.js" />
+    <Content Include="Plugins\alertifyjs\alertify.min.js" />
+    <Content Include="Plugins\alertifyjs\css\alertify.css" />
+    <Content Include="Plugins\alertifyjs\css\alertify.min.css" />
+    <Content Include="Plugins\alertifyjs\css\alertify.rtl.css" />
+    <Content Include="Plugins\alertifyjs\css\alertify.rtl.min.css" />
+    <Content Include="Plugins\alertifyjs\css\themes\bootstrap.css" />
+    <Content Include="Plugins\alertifyjs\css\themes\bootstrap.min.css" />
+    <Content Include="Plugins\alertifyjs\css\themes\bootstrap.rtl.css" />
+    <Content Include="Plugins\alertifyjs\css\themes\bootstrap.rtl.min.css" />
+    <Content Include="Plugins\alertifyjs\css\themes\default.css" />
+    <Content Include="Plugins\alertifyjs\css\themes\default.min.css" />
+    <Content Include="Plugins\alertifyjs\css\themes\default.rtl.css" />
+    <Content Include="Plugins\alertifyjs\css\themes\default.rtl.min.css" />
+    <Content Include="Plugins\alertifyjs\css\themes\semantic.css" />
+    <Content Include="Plugins\alertifyjs\css\themes\semantic.min.css" />
+    <Content Include="Plugins\alertifyjs\css\themes\semantic.rtl.css" />
+    <Content Include="Plugins\alertifyjs\css\themes\semantic.rtl.min.css" />
     <Content Include="Plugins\autosize-master\build.js" />
     <Content Include="Plugins\autosize-master\dist\autosize.js" />
     <Content Include="Plugins\autosize-master\dist\autosize.min.js" />
@@ -444,6 +463,24 @@
     <Content Include="Plugins\fullcalendar-3.8.2\locale\vi.js" />
     <Content Include="Plugins\fullcalendar-3.8.2\locale\zh-cn.js" />
     <Content Include="Plugins\fullcalendar-3.8.2\locale\zh-tw.js" />
+    <Content Include="Plugins\jquery-ui-1.12.1\AUTHORS.txt" />
+    <Content Include="Plugins\jquery-ui-1.12.1\external\jquery\jquery.js" />
+    <Content Include="Plugins\jquery-ui-1.12.1\images\ui-icons_444444_256x240.png" />
+    <Content Include="Plugins\jquery-ui-1.12.1\images\ui-icons_555555_256x240.png" />
+    <Content Include="Plugins\jquery-ui-1.12.1\images\ui-icons_777620_256x240.png" />
+    <Content Include="Plugins\jquery-ui-1.12.1\images\ui-icons_777777_256x240.png" />
+    <Content Include="Plugins\jquery-ui-1.12.1\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Plugins\jquery-ui-1.12.1\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Plugins\jquery-ui-1.12.1\index.html" />
+    <Content Include="Plugins\jquery-ui-1.12.1\jquery-ui.css" />
+    <Content Include="Plugins\jquery-ui-1.12.1\jquery-ui.js" />
+    <Content Include="Plugins\jquery-ui-1.12.1\jquery-ui.min.css" />
+    <Content Include="Plugins\jquery-ui-1.12.1\jquery-ui.min.js" />
+    <Content Include="Plugins\jquery-ui-1.12.1\jquery-ui.structure.css" />
+    <Content Include="Plugins\jquery-ui-1.12.1\jquery-ui.structure.min.css" />
+    <Content Include="Plugins\jquery-ui-1.12.1\jquery-ui.theme.css" />
+    <Content Include="Plugins\jquery-ui-1.12.1\jquery-ui.theme.min.css" />
+    <Content Include="Plugins\jquery-ui-1.12.1\LICENSE.txt" />
     <Content Include="Plugins\moment.min.js" />
     <Content Include="Plugins\TagsInput\tagsinput.css" />
     <Content Include="Plugins\TagsInput\tagsinput.js" />
@@ -571,6 +608,7 @@
     <Content Include="Plugins\fullcalendar-3.8.2\demos\json\events.json" />
     <Content Include="Content\Fonts\Italianno-Regular.ttf" />
     <Content Include="Content\Fonts\Roboto-Regular.ttf" />
+    <Content Include="Plugins\jquery-ui-1.12.1\package.json" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
@@ -647,12 +685,12 @@
     <Content Include="Views\Shared\_AdminMenu.cshtml" />
     <Content Include="Views\Admin\Usuario.cshtml" />
     <Content Include="Views\Admin\Cita.cshtml" />
+    <Content Include="Views\Correo\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ImagenesSubidas\" />
     <Folder Include="Logs\" />
-    <Folder Include="Views\Correo\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

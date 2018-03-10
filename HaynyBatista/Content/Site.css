@@ -690,7 +690,7 @@ body {
         }
 
 #FechasDisponibles {
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
 }
 .SlideDivFormOption {
     background-color: purple;

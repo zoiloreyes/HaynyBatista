@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HaynyBatista.Models.Cita>
+﻿@model HaynyBatista.Models.ViewModels.AdminCitaViewModel
 
 @{
     ViewBag.Title = "Cita";
@@ -10,6 +10,7 @@
         <table id="CitaTable" class="DataTable table-hover w-100">
             <thead>
                 <tr>
+                    <th>Usuario</th>
                     <th>Tipo</th>
                     <th>Estado</th>
                     <th>Fecha</th>
@@ -22,19 +23,20 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var cita in Model)
+                @foreach (var cita in Model.Citas)
                 {
                     <tr>
-                        <td>@cita.TipoCita.Nombre</td>
+                        <td class="text-center Usuarios" data-idUsuarios="@String.Join(",",cita.Usuarios.Select(x => x.IdUsuario).ToArray())">@String.Join(",",cita.Usuarios.Select(x => x.Nombre + " " + x.Apellido).ToArray())</td>
+                        <td class="text-center TipoCita">@cita.TipoCita.Nombre</td>
                         <td><span style="background-color: @cita.EstadoCita.Color" class="badge badge-pill">@cita.EstadoCita.Nombre</span></td>
-                        <td>@cita.Fecha.ToString("dd/MM/yyyy")</td>
-                        <td>@cita.HoraInicio</td>
-                        <td>@cita.HoraFin</td>
-                        <td>@cita.Costo</td>
-                        <td><a href="#" data-toggle="tooltip" data-html="true" title="@cita.Mensaje" class="HaynyLink"><i class="fa fa-commenting"></i></a></td>
+                        <td class="text-center Fecha">@cita.Fecha.ToString("dd/MM/yyyy")</td>
+                        <td class="text-center HoraInicio">@cita.HoraInicio</td>
+                        <td class="text-center HoraFin">@cita.HoraFin</td>
+                        <td class="text-center">@cita.Costo</td>
+                        <td class="text-center"><a href="#" data-toggle="tooltip" data-html="true" title="@cita.Mensaje" class="HaynyLink"><i class="fa fa-commenting"></i></a></td>
 
-                        <td>@cita.FormaPago.Nombre</td>
-                        <td><a href="#" data-toggle="modal" data-target="#EditarCitaModal" data-id="@cita.IdCita" class="HaynyLink"><i class="fa fa-edit"></i></a></td>
+                        <td class="text-center">@cita.FormaPago.Nombre</td>
+                        <td class="text-center"><a href="#" data-toggle="modal" data-target="#EditarCitaModal" data-id="@cita.IdCita" class="HaynyLink"><i class="fa fa-edit"></i></a></td>
                         @*<td><a href="#" data-toggle="modal" data-target="#mailModal" data-nombre="i.Nombre @i.Apellido" data-id="@i.UserId" class="SendEmail HaynyLink"><i class="fa fa-paper-plane"></i></a></td>*@
                     </tr>
                 }
@@ -48,40 +50,69 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" id="editarCitaTitle">Editar Cita</h5>
+                    <div>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <button type="button" title="Borrar Cita" class="btn btn-danger" >
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+                    
                 </div>
                 <div class="modal-body">
                     <form id="frmCita">
                         <input class="d-none requerido" type="text" id="txtId" data-title="Id" />
                         <div class="form-group">
-                            <label for="recipient-name" class="form-control-label">Asunto:</label>
-                            <input type="text" class="form-control requerido" id="txtAsunto" data-title="Asunto">
+                            <label for="recipient-name" class="form-control-label">Fecha:</label>
+                            <input type="text" class="form-control requerido DatePickerUI" id="txtFecha" data-title="Fecha">
                         </div>
                         <div class="form-group">
-                            <label for="message-text" class="form-control-label">Mensaje:</label>
-                            <textarea class="form-control tinymceTextArea tinyMCErequerido" id="txtMensaje" data-title="Mensaje"></textarea>
-                        </div>
-                    </form>
-                    <form id="frmMail">
-                        <input class="d-none requerido" type="text" id="txtId" data-title="Id" />
-                        <div class="form-group">
-                            <label for="recipient-name" class="form-control-label">Asunto:</label>
-                            <input type="text" class="form-control requerido" id="txtAsunto" data-title="Asunto">
+                            <label for="message-text" class="form-control-label">Estado:</label>
+                            @Html.DropDownList("slctEstado", new SelectList(Model.Estados, "IdEstadoCita", "Nombre"), new { @class = "form-control" })
                         </div>
                         <div class="form-group">
-                            <label for="message-text" class="form-control-label">Mensaje:</label>
-                            <textarea class="form-control tinymceTextArea tinyMCErequerido" id="txtMensaje" data-title="Mensaje"></textarea>
+                            <label for="recipient-name" class="form-control-label">Hora Inicio:</label>
+                            <input type="time" class="form-control requerido" id="txtHoraInicio" data-title="Fecha">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="form-control-label">Hora Fin:</label>
+                            <input type="time" class="form-control requerido" id="txtHoraFin" data-title="Fecha">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" id="btnEditarCita" class="btn btn-primary">Enviar Email</button>
+                    <button type="button" id="btnActualizarCita" class="btn btn-primary">Actualizar</button>
                 </div>
             </div>
         </div>
     </div>
 }
+@section Scripts{
+    <script>
+        $("#CitaTable a[data-target='#EditarCitaModal']").click((event) => {
+            
+            let row = $(event.target).parent().parent().parent();
+
+            let usuarios = row.find(".Usuarios").text();
+            let usuariosId = row.find(".Usuarios").data("idusuarios");
+            let tipoCita = row.find(".TipoCita").text();
+            let fechaCita = row.find(".Fecha").text();
+            let regexHora = new RegExp('([0-2])([0-9]):([0-6])([0-9])');
+            let horaInicio = regexHora.exec(row.find(".HoraInicio").text())[0]; 
+            let horaFin = regexHora.exec(row.find(".HoraFin").text())[0];
+            let texto = `Editar cita con ${usuarios} del ${fechaCita}`;
+
+
+            $("#txtId").val(usuariosId);
+            $("#txtFecha").val(fechaCita);
+            $("#txtHoraInicio").val(horaInicio);
+            $("#txtHoraFin").val(horaFin);
+            $("#EditarCitaModal #editarCitaTitle").text(texto);
+        });
+    </script>    
+    
+    }

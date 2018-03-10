@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using HaynyBatista.Models.ViewModels;
+
 namespace HaynyBatista.Controllers
 {
     
@@ -53,8 +55,13 @@ namespace HaynyBatista.Controllers
 
         public ActionResult Cita()
         {
-            var vistas = db.Citas.Include(c => c.Usuarios).OrderBy(c => c.Fecha).ThenBy(c => c.HoraInicio).ToList();
-            return View(vistas);
+            var viewmodel = new AdminCitaViewModel()
+            {
+                Citas = db.Citas.Include(c => c.Usuarios).OrderBy(c => c.Fecha).ThenBy(c => c.HoraInicio).Where(c => DbFunctions.TruncateTime(c.Fecha) >= DbFunctions.TruncateTime(DateTime.Now)).ToList(),
+                Estados = db.EstadosCita.ToList()
+            };
+            //var vistas = db.Citas.Include(c => c.Usuarios).OrderBy(c => c.Fecha).ThenBy(c => c.HoraInicio).ToList();
+            return View(viewmodel);
         }
 
         public ActionResult Tienda()

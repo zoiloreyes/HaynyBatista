@@ -37,7 +37,8 @@ namespace HaynyBatista
                       "~/Plugins/moment.min.js",
                       "~/Plugins/DataTables/datatables.min.js",
                       "~/Plugins/fullcalendar-3.8.2/fullcalendar.min.js",
-                      "~/Plugins/fullcalendar-3.8.2/locale-all.js"
+                      "~/Plugins/fullcalendar-3.8.2/locale-all.js",
+                      "~/Plugins/jquery-ui-1.12.1/jquery-ui.min.js"
                       ));
             bundles.Add(new StyleBundle("~/bundles/LayoutCss").Include(
                       "~/Content/Layout.css",
@@ -45,7 +46,8 @@ namespace HaynyBatista
                       "~/Plugins/FontAwesome/css/font-awesome.min.css",
                       "~/Plugins/TagsInput/tagsinput.css",
                       "~/Plugins/DataTables/datatables.min.css",
-                      "~/Plugins/fullcalendar-3.8.2/fullcalendar.min.css"));
+                      "~/Plugins/fullcalendar-3.8.2/fullcalendar.min.css",
+                      "~/Plugins/jquery-ui-1.12.1/jquery-ui.min.css"));
         }
     }
 }
