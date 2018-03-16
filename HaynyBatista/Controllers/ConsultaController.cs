@@ -7,6 +7,7 @@ using HaynyBatista.Models;
 using Microsoft.AspNet.Identity;
 using System.Web.Helpers;
 using HaynyBatista.UtilClasses;
+using HaynyBatista.Models.ViewModels;
 
 namespace HaynyBatista.Controllers
 {
@@ -43,6 +44,80 @@ namespace HaynyBatista.Controllers
         }
 
         [HttpPost]
+        public ActionResult ActualizarCita(ActualizarCitaViewModel CitaVM)
+        {
+            Retorno retorno = new Retorno();
+            if (User.Identity.IsAuthenticated)
+            {
+                try
+                {
+                    var user = db.Users.Find(User.Identity.GetUserId());
+                    var usuarioHayny = db.Usuarios.Find(user.Usuario.IdUsuario);
+                    var Cita = db.Citas.Find(CitaVM.IdCita);
+                    if(Cita != null)
+                    {
+                        TimeSpan horaInicio;
+                        TimeSpan horaFin;
+                        if (TimeSpan.TryParse(CitaVM.HoraInicio, out horaInicio) && TimeSpan.TryParse(CitaVM.HoraFin, out horaFin))
+                        {
+                            if (Cita.Fecha != CitaVM.Fecha || Cita.HoraInicio != horaInicio || Cita.HoraFin != horaFin)
+                            {
+                                Cita.Fecha = CitaVM.Fecha;
+                                Cita.HoraInicio = horaInicio;
+                                Cita.HoraFin = horaFin;
+                                if (MailSender.SendBasicEmail("HaynyBatista@haynybatista.com", "@Hayny.Batista", user.Email, "Solicitud de cita " + Cita.Fecha.ToString("dd/MM/yyyy"), FakeController.RenderViewToString(this.ControllerContext, "~/Views/Correo/CitaPospuesta.cshtml", Cita, false)))
+                                {
+                                    retorno = new Retorno() { Success = true, Message = String.Format("Se ha enviado un correo a {0} {1} notificandole sobre su cita pospuesta", Cita.Usuarios.First().Nombre, Cita.Usuarios.First().Apellido) };
+                                }
+                            }
+                        }
+
+                        if (Cita.IdEstadoCita != CitaVM.IdEstadoCita)
+                        {
+                            Cita.IdEstadoCita = CitaVM.IdEstadoCita;
+
+                            switch (CitaVM.IdEstadoCita)
+                            {
+                                case 1:
+                                    if (MailSender.SendBasicEmail("HaynyBatista@haynybatista.com", "@Hayny.Batista", user.Email, "Solicitud de cita " + Cita.Fecha.ToString("dd/MM/yyyy"), FakeController.RenderViewToString(this.ControllerContext, "~/Views/Correo/CitaSolicitada.cshtml", Cita, false)))
+                                    {
+                                        retorno = new Retorno() { Success = true, Message = String.Format("Se ha enviado un correo a {0} {1} notificandole sobre su cita pendiente", Cita.Usuarios.First().Nombre, Cita.Usuarios.First().Apellido) };
+                                    }
+                                    break;
+                                case 2:
+                                    if (MailSender.SendBasicEmail("HaynyBatista@haynybatista.com", "@Hayny.Batista", user.Email, "Solicitud de cita " + Cita.Fecha.ToString("dd/MM/yyyy"), FakeController.RenderViewToString(this.ControllerContext, "~/Views/Correo/CitaAprobada.cshtml", Cita, false)))
+                                    {
+                                        retorno = new Retorno() { Success = true, Message = String.Format("Se ha enviado un correo a {0} {1} notificandole sobre su cita aprobada", Cita.Usuarios.First().Nombre, Cita.Usuarios.First().Apellido) };
+                                    }
+                                    break;
+
+                            }
+                        }
+
+                        
+                        db.Entry(Cita).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    
+                    //var body = FakeController.RenderViewToString(this.ControllerContext, "~/Views/Correo/CitaSolicitada.cshtml", Cita, false);
+
+                }
+                catch (Exception e)
+                {
+                    retorno = new Retorno() { Success = false, Message = "No pudimos registrar su cita" };
+                }
+
+            }
+            else
+            {
+                retorno = new Retorno() { Success = false, Message = "Debe iniciar sesión para reservar una cita." };
+            }
+
+            return Json(retorno, JsonRequestBehavior.AllowGet);
+            //return Json(new { Caca = "asd" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public ActionResult GuardarCita(NuevaCitaViewModel NuevaCita)
         {
       
@@ -71,7 +146,8 @@ namespace HaynyBatista.Controllers
 
                     db.Citas.Add(Cita);
                     db.SaveChanges();
-                    if (MailSender.SendBasicEmail("zoiloismaelreyes1@gmail.com", "scottie5", "zoiloismaelreyes1@gmail.com", "Cita Solicitada", String.Format("{0} {1} ha solicitado una cita para el dia {2}, las {3}", usuarioHayny.Nombre, usuarioHayny.Apellido, Cita.Fecha.ToString("dd/MM/yyyy"), Cita.HoraInicio))){
+                    //var body = FakeController.RenderViewToString(this.ControllerContext, "~/Views/Correo/CitaSolicitada.cshtml", Cita, false);
+                    if (MailSender.SendBasicEmail("HaynyBatista@haynybatista.com", "@Hayny.Batista", user.Email, "Solicitud de cita " + Cita.Fecha.ToString("dd/MM/yyyy") , FakeController.RenderViewToString(this.ControllerContext,"~/Views/Correo/CitaSolicitada.cshtml",Cita,false))){
                         retorno = new Retorno() { Success = true, Message = "Nueva cita Registrada." };
                     }
                     else

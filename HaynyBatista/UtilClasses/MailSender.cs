@@ -12,8 +12,8 @@ namespace HaynyBatista.UtilClasses
     public static class MailSender
     {
      
-        public static string host = "smtp.gmail.com";
-        public static int port = 587;
+        public static string host = "mail.haynybatista.com";
+        public static int port = 25;
         public static bool enableSsl = true;
         public static SmtpDeliveryMethod deliveryMethod = SmtpDeliveryMethod.Network;
 
@@ -30,12 +30,19 @@ namespace HaynyBatista.UtilClasses
                     Credentials = new NetworkCredential(from, fromPassword),
                     Timeout = 20000
                 };
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate (object s,
+                 System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+                 System.Security.Cryptography.X509Certificates.X509Chain chain,
+                 System.Net.Security.SslPolicyErrors sslPolicyErrors)
+                {
+                    return true;
+                };
 
                 MailMessage msg = new MailMessage();
                 msg.To.Add(new MailAddress(to));
                 msg.From = new MailAddress(from);
                 msg.Subject = subject;
-                msg.Body = "<p>"+ bodyHTML + "</p>";
+                msg.Body = bodyHTML;
                 msg.IsBodyHtml = true;
                 smtp.Send(msg);
                 return true;

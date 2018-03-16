@@ -1,0 +1,24 @@
+﻿@model HaynyBatista.Models.Cita
+
+@{
+    Layout = null;
+}
+
+<p>
+    @if (DateTime.Now.Hour >= 18 || DateTime.Now.Hour < 6)
+    { <text>Buenas Noches</text>}
+    else if (DateTime.Now.Hour >= 6 || DateTime.Now.Hour < 12)
+    { <text>Buenos Dias</text>}
+    else
+    { <text>Buenas Tardes</text>} Señor(a) @Model.Usuarios.First().Apellido:<br /><br />
+</p>
+<div>Sirve al presente para notificarle que su cita ha sido pospuesta al
+    @{
+            var culture = new System.Globalization.CultureInfo("es-ES");
+            <text> @culture.DateTimeFormat.GetDayName(Model.Fecha.DayOfWeek) @Model.Fecha.Day de @culture.DateTimeFormat.GetMonthName(Model.Fecha.Month) de @Model.Fecha.Year, a las @Model.HoraInicio.Hours:@Model.HoraInicio.Minutes. </text>
+
+    }.</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>Atentamente:</div>
+<div><br /><br />Hayny Batista</div>

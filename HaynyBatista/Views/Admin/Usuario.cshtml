@@ -81,6 +81,7 @@
                 var recipient = button.data('nombre');
                 var id = button.data("id");
                 var modal = $(this)
+                alert(id);
                 modal.find('.modal-title').text('Nuevo mensaje para ' + recipient)
                 modal.find("#txtId").val(id);
                 //modal.find('.modal-body input').val(recipient)
@@ -105,7 +106,7 @@
                     }
 
                     $.ajax({
-                        url: "/Consulta/GuardarCita",
+                        url: "/Account/EnviarMail",
                         data: JSON.stringify(data),
                         type: "POST",
                         async: true,

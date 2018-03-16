@@ -1,0 +1,49 @@
+﻿@model HaynyBatista.Models.Cita
+
+@{
+    Layout = null;
+}
+
+<p>
+    @if (DateTime.Now.Hour >= 18 || DateTime.Now.Hour < 6)
+    { <text>Buenas Noches</text>}
+    else if (DateTime.Now.Hour >= 6 || DateTime.Now.Hour < 12)
+    { <text>Buenos Dias</text>}
+    else
+    { <text>Buenas Tardes</text>} Señor(a) @Model.Usuarios.First().Apellido:<br /><br />
+</p>
+@{ 
+    var culture = new System.Globalization.CultureInfo("es-ES");
+    <text>Luego de un cordial saludo, sirva al presente para confirmarle, su cita para la fecha   @culture.DateTimeFormat.GetDayName(Model.Fecha.DayOfWeek) @Model.Fecha.Day de @culture.DateTimeFormat.GetMonthName(Model.Fecha.Month) de @Model.Fecha.Year, a las @Model.HoraInicio.Hours:@Model.HoraInicio.Minutes. </text>
+}
+<div>&nbsp;</div>
+@if (Model.IdFormaPago == 3)
+{
+    <text>
+    <div><span>La confirmacion de cita esta sujeta al pago que puede ser realizado por:</span></div> 
+    <div><span>Deposito en la cuenta: 55454545 a nombre de asdas en el banco del progreso</span></div>
+
+    </text>
+}
+
+@if (Model.IdFormaPago == 2)
+{
+    <text>
+        <div><span>La confirmacion de cita esta sujeta al pago que puede ser realizado por:</span></div>
+        <div><a href="https://google.com">Paypal</a></div>
+
+    </text>
+}
+
+<div>&nbsp;</div>
+<div>Mucho le agradeceré tomar los datos en su agenda para disfrutar de la puntualidad, nos vemos pronto.</div>
+<div>&nbsp;</div>
+<div><span><b>Nota Importante: </b> Para cualquier cancelación o re-programación de una cita, debe ser notificado con un mínimo de 24 horas de antelación.</span></div>
+<div>&nbsp;</div>
+@if(Model.IdFormaPago == 3)
+{
+    <text><div><span><b>Nota Importante: </b> Debe notificar su pago mediante vía telefónica o vía correo para confirmarlo.</span></div> </text>
+}
+
+<div>Atentamente:</div>
+<div><br /><br />Hayny Batista</div>    

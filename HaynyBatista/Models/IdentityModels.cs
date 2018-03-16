@@ -102,6 +102,9 @@ namespace HaynyBatista.Models
                     cs.MapRightKey("CitaId");
                     cs.ToTable("UsuarioCita");
                 });
+            modelBuilder.Entity<Usuario>()
+                .HasRequired<ApplicationUser>(u => u.AppUser)
+                .WithRequiredPrincipal(u => u.Usuario);
         }
     }
 }

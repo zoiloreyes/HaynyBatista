@@ -33,5 +33,7 @@ namespace HaynyBatista.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cita> Citas { get; set; }
+
+        public virtual ApplicationUser AppUser { get; set; }
     }
 }

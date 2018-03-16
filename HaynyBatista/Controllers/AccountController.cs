@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using HaynyBatista.Models;
+using HaynyBatista.Models.ViewModels;
+using HaynyBatista.UtilClasses;
 
 namespace HaynyBatista.Controllers
 {
@@ -17,7 +19,7 @@ namespace HaynyBatista.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private ApplicationDbContext db = new ApplicationDbContext();
         public AccountController()
         {
         }
@@ -184,7 +186,35 @@ namespace HaynyBatista.Controllers
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
+        [HttpPost]
+        [Authorize]
+        public ActionResult EnviarMail(EnviarMailViewModel MailVM)
+        {
+            Retorno retorno = new Retorno();
 
+                try
+                {
+                    var user = db.Users.Find(User.Identity.GetUserId());
+                    var usuarioHayny = db.Usuarios.Find(user.Usuario.IdUsuario);
+                var UsuarioObjetivo = UserManager.FindById(MailVM.Id);
+                    if (MailSender.SendBasicEmail("HaynyBatista@haynybatista.com", "@Hayny.Batista", user.Email,MailVM.Asunto,MailVM.Mensaje))
+                    {
+                        retorno = new Retorno() { Success = true, Message = String.Format("Se ha enviado un correo a {0} {1} notificandole sobre su cita aprobada", UsuarioObjetivo.Usuario.Nombre, UsuarioObjetivo.Usuario.Apellido) };
+                    }
+
+                      
+                    
+
+                    //var body = FakeController.RenderViewToString(this.ControllerContext, "~/Views/Correo/CitaSolicitada.cshtml", Cita, false);
+
+                }
+                catch (Exception e)
+                {
+                    retorno = new Retorno() { Success = false, Message = "No pudimos registrar su cita" };
+                }
+            return Json(retorno, JsonRequestBehavior.AllowGet);
+            //return Json(new { Caca = "asd" }, JsonRequestBehavior.AllowGet);
+        }
         //
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
