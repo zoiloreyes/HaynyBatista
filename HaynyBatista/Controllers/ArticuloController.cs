@@ -99,7 +99,7 @@ namespace HaynyBatista.Controllers
                             catch (Exception e)
                             {
                                 LogFileCreator LogError = new LogFileCreator();
-                                LogError.ErrorLog(Server.MapPath("/Logs"), e.Message);
+                                LogError.ErrorLog(Server.MapPath("~/Logs"), e.Message);
                                 retorno = new Retorno() { Success = false, Message = "Ocurrió un error al subir el archivo" };
                                 return Json(retorno, JsonRequestBehavior.AllowGet);
                             }

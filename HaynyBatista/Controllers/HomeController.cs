@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace HaynyBatista.Controllers
 {
-    [RequireHttps]
+
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -18,6 +18,11 @@ namespace HaynyBatista.Controllers
         {
             ViewBag.Message = "Your application description page.";
 
+            return View();
+        }
+
+        public ActionResult PrivacyPolicy()
+        {
             return View();
         }
 

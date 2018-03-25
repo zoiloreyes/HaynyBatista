@@ -12,7 +12,7 @@ namespace HaynyBatista.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(HaynyBatista.Models.ApplicationDbContext context)
@@ -44,7 +44,7 @@ namespace HaynyBatista.Migrations
             }
             if (!context.EstadosCita.Any(e => e.Nombre == "Pendiente de aprobar"))
             {
-                context.EstadosCita.Add(new EstadoCita() { Nombre = "Pendiente de aprobar" , Color = "#e1bee7" });
+                context.EstadosCita.Add(new EstadoCita() { Nombre = "Pendiente de aprobar", Color = "#e1bee7" });
                 context.SaveChanges();
             }
             if (!context.EstadosCita.Any(e => e.Nombre == "Aprobada"))
@@ -64,12 +64,12 @@ namespace HaynyBatista.Migrations
             }
             if (!context.EstadosCita.Any(e => e.Nombre == "Cumplida"))
             {
-                context.EstadosCita.Add(new EstadoCita() { Nombre = "Cumplida", Color= "#f8bbd0" });
+                context.EstadosCita.Add(new EstadoCita() { Nombre = "Cumplida", Color = "#f8bbd0" });
                 context.SaveChanges();
             }
             if (!context.EstadosCita.Any(e => e.Nombre == "Ausente"))
             {
-                context.EstadosCita.Add(new EstadoCita() { Nombre = "Ausente", Color= "#ffeb3b" });
+                context.EstadosCita.Add(new EstadoCita() { Nombre = "Ausente", Color = "#ffeb3b" });
                 context.SaveChanges();
             }
 
@@ -102,24 +102,3 @@ namespace HaynyBatista.Migrations
         }
     }
 }
-
-//namespace HaynyBatista.Migrations
-//{
-//    using System;
-//    using System.Data.Entity;
-//    using System.Data.Entity.Migrations;
-//    using System.Linq;
-
-//    internal sealed class Configuration : DbMigrationsConfiguration<HaynyBatista.Models.ApplicationDbContext>
-//    {
-//        public Configuration()
-//        {
-//            AutomaticMigrationsEnabled = false;
-//        }
-
-//        protected override void Seed(HaynyBatista.Models.ApplicationDbContext context)
-//        {
-          
-//        }
-//    }
-//}

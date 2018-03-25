@@ -20,10 +20,11 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44350</IISExpressSSLPort>
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -209,16 +210,13 @@
     <Compile Include="DAL\HaynyBatistaInitializer.cs" />
     <Compile Include="Extensions\IdentityExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\UrlExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201802271828207_initial.cs" />
-    <Compile Include="Migrations\201802271828207_initial.Designer.cs">
-      <DependentUpon>201802271828207_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803111845558_AppUserHaynyUser.cs" />
-    <Compile Include="Migrations\201803111845558_AppUserHaynyUser.Designer.cs">
-      <DependentUpon>201803111845558_AppUserHaynyUser.cs</DependentUpon>
+    <Compile Include="Migrations\201803251512246_InitialPublish.cs" />
+    <Compile Include="Migrations\201803251512246_InitialPublish.Designer.cs">
+      <DependentUpon>201803251512246_InitialPublish.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -241,6 +239,11 @@
     <Compile Include="Models\ViewModels\AdminCitaViewModel.cs" />
     <Compile Include="Models\ViewModels\EnviarMailViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="UtilClasses\HttpPostedFileBaseExtensions.cs" />
     <Compile Include="UtilClasses\LogFileCreator.cs" />
@@ -614,6 +617,11 @@
     <Content Include="Content\Fonts\Italianno-Regular.ttf" />
     <Content Include="Content\Fonts\Roboto-Regular.ttf" />
     <Content Include="Plugins\jquery-ui-1.12.1\package.json" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
@@ -694,6 +702,8 @@
     <Content Include="Views\Correo\CitaSolicitada.cshtml" />
     <Content Include="Views\Correo\CitaAprobada.cshtml" />
     <Content Include="Views\Correo\CitaPospuesta.cshtml" />
+    <Content Include="Views\Shared\SocialMediaEnabler.cshtml" />
+    <Content Include="Views\Home\PrivacyPolicy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -711,11 +721,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201802271828207_initial.resx">
-      <DependentUpon>201802271828207_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803111845558_AppUserHaynyUser.resx">
-      <DependentUpon>201803111845558_AppUserHaynyUser.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803251512246_InitialPublish.resx">
+      <DependentUpon>201803251512246_InitialPublish.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -737,7 +744,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>56981</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44350/</IISUrl>
+          <IISUrl>http://localhost:44350/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
