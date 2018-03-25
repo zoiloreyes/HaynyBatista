@@ -12,7 +12,9 @@
     <meta property="og:image" content="@Html.Raw(@Url.Content("~/ImagenesSubidas/" + Model.Imagen.IdImagen + Model.Imagen.Formato,true))" />
     <meta property="fb:app_id" content="1932433733741110" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="@Model.Titulo" />
+    <meta name="twitter:description" content="@Model.Contenido.StripHtml().Substring(0,90)@("...")" />
+    <meta name="twitter:image" content="@Html.Raw(@Url.Content("~/ImagenesSubidas/" + Model.Imagen.IdImagen + Model.Imagen.Formato,true))" />
     @Html.Raw("<meta name='twitter:site' content='@TheSlimZ' />")
     @Html.Raw("<meta name='twitter:creator' content='@TheSlimZ' />")
 }
@@ -44,9 +46,9 @@
             <a class="facebook text-center ShareArticle" href="#hidFacebookbtn"><i class="fa fa-facebook"></i></a>
 
             <!-- twitter -->
-            <a class="twitter  text-center ShareArticle" href="https://twitter.com/intent/tweet" target="blank"><i class="fa fa-twitter"></i></a>
+            <a class="twitter  text-center ShareArticle" href="https://twitter.com/share?url=@Request.Url.AbsoluteUri" target="blank"><i class="fa fa-twitter"></i></a>
 
-            <a class="googleplus  text-center ShareArticle" href="https://plus.google.com/share?url={{url}}" target="blank"><i class="fa fa-google-plus"></i></a>
+            <a class="googleplus  text-center ShareArticle" onclick="javascript: window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600'); return false" href="https://plus.google.com/share?url=@Request.Url.AbsoluteUri.Replace("https","http")" target="blank"><i class="fa fa-google-plus"></i></a>
 
         </div>
     </div>

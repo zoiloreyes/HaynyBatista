@@ -29,6 +29,11 @@
                 <div class="NavLink LowerLink">@Html.ActionLink("Blog", "Index", "Articulo")</div>
                 <div class="NavLink  LowerLink">@Html.ActionLink("Consulta", "Index", "Consulta", null, new { @class = "MainNavLink" })</div>
                 <!--<div class="NavLink LowerLink"><a href="#">Tienda</a></div>-->
+                @if (User.IsInRole("Administrador"))
+                    {
+                        <div class="NavLink  LowerLink">@Html.ActionLink("Administrar", "Usuario", "Admin", null, new { @class = "MainNavLink" })</div>
+                    }
+
             </div>
 
 

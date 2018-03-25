@@ -57,7 +57,7 @@ namespace HaynyBatista.Controllers
         {
             var viewmodel = new AdminCitaViewModel()
             {
-                Citas = db.Citas.Include(c => c.Usuarios).OrderBy(c => c.Fecha).ThenBy(c => c.HoraInicio).Where(c => DbFunctions.TruncateTime(c.Fecha) >= DbFunctions.TruncateTime(DateTime.Now)).ToList(),
+                Citas = db.Citas.Include(c => c.Usuarios).OrderBy(c => c.Fecha).ThenBy(c => c.HoraInicio).ToList(),
                 Estados = db.EstadosCita.ToList()
             };
             //var vistas = db.Citas.Include(c => c.Usuarios).OrderBy(c => c.Fecha).ThenBy(c => c.HoraInicio).ToList();
