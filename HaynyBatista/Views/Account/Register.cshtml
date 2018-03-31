@@ -27,56 +27,56 @@
         <div class="row">
             <div class="col-md-6 offset-md-3 my-5 RegisterFormContainer">
                 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal RegisterForm", role = "form" }))
-    {
-            @Html.AntiForgeryToken()
-            <div class="RegisterFormHeader p-2">
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="RegisterFormHeader p-2 text-center">
+                        <img class="img-fluid d-inline mr-3" style="max-height: 100px" src="/Content/Images/logoPequeno.png" />
+                        <h4 class="fg-purple">Regístrate.</h4>
+                    </div>
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Nombre, new { @class = "col-md-10 control-label" })
+                        <div class="col-md-11 mx-2">
+                            @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Apellido, new { @class = "col-md-10 control-label" })
+                        <div class="col-md-11 mx-2">
+                            @Html.TextBoxFor(m => m.Apellido, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-10 control-label" })
+                        <div class="col-md-11 mx-2">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-10 control-label" })
+                        <div class="col-md-11 mx-2">
+                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-10 control-label" })
+                        <div class="col-md-11 mx-2">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-10 control-label" })
+                        <div class="col-md-11 mx-2">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <p class="ml-3">Ya tienes cuenta? @Html.ActionLink("Inicia Sesión", "Login", "Account", null, new { @class = "HaynyLink" })</p>
+                    <div class="d-flex justify-content-center">
+                        <input type="submit" class="haynyBtn bg-purple text-white" style="min-width: 100px" value="Unete" />
+                    </div>
+                    <hr class="hr-text" data-content="O" />
 
-                <h4 class="text-danger"><img class="img-fluid d-inline mr-3 rounded-circle" src="http://via.placeholder.com/50x50" />Regístrate.</h4>
-            </div>
-            @Html.ValidationSummary("", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(m => m.Nombre, new { @class = "col-md-10 control-label" })
-                <div class="col-md-11 mx-2">
-                    @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Apellido, new { @class = "col-md-10 control-label" })
-                <div class="col-md-11 mx-2">
-                    @Html.TextBoxFor(m => m.Apellido, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Email, new { @class = "col-md-10 control-label" })
-                <div class="col-md-11 mx-2">
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-10 control-label" })
-                <div class="col-md-11 mx-2">
-                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Password, new { @class = "col-md-10 control-label" })
-                <div class="col-md-11 mx-2">
-                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-10 control-label" })
-                <div class="col-md-11 mx-2">
-                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-                </div>
-            </div>
-            <p class="ml-3">Ya tienes cuenta? @Html.ActionLink("Inicia Sesión", "Login", "Account", null, new { @class = "text-danger" })</p>
-            <div class="d-flex justify-content-center">
-                <input type="submit" class="haynyBtn bg-danger text-white" style="min-width: 100px" value="Unete" />
-            </div>
-            <hr class="hr-text" data-content="O" />
-
-}
+                }
                 @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
 
 

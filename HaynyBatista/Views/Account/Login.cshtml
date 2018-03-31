@@ -29,9 +29,9 @@
                 @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal RegisterForm", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
-                    <div class="RegisterFormHeader p-2">
-
-                        <h4 class="text-danger"><img class="img-fluid d-inline mr-3 rounded-circle" src="http://via.placeholder.com/50x50" />Inicia</h4>
+                    <div class="RegisterFormHeader p-2 text-center">
+                        <img class="img-fluid d-inline mr-3" style="max-height: 100px" src="/Content/Images/logoPequeno.png" />
+                        <h4 class="fg-purple">Inicia</h4>
                     </div>
                     @Html.ValidationSummary("", new { @class = "text-danger" })
                     <div class="form-group">
@@ -46,9 +46,9 @@
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                         </div>
                     </div>
-                    <p class="ml-3">No tienes cuenta? @Html.ActionLink("Unete","Register","Account", null, new { @class = "text-danger"})</p>
+                    <p class="ml-3">No tienes cuenta? @Html.ActionLink("Unete","Register","Account", null, new { @class = "HaynyLink"})</p>
                     <div class="d-flex justify-content-center">
-                        <input type="submit" class="haynyBtn bg-danger text-white" style="min-width: 100px" value="Inicia" />
+                        <input type="submit" class="haynyBtn bg-purple text-white" style="min-width: 100px" value="Inicia" />
                     </div>
                     <hr class="hr-text" data-content="O" />
 

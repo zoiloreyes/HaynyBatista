@@ -20,11 +20,11 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>
-    </IISExpressSSLPort>
+    <IISExpressSSLPort>44350</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <IISExpressUseClassicPipelineMode>
+    </IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -225,6 +225,7 @@
     <Compile Include="Models\Cita.cs" />
     <Compile Include="Models\ConsultaViewModels.cs" />
     <Compile Include="Models\CorreoViewModel.cs" />
+    <Compile Include="Models\CurrencyResponse.cs" />
     <Compile Include="Models\EstadoCita.cs" />
     <Compile Include="Models\Etiqueta.cs" />
     <Compile Include="Models\EtiquetaArticulo.cs" />
@@ -257,11 +258,21 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\DSC_2519.jpg" />
     <Content Include="Content\Images\DSC_2527.jpg" />
+    <Content Include="Content\Images\DSC_2528.jpg" />
+    <Content Include="Content\Images\DSC_2539.jpg" />
+    <Content Include="Content\Images\fav icon.ico" />
+    <Content Include="Content\Images\fav icon.png" />
+    <Content Include="Content\Images\fbLogoxs.png" />
     <Content Include="Content\Images\HaynyPq.jpg" />
     <Content Include="Content\Images\Individual.jpeg" />
     <Content Include="Content\Images\logo 11_17.jpg" />
+    <Content Include="Content\Images\logo CMYK.jpg" />
+    <Content Include="Content\Images\Logo RGB.jpg" />
     <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\logo1024.png" />
+    <Content Include="Content\Images\logoBanner.jpg" />
     <Content Include="Content\Images\logoPequeno.png" />
     <Content Include="Content\Images\Pareja.jpeg" />
     <Content Include="Content\Images\Skype.jpeg" />

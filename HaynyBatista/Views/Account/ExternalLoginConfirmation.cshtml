@@ -28,13 +28,13 @@
                 @using (Html.BeginForm("ExternalLoginConfirmation", "Account", FormMethod.Post, new { @class = "form-horizontal RegisterForm", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
-                    <div class="RegisterFormHeader p-2">
-
-                        <h4 class="text-danger"><img class="img-fluid d-inline mr-3 rounded-circle" src="http://via.placeholder.com/50x50" />Vincula tu cuenta @ViewBag.LoginProvider</h4>
+                    <div class="RegisterFormHeader p-2 text-center">
+                        <img class="img-fluid d-inline mr-3" style="max-height: 100px" src="/Content/Images/logoPequeno.png" />
+                        <h4 class="fg-purple">Vincula tu cuenta @ViewBag.LoginProvider</h4>
                     </div>
                     <p class="text-success">
                         Has vinculado tu cuenta de <strong>@ViewBag.LoginProvider</strong>.
-                        Llena estos datos y unete.
+                        Llena estos datos y únete.
                     </p>
                     @Html.ValidationSummary("", new { @class = "text-danger" })
                     <div class="form-group">
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                 <div class="d-flex justify-content-center mb-3">
-                        <input type="submit" class="haynyBtn bg-danger text-white" style="min-width: 100px" value="Unete" />
+                        <input type="submit" class="haynyBtn bg-purple text-white" style="min-width: 100px" value="Unete" />
                     </div>
                 }
 
