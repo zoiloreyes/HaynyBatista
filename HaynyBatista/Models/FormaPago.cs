@@ -12,7 +12,7 @@ namespace HaynyBatista.Models
         [Required]
         public string Nombre { get; set; }
 
-
+        public virtual ICollection<Pago> Pagos { get; set; }
         public virtual ICollection<Cita> Citas { get; set; }
     }
 }
