@@ -27,7 +27,6 @@ namespace HaynyBatista.Controllers
             {
                 return HttpNotFound();
             }
-
             return View(articulo);
 
         }
