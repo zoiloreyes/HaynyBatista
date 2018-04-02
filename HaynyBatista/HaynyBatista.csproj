@@ -219,10 +219,17 @@
     <Compile Include="Migrations\201803251512246_InitialPublish.Designer.cs">
       <DependentUpon>201803251512246_InitialPublish.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804010141031_Tienda.cs" />
+    <Compile Include="Migrations\201804010141031_Tienda.Designer.cs">
+      <DependentUpon>201804010141031_Tienda.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Articulo.cs" />
+    <Compile Include="Models\ArticuloCarrito.cs" />
     <Compile Include="Models\ArticuloViewModels.cs" />
+    <Compile Include="Models\Carrito.cs" />
+    <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\Cita.cs" />
     <Compile Include="Models\ConsultaViewModels.cs" />
     <Compile Include="Models\CorreoViewModel.cs" />
@@ -234,6 +241,8 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Imagen.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Pago.cs" />
+    <Compile Include="Models\Producto.cs" />
     <Compile Include="Models\RetornoJSON.cs" />
     <Compile Include="Models\TipoCita.cs" />
     <Compile Include="Models\Usuario.cs" />
@@ -736,6 +745,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201803251512246_InitialPublish.resx">
       <DependentUpon>201803251512246_InitialPublish.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804010141031_Tienda.resx">
+      <DependentUpon>201804010141031_Tienda.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
