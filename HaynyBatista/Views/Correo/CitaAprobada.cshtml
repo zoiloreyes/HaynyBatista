@@ -1,7 +1,5 @@
 ﻿@model HaynyBatista.Models.Cita
-@using HaynyBatista.Models
-@using Newtonsoft.Json
-@using HaynyBatista.UtilClasses
+
 @{
     Layout = null;
 }
@@ -14,7 +12,7 @@
     else
     { <text>Buenas Tardes</text>} Señor(a) @Model.Usuarios.First().Apellido:<br /><br />
 </p>
-@{
+@{ 
     var culture = new System.Globalization.CultureInfo("es-ES");
     <text>Luego de un cordial saludo, sirva al presente para confirmarle, su cita para la fecha   @culture.DateTimeFormat.GetDayName(Model.Fecha.DayOfWeek) @Model.Fecha.Day de @culture.DateTimeFormat.GetMonthName(Model.Fecha.Month) de @Model.Fecha.Year, a las @Model.HoraInicio.Hours:@Model.HoraInicio.Minutes. </text>
 }
@@ -22,44 +20,19 @@
 @if (Model.IdFormaPago == 3)
 {
     <text>
-        <div><span>La confirmacion de cita esta sujeta al pago que puede ser realizado por:</span></div>
-        <div><span>Deposito en la cuenta: 2402122766 a nombre de Hayny Altagracia Batista Hernandez en el Banreservas</span></div>
+    <div><span>La confirmacion de cita esta sujeta al pago que puede ser realizado por:</span></div> 
+    <div><span>Deposito en la cuenta: 2402122766 a nombre de Hayny Altagracia Batista Hernandez en el Banreservas</span></div>
 
     </text>
 }
 
 @if (Model.IdFormaPago == 2)
 {
+    <text>
+        <div><span>La confirmacion de cita esta sujeta al pago que puede ser realizado por:</span></div>
+        <div><a href="https://google.com">Paypal</a></div>
 
-    try
-    {
-        //Get current exchange rate of USD
-        WebRequest request = WebRequest.Create("https://openexchangerates.org/api/latest.json?app_id=ac7c178cc4d14703b579f6fcc49410b2&base=USD&symbols=DOP");
-        request.Credentials = CredentialCache.DefaultCredentials;
-        request.Timeout = 30000;
-        using (WebResponse response = request.GetResponse())
-        {
-            using (var reader = new StreamReader(response.GetResponseStream()))
-            {
-                CurrencyResponse currencyresponse = JsonConvert.DeserializeObject<CurrencyResponse>(reader.ReadToEnd());
-                double Costo = Model.TipoCita.Costo / currencyresponse.rates.DOP;
-                <text>
-                    <div><span>La confirmacion de cita esta sujeta al pago que puede ser realizado por:</span></div>
-                    <div><a href="PayPal.Me/HaynyB/@(Math.Round(Costo, 2))">Paypal</a></div>
-                </text>
-            }
-        }
-
-    }
-    catch (Exception e)
-    {
-        LogFileCreator LogError = new LogFileCreator();
-        LogError.ErrorLog(Server.MapPath("~/Logs"), e.Message);
-
-    }
-
-
-
+    </text>
 }
 
 <div>&nbsp;</div>
@@ -67,7 +40,7 @@
 <div>&nbsp;</div>
 <div><span><b>Nota Importante: </b> Para cualquier cancelación o re-programación de una cita, debe ser notificado con un mínimo de 24 horas de antelación.</span></div>
 <div>&nbsp;</div>
-@if (Model.IdFormaPago == 3 || Model.IdFormaPago == 2)
+@if(Model.IdFormaPago == 3)
 {
     <text><div><span><b>Nota Importante: </b> Debe notificar su pago mediante vía telefónica o vía correo para confirmarlo.</span></div> </text>
 }

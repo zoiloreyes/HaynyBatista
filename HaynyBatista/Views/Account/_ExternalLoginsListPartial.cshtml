@@ -18,7 +18,7 @@
                 @foreach (AuthenticationDescription p in loginProviders)
                 {
                     <div class="d-flex justify-content-center my-3">
-                        <button type="submit" class="haynyBtn bg-purple text-white p-2" id="@p.AuthenticationType" value="@p.AuthenticationType"  title="Inicia con tu cuenta de @p.Caption" name="provider"  style="min-width: 100px"><i class="fa fa-@(p.AuthenticationType == "Google" ? "google" : "facebook")"></i> Inicia con @p.AuthenticationType</button>
+                        <button type="submit" class="haynyBtn bg-danger text-white p-2" id="@p.AuthenticationType" value="@p.AuthenticationType"  title="Inicia con tu cuenta de @p.Caption" name="provider"  style="min-width: 100px"><i class="fa fa-@(p.AuthenticationType == "Google" ? "google" : "facebook")"></i> Inicia con @p.AuthenticationType</button>
 
                     </div>
                 }

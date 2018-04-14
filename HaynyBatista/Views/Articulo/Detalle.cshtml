@@ -37,13 +37,13 @@
 
                 }
             </h3>
-            <p class="LowImportance text-center">Escrito por <span><a class="HaynyLink" href="#">@Model.Usuario.Nombre @Model.Usuario.Apellido</a></span> el @Model.FechaSubida.ToString("dd/MM/yyyy hh:mm tt")</p>
+            <p class="LowImportance text-center">Escrito por <span><a class="PageLink" href="#">@Model.Usuario.Nombre @Model.Usuario.Apellido</a></span> el @Model.FechaSubida.ToString("dd/MM/yyyy hh:mm tt")</p>
             <img class="img-fluid d-block mx-auto" src="/ImagenesSubidas/@Model.Imagen.IdImagen@Model.Imagen.Formato" />
             <div class="mt-5 px-4">
                 @Html.Raw(@Model.Contenido)
             </div>
             <hr />
-            <a class="facebook text-center ShareArticle" href="#"><i class="fa fa-facebook"></i></a>
+            <a class="facebook text-center ShareArticle" href="#hidFacebookbtn"><i class="fa fa-facebook"></i></a>
 
             <!-- twitter -->
             <a class="twitter  text-center ShareArticle" href="https://twitter.com/share?url=@Request.Url.AbsoluteUri" target="blank"><i class="fa fa-twitter"></i></a>
@@ -70,12 +70,12 @@
         }
 
         <div class="mt-4">
-            <div class="bg-purple rounded-top p-1">
+            <div class="btn-info rounded-top p-1">
                 <h5><i class="fa fa-tag mx-1"></i>Etiquetas </h5>
             </div>
             <div class="bg-white ArticuloDetalleContainer">
                 @foreach (var etiquetaArticulo in Model.EtiquetaArticulo)
-                {@Html.ActionLink(etiquetaArticulo.Etiqueta.Nombre, "Index", new { filtro = etiquetaArticulo.Etiqueta.Nombre }, new { @class = "badge badge-pill bg-purple m-1" })}
+                {@Html.ActionLink(etiquetaArticulo.Etiqueta.Nombre, "Index", new { filtro = etiquetaArticulo.Etiqueta.Nombre }, new { @class = "badge badge-pill badge-info m-1" })}
 
             </div>
         </div>
@@ -187,10 +187,36 @@
 
 
 
-
+@if (this.User.IsInRole("Administrador"))
+{
     @section Scripts{
         <script>
             $(document).ready(function () {
+                $("#inputImgArticulo").on("change", function () {
+                    var button = $(this);
+                    $("#ImgContainerInputArticulo").addTempClass({
+                        className: "animated bounceIn",
+                        timeOut: 2000
+
+                    });
+                    SetImgBackgroundFromFile(this, $("#ImgContainerInputArticulo"));
+
+                })
+
+                $(".SettingBody").on("show.bs.collapse hide.bs.collapse", function () {
+                    $(this).siblings(".SettingHeader").find(".SettingHeaderArrow").toggleClass("flip90Positive");
+                });
+
+                $(".SettingHeader").click(function (event) {
+                    $($(this).find(".SettingHeaderAnchor").attr("href")).collapse("toggle");
+                });
+
+                $("#btnActualizarArticulo").click(function () {
+                    ActualizarArticulo();
+                });
+                $("#btnLimpiarArticulo").click(function () {
+                    LimpiarCamposArticulo();
+                });
 
                 $(".facebook.ShareArticle").click(function () {
                     FB.ui({
@@ -198,79 +224,48 @@
                         display: 'popup',
                         href: '@Request.Url.AbsoluteUri',
 
-                    }, function (response) { });
+                        }, function (response) { });
                 })
-            })
-            @if (this.User.IsInRole("Administrador"))
-            {
-                <text>
-            $(document).ready(function () {
-                $("#inputImgArticulo").on("change", function () {
-        var button = $(this);
-                    $("#ImgContainerInputArticulo").addTempClass({
-            className: "animated bounceIn",
-                        timeOut: 2000
-
-                    });
-                            SetImgBackgroundFromFile(this, $("#ImgContainerInputArticulo"));
-
-                        })
-
-                $(".SettingBody").on("show.bs.collapse hide.bs.collapse", function () {
-                    $(this).siblings(".SettingHeader").find(".SettingHeaderArrow").toggleClass("flip90Positive");
-                        });
-
-                $(".SettingHeader").click(function (event) {
-                    $($(this).find(".SettingHeaderAnchor").attr("href")).collapse("toggle");
-                    });
-
-                $("#btnActualizarArticulo").click(function () {
-                        ActualizarArticulo();
-                    });
-                $("#btnLimpiarArticulo").click(function () {
-                        LimpiarCamposArticulo();
-                    });
-
 
                 @foreach(var e in Model.EtiquetaArticulo)
-                    {
+                {
                     <text>
                     $("#Etiquetas").tagsinput('add',  '</text>@e.Etiqueta.Nombre<text>');</text>
 
                 }
 
-                })
+            })
             function LimpiarCamposArticulo() {
                 $("#inputImgArticulo").val("");
                 $("#inputTituloArticulo").val("");
-                    tinymce.get('inputContenidoArticulo').setContent("");
+                tinymce.get('inputContenidoArticulo').setContent("");
                 $("#ImgContainerInputArticulo").css("background-image", "");
                 $("#Etiquetas").tagsinput('removeAll');
-                }
-                function ActualizarArticulo() {
-                    var formData = new FormData();
+            }
+            function ActualizarArticulo() {
+                var formData = new FormData();
 
-                    var inputImagen = $("#inputImgArticulo")[0];
+                var inputImagen = $("#inputImgArticulo")[0];
 
-                    var validacion = validarForm("#frmActualizarArticulo");
-                    if (validacion.Estado) {
-                        if (!inputImagen.files) {
-                            Notificar("prueba", "<p>Su navegador no soporta subida de archivos</p>")
-                        } else if (!inputImagen.files[0]) {
+                var validacion = validarForm("#frmActualizarArticulo");
+                if (validacion.Estado) {
+                    if (!inputImagen.files) {
+                        Notificar("prueba", "<p>Su navegador no soporta subida de archivos</p>")
+                    } else if (!inputImagen.files[0]) {
 
-                        } else {
-                            formData.append("Imagen", inputImagen.files[0]);
-                        }
+                    } else {
+                        formData.append("Imagen", inputImagen.files[0]);
+                    }
 
-                        tinymce.get('inputContenidoArticulo').getContent();
-                        formData.append("Titulo", $("#inputTituloArticulo").val());
-                        formData.append("Contenido", tinymce.get('inputContenidoArticulo').getContent());
-                        formData.append("IdArticulo", '@Model.IdArticulo');
+                    tinymce.get('inputContenidoArticulo').getContent();
+                    formData.append("Titulo", $("#inputTituloArticulo").val());
+                    formData.append("Contenido", tinymce.get('inputContenidoArticulo').getContent());
+                    formData.append("IdArticulo", '@Model.IdArticulo');
 
-                        var etiquetas = $("#Etiquetas").val().split(",").filter((val) => val).map(function (value) {
-                            object = {
+                    var etiquetas = $("#Etiquetas").val().split(",").filter((val) => val).map(function (value) {
+                        object = {
                             Nombre: value
-                            };
+                        };
                         return object;
                     });
 
@@ -309,7 +304,7 @@
                             $(error.objeto).tooltip("toggle");
                             setTimeout(function () {
                                 $(error.objeto.attr("id")).tooltip("dispose");
-                }, 2000)
+                            }, 2000)
                         }
 
                     }
@@ -336,18 +331,14 @@
                             $(element).css("background-image", "url(" + picFile.result + ")");
                         });
 
-                    picReader.readAsDataURL(files[i]);
+                        picReader.readAsDataURL(files[i]);
 
-                }
-            } else {
+                    }
+                } else {
                     Notificar("", "<p>Tu navegador no soporta File API</p>");
                 }
             }
-
-
-                </text>
-            }
-
         </script>
 
     }
+}

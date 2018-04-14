@@ -87,17 +87,8 @@ $(document).ready(function () {
         }
         var InitContent = function () {
             
-            $('[data-toggle="tooltip"]').hover(function () {
-                var title = $(this).attr("title");
-                var html = $(title);
-                var tooltipId = "#" + $(this).attr("aria-describedby");
 
-                var tooltip = $(tooltipId).find(".ui-tooltip-content").append(title);
-                console.log(tooltip);
-            });
-            //$('[data-toggle="tooltip"]').tooltip({ html: true});
-
-            
+            $('[data-toggle="tooltip"]').tooltip();
 
             $(".indirectClick").click(function () {
                 $($(this).attr("href")).click();

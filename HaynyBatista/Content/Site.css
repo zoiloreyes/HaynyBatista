@@ -98,8 +98,8 @@ body {
 
 .hr-text:before {
     content: '';
-    background: -webkit-gradient(linear, left top, right top, from(transparent), color-stop( #742377), to(transparent));
-    background: linear-gradient(to right, transparent, #742377, transparent);
+    background: -webkit-gradient(linear, left top, right top, from(transparent), color-stop(#d9534f), to(transparent));
+    background: linear-gradient(to right, transparent, #d9534f, transparent);
     position: absolute;
     left: 0;
     top: 50%;
@@ -107,16 +107,16 @@ body {
     height: 1px;
 }
 
-.hr-text:after {
-    content: attr(data-content);
-    position: relative;
-    display: inline-block;
-    color: black;
-    padding: 0 .5em;
-    line-height: 1.5em;
-    color: #742377;
-    background-color: #fcfcfa;
-}
+    .hr-text:after {
+        content: attr(data-content);
+        position: relative;
+        display: inline-block;
+        color: black;
+        padding: 0 .5em;
+        line-height: 1.5em;
+        color: #d9534f;
+        background-color: #fcfcfa;
+    }
     .rb{
         border-right: 1px solid white;
     }
@@ -538,10 +538,6 @@ body {
     background: #dd4b39;
 }
 
-.youtube {
-    background: #c4302b;
-}
-
 .DivRowImage {
     background: radial-gradient( rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0) ), url("/Content/Images/HaynyPq.jpg");
     background-repeat: no-repeat;
@@ -754,55 +750,4 @@ body {
     .AdminMenuItem.Active .HaynyLink {
         color: white ;
         background-color: purple;
-    }
-
-    /* Tooltip container */
-    .tooltip2 {
-        position: relative;
-        display: inline-block;
-        border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
-    }
-
-    /* Tooltip text */
-    .tooltip2 .tooltiptext {
-        visibility: hidden;
-        width: 120px;
-        background-color: #555;
-        color: #fff;
-        text-align: center;
-        padding: 5px 0;
-        border-radius: 6px;
-        /* Position the tooltip text */
-        position: absolute;
-        z-index: 1;
-        bottom: 125%;
-        left: 50%;
-        margin-left: -60px;
-        /* Fade in tooltip */
-        opacity: 0;
-        transition: opacity 0.3s;
-    }
-
-        /* Tooltip arrow */
-        .tooltip2 .tooltiptext::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: #555 transparent transparent transparent;
-        }
-
-    /* Show the tooltip text when you mouse over the tooltip container */
-    .tooltip2:hover .tooltiptext {
-        visibility: visible;
-        opacity: 1;
-    }
-
-    .articleTagBtn{
-       position: absolute;
-       top: 9px;
-       left: 7px;
     }

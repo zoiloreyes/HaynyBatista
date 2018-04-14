@@ -32,19 +32,18 @@
                             <div class="d-flex w-50 flex-column">
                                 <h4 style="min-height: 70px"><a class="ArtitleTitleLink" href="@Url.Action("Detalle",new { id = articulo.IdArticulo})">@articulo.Titulo</a></h4>
                                 <p class="clamped text-justify" style=" height:150px">@articulo.Contenido.StripHtml().Substring(0,300)</p>
-                                <p class="LowImportance">Escrito por <span><a class="HaynyLink" href="#">@articulo.Usuario.Nombre @articulo.Usuario.Apellido</a></span></p>
+                                <p class="LowImportance">Escrito por <span><a class="PageLink" href="#">@articulo.Usuario.Nombre @articulo.Usuario.Apellido</a></span></p>
                                 <p class="FechaArticulo"></p>
 
                                 <div class="d-flex flex-row">
-                                    <div class="tooltip2 circleButton bg-purple d-inline-block text-white"><i class="fa fa-tags articleTagBtn" aria-hidden="true"></i><span class="tooltiptext">@foreach (var etiquetaArticulo in articulo.EtiquetaArticulo)
-                                    {    @Html.ActionLink(etiquetaArticulo.Etiqueta.Nombre, "Index", new { filtro = etiquetaArticulo.Etiqueta.Nombre }, new { @class = "badge badge-pill badge-primary bg-purple" }) }</span></div>
-                                @*<div class="SNShareButton d-inline-block bg-danger ml-2">
+                                    <button href="@("#Articulo" + articulo.IdArticulo)" class="circleButton bg-danger d-inline-block text-white" data-toggle="tooltip" data-html="true" title='@foreach (var etiquetaArticulo in articulo.EtiquetaArticulo) { @Html.ActionLink(etiquetaArticulo.Etiqueta.Nombre,"Index",new { filtro = etiquetaArticulo.Etiqueta.Nombre }, new { @class="badge badge-pill badge-primary"}) }'><i class="fa fa-tags" aria-hidden="true"></i></button>
+                                    <div class="SNShareButton d-inline-block bg-danger ml-2">
 
-                                    <a target="_blank" href="@Url.Action("Detalle", new { id = articulo.IdArticulo, shareButton = "twitter"})" class="fab no text-white text-center pt-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                    <a target="_blank" href="@Url.Action("Detalle", new { id = articulo.IdArticulo, shareButton = "facebook"})" class="fab no text-white text-center pt-1"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                    <a target="_blank" href="@Url.Action("Detalle", new { id = articulo.IdArticulo, shareButton = "google"})" class="fab no text-white text-center pt-1"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-                                    <i class="fa fa-share-alt pt-2 pl-2 text-white" aria-hidden="true"></i>
-                                </div>*@
+                                        <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                        <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                        <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                        <i class="fa fa-share-alt pt-2 pl-2 text-white" aria-hidden="true"></i>
+                                    </div>
                                 </div>
                             </div>
                             <div class="d-flex w-50 pl-4">
@@ -69,21 +68,21 @@
                                 <p class="FechaArticulo"></p>
 
                                 <div class="d-flex flex-row">
-                                    <button @*href="@("#Articulo" + articulo.IdArticulo)" *@ class="circleButton bg-danger d-inline-block text-white" data-toggle="tooltip" data-html="true" title="@foreach (var etiquetaArticulo in articulo.EtiquetaArticulo) {<span><a href='#' class='badge badge-pill badge-primary'>@etiquetaArticulo.Etiqueta.Nombre</a> </span>}"><i class="fa fa-tags  " aria-hidden="true"></i></button>
-                                    @*<div class="SNShareButton d-inline-block bg-danger ml-2">
+                                    <button @*href="@("#Articulo" + articulo.IdArticulo)" *@ class="circleButton bg-danger d-inline-block text-white" data-toggle="tooltip" data-html="true" title="@foreach (var etiquetaArticulo in articulo.EtiquetaArticulo) {<a href='#' class='badge badge-pill badge-primary'>@etiquetaArticulo.Etiqueta.Nombre</a> }"><i class="fa fa-tags  " aria-hidden="true"></i></button>
+                                    <div class="SNShareButton d-inline-block bg-danger ml-2">
 
                                         <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                                         <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                                         <a href="#" class="fab no text-white text-center pt-1"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
                                         <i class="fa fa-share-alt pt-2 pl-2 text-white" aria-hidden="true"></i>
-                                    </div>*@
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 }
             }
-            <p class="text-center mt-2 HaynyLink">Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount</p>
+            <p class="text-center mt-2 text-danger">Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount</p>
             <div class="d-flex justify-content-center">
                 <div class="d-flex">
 
