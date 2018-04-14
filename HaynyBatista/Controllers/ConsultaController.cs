@@ -8,6 +8,9 @@ using Microsoft.AspNet.Identity;
 using System.Web.Helpers;
 using HaynyBatista.UtilClasses;
 using HaynyBatista.Models.ViewModels;
+using System.Net;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace HaynyBatista.Controllers
 {
@@ -32,7 +35,9 @@ namespace HaynyBatista.Controllers
             List<Object> eventos = new List<object>();
             foreach (Cita cita in citas)
             {
-                eventos.Add(new { title = "Cita",
+                eventos.Add(new
+                {
+                    title = "Cita",
                     start = cita.Fecha.Add(cita.HoraInicio).ToString("yyyy-MM-ddThh:mm:ss"),
                     end = cita.Fecha.Add(cita.HoraFin).ToString("yyyy-MM-ddThh:mm:ss"),
                     color = cita.EstadoCita.Color,
@@ -54,7 +59,7 @@ namespace HaynyBatista.Controllers
                     var user = db.Users.Find(User.Identity.GetUserId());
                     var usuarioHayny = db.Usuarios.Find(user.Usuario.IdUsuario);
                     var Cita = db.Citas.Find(CitaVM.IdCita);
-                    if(Cita != null)
+                    if (Cita != null)
                     {
                         TimeSpan horaInicio;
                         TimeSpan horaFin;
@@ -76,6 +81,7 @@ namespace HaynyBatista.Controllers
                         {
                             Cita.IdEstadoCita = CitaVM.IdEstadoCita;
 
+
                             switch (CitaVM.IdEstadoCita)
                             {
                                 case 1:
@@ -94,11 +100,11 @@ namespace HaynyBatista.Controllers
                             }
                         }
 
-                        
+
                         db.Entry(Cita).State = System.Data.Entity.EntityState.Modified;
                         db.SaveChanges();
                     }
-                    
+
                     //var body = FakeController.RenderViewToString(this.ControllerContext, "~/Views/Correo/CitaSolicitada.cshtml", Cita, false);
 
                 }
@@ -120,8 +126,8 @@ namespace HaynyBatista.Controllers
         [HttpPost]
         public ActionResult GuardarCita(NuevaCitaViewModel NuevaCita)
         {
-      
-          Retorno retorno;
+
+            Retorno retorno;
             if (User.Identity.IsAuthenticated)
             {
                 try
@@ -147,27 +153,28 @@ namespace HaynyBatista.Controllers
                     db.Citas.Add(Cita);
                     db.SaveChanges();
                     //var body = FakeController.RenderViewToString(this.ControllerContext, "~/Views/Correo/CitaSolicitada.cshtml", Cita, false);
-                    if (MailSender.SendBasicEmail("HaynyBatista@haynybatista.com", "@Hayny.Batista", user.Email, "Solicitud de cita " + Cita.Fecha.ToString("dd/MM/yyyy") , FakeController.RenderViewToString(this.ControllerContext,"~/Views/Correo/CitaSolicitada.cshtml",Cita,false))){
+                    if (MailSender.SendBasicEmail("HaynyBatista@haynybatista.com", "@Hayny.Batista", user.Email, "Solicitud de cita " + Cita.Fecha.ToString("dd/MM/yyyy"), FakeController.RenderViewToString(this.ControllerContext, "~/Views/Correo/CitaSolicitada.cshtml", Cita, false)))
+                    {
                         retorno = new Retorno() { Success = true, Message = "Nueva cita Registrada." };
                     }
                     else
                     {
                         retorno = new Retorno() { Success = true, Message = "Nueva cita Registrada. No se pudo generar el correo." };
                     }
-                    
+
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     retorno = new Retorno() { Success = false, Message = "No pudimos registrar su cita" };
                 }
-                
+
             }
             else
             {
                 retorno = new Retorno() { Success = false, Message = "Debe iniciar sesión para reservar una cita." };
             }
-            
-            return Json(retorno,JsonRequestBehavior.AllowGet);
+
+            return Json(retorno, JsonRequestBehavior.AllowGet);
         }
     }
 }
