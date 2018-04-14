@@ -50,8 +50,6 @@ namespace HaynyBatista.Models
         public virtual DbSet<EstadoCita> EstadosCita { get; set; }
         public virtual DbSet<FormaPago> FormasPago { get; set; }
         public virtual DbSet<Pago> Pagos { get; set; }
-        public virtual DbSet<Carrito> Carritos { get; set; }
-        public virtual DbSet<ArticuloCarrito> ArticulosCarrito { get; set; }
         public virtual DbSet<Categoria> Categorias { get; set; }
         public virtual DbSet<Producto> Productos { get; set; }
 

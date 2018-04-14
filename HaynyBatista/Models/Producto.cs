@@ -25,6 +25,5 @@ namespace HaynyBatista.Models
         public int CategoriaID { get; set; }
         public virtual Categoria Categoria { get; set; }
 
-        public virtual ICollection<ArticuloCarrito> ArticulosCarrito { get; set; }
     }
 }

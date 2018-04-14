@@ -20,11 +20,11 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>
-    </IISExpressSSLPort>
+    <IISExpressSSLPort>44350</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <IISExpressUseClassicPipelineMode>
+    </IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -215,18 +215,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201803251512246_InitialPublish.cs" />
-    <Compile Include="Migrations\201803251512246_InitialPublish.Designer.cs">
-      <DependentUpon>201803251512246_InitialPublish.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804010141031_Tienda.cs" />
-    <Compile Include="Migrations\201804010141031_Tienda.Designer.cs">
-      <DependentUpon>201804010141031_Tienda.cs</DependentUpon>
-    </Compile>
+    <Compile Include="HtmlHelpers\PagingHelpers.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Articulo.cs" />
-    <Compile Include="Models\ArticuloCarrito.cs" />
     <Compile Include="Models\ArticuloViewModels.cs" />
     <Compile Include="Models\Carrito.cs" />
     <Compile Include="Models\Categoria.cs" />
@@ -239,7 +231,11 @@
     <Compile Include="Models\FormaPago.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Imagen.cs" />
+    <Compile Include="Models\LineaCarrito.cs" />
+    <Compile Include="Models\ViewModels\ListaProductosViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Models\Pago.cs" />
     <Compile Include="Models\Producto.cs" />
     <Compile Include="Models\RetornoJSON.cs" />
@@ -714,12 +710,13 @@
     <Content Include="Views\Correo\CitaPospuesta.cshtml" />
     <Content Include="Views\Shared\SocialMediaEnabler.cshtml" />
     <Content Include="Views\Home\PrivacyPolicy.cshtml" />
+    <Content Include="Views\Producto\List.cshtml" />
+    <Content Include="Views\Shared\ProductSummary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ImagenesSubidas\" />
     <Folder Include="Logs\" />
-    <Folder Include="Views\Producto\" />
     <Folder Include="Views\Util\" />
   </ItemGroup>
   <ItemGroup>
@@ -730,14 +727,6 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201803251512246_InitialPublish.resx">
-      <DependentUpon>201803251512246_InitialPublish.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804010141031_Tienda.resx">
-      <DependentUpon>201804010141031_Tienda.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -758,7 +747,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>56981</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:44350/</IISUrl>
+          <IISUrl>http://localhost:44352/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

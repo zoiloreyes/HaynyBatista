@@ -1,0 +1,8 @@
+﻿@model HaynyBatista.Models.ViewModels.ListaProductosViewModel
+@{
+    ViewBag.Title = "List";
+}
+@foreach(var p in Model.Productos)
+{
+    @Html.Partial("ProductSummary", p);
+}

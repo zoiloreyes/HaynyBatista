@@ -19,7 +19,5 @@ namespace HaynyBatista.Models
         public int FormaPagoID { get; set; }
         public virtual FormaPago FormaPago { get; set; }
 
-        public int CarritoID { get; set; }
-        public virtual Carrito Carrito { get; set; }
     }
 }
