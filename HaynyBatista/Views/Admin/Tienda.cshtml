@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Producto>
+@{
+    ViewBag.Title = "Tienda";
+}
+
+<div class="row">
+    @Html.Partial("~/Views/Shared/_AdminMenu.cshtml")
+    <div class="col-md-8 offset-md-1 bg-white p-4 rounded border-light">
+        <table id="CitaTable" class="DataTable table-hover w-100">
+            <thead>
+                <tr>
+                    <th>Titulo</th>
+                    <th>Descripcion</th>
+                    
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Imagen</th>
+                    <th>Categoria</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cita in Model.Citas)
+                {
+                    <tr>
+                        <td class="text-center Usuarios" data-idUsuarios="@String.Join(",",cita.Usuarios.Select(x => x.IdUsuario).ToArray())">@String.Join(",", cita.Usuarios.Select(x => x.Nombre + " " + x.Apellido).ToArray())</td>
+                        <td class="text-center TipoCita">@cita.TipoCita.Nombre</td>
+                        <td><span style="background-color: @cita.EstadoCita.Color" class="badge badge-pill">@cita.EstadoCita.Nombre</span></td>
+                        <td class="text-center Fecha">@cita.Fecha.ToString("dd/MM/yyyy")</td>
+                        <td class="text-center HoraInicio">@cita.HoraInicio</td>
+                        <td class="text-center HoraFin">@cita.HoraFin</td>
+                        <td class="text-center">@cita.Costo</td>
+                        <td class="text-center"><a href="#" data-toggle="tooltip" data-html="true" title="@cita.Mensaje" class="HaynyLink"><i class="fa fa-commenting"></i></a></td>
+
+                        <td class="text-center">@cita.FormaPago.Nombre</td>
+                        <td class="text-center"><a href="#" data-toggle="modal" data-target="#EditarCitaModal" data-id="@cita.IdCita" class="HaynyLink"><i class="fa fa-edit"></i></a></td>
+                        @*<td><a href="#" data-toggle="modal" data-target="#mailModal" data-nombre="i.Nombre @i.Apellido" data-id="@i.UserId" class="SendEmail HaynyLink"><i class="fa fa-paper-plane"></i></a></td>*@
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

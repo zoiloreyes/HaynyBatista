@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+
 namespace HaynyBatista.Models
 {
     public class Producto
@@ -10,8 +12,9 @@ namespace HaynyBatista.Models
         [Key]
         public int ProductoID { get; set; }
         [Required]
-        public int Titulo { get; set; }
+        public string Titulo { get; set; }
         [Required]
+        [AllowHtml]
         public string Descripcion { get; set; }
         [Required]
         public DateTime FechaCreacion { get; set; }

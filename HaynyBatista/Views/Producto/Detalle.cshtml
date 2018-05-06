@@ -1,0 +1,39 @@
+﻿@model HaynyBatista.Models.Producto
+
+@{
+    ViewBag.Title = "Detalle";
+}
+
+<div class="row mt-4">
+    <div class="offset-md-1 col-md-4 bg-white d-flex justify-content-center flex-column">
+        <div class="d-flex">
+            <img src="/ImagenesSubidas/@($"{Model.IdImagen}{Model.Imagen.Formato}")" alt="@Model.Titulo" class="img-fluid">
+        </div>
+    </div>
+    <div class="col-md-5 ml-4">
+        @using (Html.BeginForm("AddToCart","Carrito",FormMethod.Post,null))
+        {
+            @Html.Hidden("productId", Model.ProductoID)
+            @Html.Hidden("returnUrl",Request.Url.PathAndQuery)
+            <h3>@Model.Titulo</h3>
+            <p>COD: @Model.ProductoID.ToString().PadLeft(8, '0')</p>
+            <h5 class="my-4">RD@($"{Model.Precio:C2}")</h5>
+            <div class="form-group row">
+                @Html.Label("quantity","Cantidad:",new { @class = "col-md-2 col-form-label" })                
+                <div class="col-md-2">
+                    @Html.TextBox("quantity", 1, new { step=1, min=1, @class="form-control", placeholder = "Cantidad", type="number"})
+                </div>
+            </div>
+            <button type="submit" class="my-4 haynyBtn bg-purple p-3"><i class="fa fa-shopping-cart"></i> Agregar al carrito</button>
+            <hr>
+            <h5>Descripción</h5>
+            <div>
+                @Html.Raw(Model.Descripcion)
+            </div>
+            <hr>
+        }
+    </div>
+    <div class="col-md-2">
+
+    </div>
+</div>

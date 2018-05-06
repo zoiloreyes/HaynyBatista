@@ -8,6 +8,7 @@ namespace HaynyBatista.Models.ViewModels
     public class ListaProductosViewModel
     {
         public IEnumerable<Producto> Productos { get; set; }
+        public IEnumerable<Categoria> Categorias { get; set; }
         public PagingInfo PagingInfo { get; set; }
     }
 }

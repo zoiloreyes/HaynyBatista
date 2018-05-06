@@ -1,5 +1,16 @@
 ﻿@model HaynyBatista.Models.Producto
 
-<div>
-    <p>@Model.Titulo</p>
+<div class="ProductSummary" data-productid="@Model.ProductoID">
+    <div class="d-flex flex-column justify-content-between">
+        <div class="d-flex ImageContainer">
+            <img src="/ImagenesSubidas/@($"{Model.IdImagen}{Model.Imagen.Formato}")" alt="@Model.Titulo" class="img-fluid ProductImage">
+            <div class="ImagePreviewHoverMsg">
+                <span class="">Ver</span>
+            </div>
+        </div>
+        <div class="d-flex flex-column">
+            <h4 class="ProductTitle">@Model.Titulo</h4>
+            <p><b>@($"RD{Model.Precio:C2}")</b></p>
+        </div>
+    </div>
 </div>

@@ -1,8 +1,297 @@
 ﻿@model HaynyBatista.Models.ViewModels.ListaProductosViewModel
+
 @{
     ViewBag.Title = "List";
 }
-@foreach(var p in Model.Productos)
+<div class="row">
+    <div class="col-md-3">
+        @Html.Action("CategoryMenu", "Navigation", new { currentCategory = Model.PagingInfo.CategoriaActual })
+    </div>
+    <div class="col-md-9">
+        <div class="row mt-3 mr-2">
+            @if (this.User.IsInRole("Administrador"))
+            {
+                <button class="btn-block haynyBtn bg-purple  py-2" data-toggle="modal" data-target="#NuevoProducto"><strong>Nuevo Producto</strong><i class="fa fa-plus ml-2" aria-hidden="true"></i></button>
+            }
+
+            @if (Model.Productos.Count() == 0)
+            {
+                <div class="d-flex w-100 justify-content-center">
+                    <h4 class="gray-text mt-5"><i class="fa fa-frown-o" aria-hidden="true"></i> No se encontraron entradas</h4>
+                </div>
+            }
+            else
+            {
+                foreach (var producto in Model.Productos)
+                {
+                    <div class="col-md-4">
+                        @Html.Partial("ProductSummary", producto)
+                    </div>
+                }
+
+            }
+        </div>
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x }))
+    </div>
+
+
+</div>
+@if (this.User.IsInRole("Administrador"))
 {
-    @Html.Partial("ProductSummary", p);
+    @section OutsideContainer{
+        <form id="frmNuevoProducto" method="post" enctype="multipart/form-data">
+            <div class="modal fade" id="NuevoProducto">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="d-flex flex-row-reverse">
+                                <button type="button" class="haynyBtn btn-info px-3 mx-2" id="btnLimpiarProducto">
+                                    <span aria-hidden="true">Limpiar <i class="fa fa-asterisk" aria-hidden="true"></i></span>
+                                </button>
+                                <button type="button" class="haynyBtn btn-success px-3" id="btnGuardarProducto" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">Agregar <i class="fa fa-check-circle" aria-hidden="true"></i></span>
+                                </button>
+
+                            </div>
+
+
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body mw-100">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <textarea name="Titulo" id="inputTituloProducto" class="TitleInput ASTextArea requerido" data-title="Titulo" placeholder="Titulo..."></textarea>
+                                        <div class="form-group">
+                                            <label for="Precio">Precio</label>
+                                            <input name="Precio" id="inputPrecioProducto" type="number" step="0.01" min="0" data-title="Precio" class="form-control requerido" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Cantidad">Cantidad</label>
+                                            <input name="Cantidad" id="inputCantidadProducto" type="number" step="1" min="0" data-title="Cantidad" class="form-control requerido" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="CategoriaID">Categoría</label>
+                                            <select class="form-control" id="slctCategoriaProducto">
+                                                @foreach (Categoria c in Model.Categorias)
+                                                {
+                                                    <option value="@c.CategoriaID">@c.Nombre</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <textarea name="Contenido" id="inputDescripcionProducto" data-title="Contenido" class="tinymceTextArea mt-2 tinyMCErequerido">
+                                        
+                                </textarea>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div id="accordion" role="tablist" aria-multiselectable="true">
+                                            <div class="card">
+                                                <div class="card-header SettingHeader" role="tab" id="ImageSettingsH">
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="d-flex">
+                                                            <a class="SettingHeaderAnchor" data-toggle="collapse" data-parent="#accordion" href="#ImageSettingsB" aria-expanded="true" aria-controls="collapseOne">
+                                                                <i class="fa fa-picture-o mr-1" aria-hidden="true"></i><span>Imagen</span>
+                                                            </a>
+                                                        </div>
+                                                        <div class="d-flex">
+                                                            <i class="fa fa-arrow-right SettingHeaderArrow pt-1" aria-hidden="true"></i>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div id="ImageSettingsB" class="collapse p-md-2 SettingBody" role="tabpanel" aria-labelledby="headingOne">
+                                                    <div class="card-block">
+                                                        <div class="d-flex flex-column justify-content-center">
+                                                            <div class="d-flex justify-content-center">
+                                                                <a class="haynyBtn btn-danger text-white indirectClick" href="#inputImgProducto">Subir Imagen</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-flex flex-column justify-content-center ImagePreviewContainer my-2" id="ImgContainerInputProducto">
+
+                                                        </div>
+                                                        <input type="file" class="d-none requerido" id="inputImgProducto" data-title="Imagen" accept="image/*" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    }
+
+}
+<script>
+    $(document).ready(function() {
+        $(".ProductSummary").on("click", function () {
+                    var parameters = {
+                        Id : $(this).data("productid")
+                    };
+                    try {
+                         window.location.href = "@Url.Action("Producto","Detalle")"+"?"+$.param(parameters);
+                    } catch (error) {
+                        alert("Ocurrió un error al intentar redireccionar");
+                        console.log("Error");
+                        console.log(error);
+                    }
+                });
+    });
+</script>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(".ProductSummary").on("click", function () {
+                let parameters = {
+                    Id: $(this).data("productid")
+                }
+
+                window.location.href = "@Url.Action("Detalle", "Producto")" + "?" + $.param(parameters);
+            });
+        });
+    </script>
+    @if (this.User.IsInRole("Administrador"))
+    {
+        <script>
+            $(document).ready(function () {
+
+                $("#inputImgProducto").on("change", function () {
+                    var button = $(this);
+                    $("#ImgContainerInputProducto").addTempClass({
+                        className: "animated bounceIn",
+                        timeOut: 2000
+
+                    });
+                    SetImgBackgroundFromFile(this, $("#ImgContainerInputProducto"));
+
+                })
+
+                $(".SettingBody").on("show.bs.collapse hide.bs.collapse", function () {
+                    $(this).siblings(".SettingHeader").find(".SettingHeaderArrow").toggleClass("flip90Positive");
+                });
+
+                $(".SettingHeader").click(function (event) {
+                    $($(this).find(".SettingHeaderAnchor").attr("href")).collapse("toggle");
+                });
+
+                $("#btnGuardarProducto").click(function () {
+                    GuardarProducto();
+                })
+                $("#btnLimpiarProducto").click(function () {
+                    LimpiarCamposArticulo();
+                })
+            })
+            function LimpiarCamposArticulo() {
+                $("#inputImgProducto").val("");
+                $("#inputTituloProducto").val("");
+                tinymce.get('inputDescripcionProducto').setContent("");
+                $("#inputPrecioProducto").val("");
+                $("#inputCantidadProducto").val("");
+                $("#ImgContainerInputProducto").css("background-image", "");
+            }
+            function GuardarProducto() {
+                var formData = new FormData();
+
+                var inputImagen = $("#inputImgProducto")[0];
+
+                var validacion = validarForm("#frmNuevoProducto");
+                if (validacion.Estado) {
+                    if (!inputImagen.files) {
+                        Notificar("prueba", "<p>Su navegador no soporta subida de archivos</p>")
+                    } else if (!inputImagen.files[0]) {
+
+                    } else {
+                        formData.append("Imagen", inputImagen.files[0]);
+                    }
+
+                    tinymce.get('inputDescripcionProducto').getContent();
+                    formData.append("Titulo", $("#inputTituloProducto").val());
+                    formData.append("Descripcion", tinymce.get('inputDescripcionProducto').getContent());
+                    formData.append("Precio", $("#inputPrecioProducto").val());
+                    formData.append("Cantidad", $("#inputCantidadProducto").val());
+                    formData.append("CategoriaID", $('#slctCategoriaProducto').val());
+
+                    $.ajax({
+                        url: "/Producto/GuardarProducto",
+                        data: formData,
+                        type: "POST",
+                        async: true,
+                        contentType: false,
+                        processData: false,
+                        dataType: "json",
+                        success: function (result) {
+                            console.log(result);
+                            if (result.Success) {
+                                Notificar("asd", "<p>" + result.Message + "</p>");
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 2000)
+                            } else {
+                                Notificar("asd", "<p>" + result.Message + "</p>");
+                            }
+                        },
+                        error: function (errorMessage) {
+                            alert(errorMessage.responseText);
+                        }
+                    });
+
+                } else {
+                    alert(validacion.Errores[0].msg);
+                    for (var error of validacion.Errores) {
+                        if (error.objeto.is(":visible")) {
+                            $(error.objeto).data("toggle", "tooltip");
+                            $(error.objeto).data("placement", "right");
+                            $(error.objeto).attr("title", error.msg);
+                            $(error.objeto).tooltip("toggle");
+                            setTimeout(function () {
+                                $(error.objeto.attr("id")).tooltip("dispose");
+                            }, 2000)
+                        }
+
+                    }
+                }
+
+
+
+            }
+            function SetImgBackgroundFromFile(input, element) {
+                if (window.File && window.FileList && window.FileReader) {
+                    var files = input.files;
+                    for (var i = 0; i < files.length; i++) {
+                        var file = files[i];
+
+                        if (!file.type.match('image')) continue;
+
+                        var picReader = new FileReader();
+
+                        picReader.addEventListener("load", function (event) {
+                            var picFile = event.target;
+                            $(element).css("background-size", "contain");
+                            $(element).css("background-repeat", "no-repeat");
+                            $(element).css("background-position", "center center");
+                            $(element).css("background-image", "url(" + picFile.result + ")");
+                        });
+
+                        picReader.readAsDataURL(files[i]);
+
+                    }
+                } else {
+                    Notificar("", "<p>Tu navegador no soporta File API</p>");
+                }
+            }
+        </script>
+    }
+
+
 }

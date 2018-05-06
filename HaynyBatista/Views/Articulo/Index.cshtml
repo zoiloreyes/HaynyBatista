@@ -11,7 +11,7 @@
     <div class="col-md-9">
         @if (this.User.IsInRole("Administrador"))
         {
-            <button class="btn-block haynyBtn btn-danger py-2" data-toggle="modal" data-target="#NuevoArticulo"><strong>Nueva Entrada</strong><i class="fa fa-plus ml-2" aria-hidden="true"></i></button>
+            <button class="btn-block haynyBtn bg-purple py-2" data-toggle="modal" data-target="#NuevoArticulo"><strong>Nueva Entrada</strong><i class="fa fa-plus ml-2" aria-hidden="true"></i></button>
         }
 
         @if (Model.Count == 0)

@@ -10,6 +10,7 @@ namespace HaynyBatista.Models
         public int TotalItems { get; set; }
         public int ItemsPerPage { get; set; }
         public int CurrentPage { get; set; }
+        public string CategoriaActual { get; set; }
 
         public int TotalPages
         {

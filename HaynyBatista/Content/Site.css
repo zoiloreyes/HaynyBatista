@@ -806,3 +806,86 @@ body {
        top: 9px;
        left: 7px;
     }
+
+.categoryLink {
+    display: block;
+    padding: 5px;
+    color: purple;
+    border-bottom: 1px solid #e0e0e0;
+    text-decoration: none;
+    transition: border-left 0.5s, color 0.5s
+}
+
+    .categoryLink:hover {
+        text-decoration: none;
+    }
+
+        .categoryLink:hover:not(.active) {
+            border-left: 5px solid purple;
+            color: purple;
+            font-weight: bold;
+        }
+
+    .categoryLink.active {
+        background-color: purple;
+        color: white;
+    }
+
+.categoryContainer {
+    border: 1px solid #e0e0e0;
+    background-color: white;
+}
+
+.ProductSummary {
+    height: 300px;
+    border: 1px solid #dfdfdf;
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+    .ProductSummary:hover {
+        cursor: pointer;
+    }
+
+    .ProductSummary > .d-flex {
+        height: 100%;
+    }
+
+    .ProductSummary .ProductTitle {
+        color: purple;
+        font-size: 20px;
+    }
+
+.ProductImage {
+    max-height: 200px !important;
+    margin: 0 auto;
+}
+
+.ImageContainer {
+    position: relative;
+    background-color: white;
+    height: 80%;
+}
+
+.DescriptionContainer {
+    height: 20%;
+}
+
+.ImageContainer .ImagePreviewHoverMsg {
+    opacity: 0;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    padding: 10px;
+    width: 100%;
+    color: white;
+    transition: opacity 0.5s;
+    background-color: rgba(0,0,0,0.3)
+}
+
+.ProductSummary:hover .ImagePreviewHoverMsg {
+    opacity: 1;
+}

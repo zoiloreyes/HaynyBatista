@@ -203,10 +203,13 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ArticuloController.cs" />
+    <Compile Include="Controllers\CarritoController.cs" />
     <Compile Include="Controllers\ConsultaController.cs" />
     <Compile Include="Controllers\FakeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NavigationController.cs" />
+    <Compile Include="Controllers\OrdenController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="DAL\HaynyBatistaInitializer.cs" />
     <Compile Include="Extensions\IdentityExtensions.cs" />
@@ -216,6 +219,16 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
+    <Compile Include="Infrastructure\Attributes\LoginRedirectAuthorize.cs" />
+    <Compile Include="Infrastructure\Binders\CartModelBinder.cs" />
+    <Compile Include="Migrations\201804142010087_initial.cs" />
+    <Compile Include="Migrations\201804142010087_initial.Designer.cs">
+      <DependentUpon>201804142010087_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804150038035_TipoDatoTituloProducto.cs" />
+    <Compile Include="Migrations\201804150038035_TipoDatoTituloProducto.Designer.cs">
+      <DependentUpon>201804150038035_TipoDatoTituloProducto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Articulo.cs" />
@@ -233,6 +246,8 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Imagen.cs" />
     <Compile Include="Models\LineaCarrito.cs" />
+    <Compile Include="Models\ViewModels\CartIndexViewModel.cs" />
+    <Compile Include="Models\ViewModels\ErrorViewModel.cs" />
     <Compile Include="Models\ViewModels\ListaProductosViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs" />
@@ -721,8 +736,15 @@
     <Content Include="Views\Correo\CitaPospuesta.cshtml" />
     <Content Include="Views\Shared\SocialMediaEnabler.cshtml" />
     <Content Include="Views\Home\PrivacyPolicy.cshtml" />
-    <Content Include="Views\Producto\List.cshtml" />
     <Content Include="Views\Shared\ProductSummary.cshtml" />
+    <Content Include="Views\Admin\Tienda.cshtml" />
+    <Content Include="Views\Producto\List.cshtml" />
+    <Content Include="Views\Navigation\CategoryMenu.cshtml" />
+    <Content Include="Views\Producto\Detalle.cshtml" />
+    <Content Include="Views\Shared\ErrorView.cshtml" />
+    <Content Include="Views\Carrito\Summary.cshtml" />
+    <Content Include="Views\Carrito\Index.cshtml" />
+    <Content Include="Views\Orden\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -738,6 +760,14 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201804142010087_initial.resx">
+      <DependentUpon>201804142010087_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804150038035_TipoDatoTituloProducto.resx">
+      <DependentUpon>201804150038035_TipoDatoTituloProducto.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

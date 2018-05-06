@@ -190,12 +190,10 @@ function validarForm(form) {
     var value = true;
 
     $(form).find(".requerido:enabled").each(function () {
-        if ($(this).val().trim() == "" || $(this).val() == 0) {
+        if ($(this).val().trim() == "" || $(this).val() == 0 || ($(this).is(":file") && $(this).get(0).files.length == 0)) {
             retorno.Estado = false;
             var problematico = new elemento($(this), "El campo " + $(this).data("title") + " es requerido");
             retorno.Errores.push(problematico);
-        } else {
-
         }
     });
     $(form).find(".tinyMCErequerido:enabled").each(function () {

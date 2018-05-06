@@ -1,0 +1,95 @@
+﻿@model CartIndexViewModel
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-md-9 py-3 bg-white">
+        <h3 class="fg-purple font-weight-bold">Carrito</h3>
+        <hr />
+        @foreach (var linea in Model.Carrito.Lineas)
+        {
+            using (Html.BeginForm("RemoveFromCart", "Carrito", FormMethod.Post, null))
+            {
+                @Html.Hidden("productId",linea.Producto.ProductoID)
+                @Html.Hidden("returnUrl", Model.ReturnUrl)
+                <div class="row linea" data-idproducto="@linea.Producto.ProductoID">
+                    <div class="col-md-4">
+                        <div class="d-flex flex-column justify-content-center">
+                            <img class="img-fluid" src="/ImagenesSubidas/@linea.Producto.Imagen.IdImagen@linea.Producto.Imagen.Formato" alt="@linea.Producto.Titulo" />
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <h4 class="col-md-6">Producto</h4>
+                            <label for="quantity" class="col-md-3 text-right font-weight-bold">Cantidad:</label>
+                            <div class="col-md-3">
+                                <input class="CantidadProducto form-control" type="number" min="1" value="@linea.Cantidad" id="quantity">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h5>Precio: <span class="fg-purple">RD$<span class="PrecioLinea">@($"{linea.Producto.Precio}")</span></span></h5>
+                        </div>
+                        <div class="row">
+                            <h5>Subtotal: <span class="fg-purple">RD$<span class="SubTotalLinea">@(linea.Producto.Precio * linea.Cantidad)</span></span></h5>
+                        </div>
+                        <div class="row">
+                            <div class="offset-md-10 col-md-2">
+                                <button type="submit" class="btn bg-purple pull-right"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+            }
+
+        }
+        <a href="@Model.ReturnUrl" class="haynyBtn p-2 d-inline-block bg-purple my-3">Regresar</a>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-white p-2">
+            <h3 class="fg-purple font-weight-bold">Resumen</h3>
+            <hr />
+            <h5 class="">Subtotal: <span class="fg-purple">RD$<span class="SubTotalCarrito">@Model.Carrito.ComputeTotalValue()</span></span></h5>
+            <hr />
+            <h5 class="">Total: <span class="fg-purple">RD$<span class="SubTotalCarrito">@Model.Carrito.ComputeTotalValue()</span></span></h5>
+            <a href="@Url.Action("Index","Orden")"class="haynyBtn text-white text-center p-2 bg-purple my-2 btn-block">Continuar a Pago</a>
+        </div>
+        <div class="card bg-white p-2 mt-4">
+            <h4 class="font-weight-bold" style="color: #616161">Envío gratís</h4>
+            <p class="text-justify">Nosotros apreciamos a nuetros clientes. Si tu orden de compra supera los RD$4000 te ofrecemos envío gratis dentro del país. Aprovecha la oferta!</p>
+            <h5 class="">Estado: <span id="estadoEnvioGratis" class="@(Model.Carrito.ComputeTotalValue() > 4000 ? "text-success": "text-danger")">@(Model.Carrito.ComputeTotalValue() > 4000 ? "Aplica": "No Aplica")</span></h5>
+        </div>
+        
+    </div>
+    
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(".CantidadProducto").change(function () {
+                var linea = $(this).closest(".linea");
+                var cantidad = $(this).val();
+                try {
+                    var precio = linea.find(".PrecioLinea").text();
+                    var subTotal = precio * cantidad;
+                    linea.find(".SubTotalLinea").text(subTotal.toFixed(2));
+
+                    var datos = {
+                        productId: linea.data("idproducto"),
+                        quantity: cantidad
+                    }
+                    var promesa = $.ajax({
+                        url: "@Url.Action("UpdateCartQuantity","Carrito")",
+                        data: datos,
+                        type: "POST"
+                    });
+
+                    promesa.done(x => { console.log(x) });
+                } catch (error){
+                    console.log(error);
+                }
+            });
+        });
+    </script>
+    }
