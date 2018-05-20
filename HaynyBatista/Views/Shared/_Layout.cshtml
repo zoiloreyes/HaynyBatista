@@ -15,7 +15,9 @@
         <div class="menu">
             <div class="UpperMenu">
                 <div class="logo">
-                    <img class='' id="NavLogo" src="~/Content/Images/logoPequeno.png" />
+                    <a class="d-block" href="@Url.Action("Index","Home")">
+                        <img class='' id="NavLogo" src="~/Content/Images/logoPequeno.png" />
+                    </a>
                 </div>
                 <div id="UserLinks">
                     @Html.Partial("_LoginPartial")
@@ -28,6 +30,7 @@
             <div class="LowerMenu">
                 <div class="NavLink LowerLink">@Html.ActionLink("Blog", "Index", "Articulo")</div>
                 <div class="NavLink  LowerLink">@Html.ActionLink("Consulta", "Index", "Consulta", null, new { @class = "MainNavLink" })</div>
+                <div class="NavLink  LowerLink">@Html.ActionLink("Productos", "List", "Producto", null, new { @class = "MainNavLink" })</div>
                 <!--<div class="NavLink LowerLink"><a href="#">Tienda</a></div>-->
                 @if (User.IsInRole("Administrador"))
                     {
@@ -67,6 +70,7 @@
         </footer>
     </div>
     @RenderSection("OutsideContainer", required: false)
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/LayoutJs")

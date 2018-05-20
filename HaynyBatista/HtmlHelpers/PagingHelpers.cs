@@ -27,7 +27,7 @@ namespace HaynyBatista.HtmlHelpers
                 if(i == pagingInfo.CurrentPage)
                 {
                     tag.AddCssClass("selected");
-                    tag.AddCssClass("btn-primary");
+                    tag.AddCssClass("bg-purple");
                 }
                 tag.AddCssClass("btn btn-default");
                 resultado.Append(tag.ToString());
