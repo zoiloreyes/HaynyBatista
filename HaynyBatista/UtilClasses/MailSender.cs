@@ -53,5 +53,49 @@ namespace HaynyBatista.UtilClasses
             }
             
         }
+
+        public static Boolean SendEmailWithLogo(string from, string fromPassword, string to, string subject, string bodyHTML)
+        {
+            try
+            {
+                SmtpClient smtp = new SmtpClient()
+                {
+                    Host = host,
+                    Port = port,
+                    EnableSsl = true,
+                    DeliveryMethod = deliveryMethod,
+                    Credentials = new NetworkCredential(from, fromPassword),
+                    Timeout = 20000
+                };
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate (object s,
+                 System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+                 System.Security.Cryptography.X509Certificates.X509Chain chain,
+                 System.Net.Security.SslPolicyErrors sslPolicyErrors)
+                {
+                    return true;
+                };
+                LinkedResource linkedImage = new LinkedResource(HttpContext.Current.Server.MapPath("~/Content/Images/logo.png"));
+                linkedImage.ContentId = "LogoHayny";
+
+                AlternateView htmlView = AlternateView.CreateAlternateViewFromString(bodyHTML, null, "text/html");
+                htmlView.LinkedResources.Add(linkedImage);
+                
+
+                MailMessage msg = new MailMessage();
+                msg.To.Add(new MailAddress(to));
+                msg.From = new MailAddress(from);
+                msg.AlternateViews.Add(htmlView);
+                msg.Subject = subject;
+                //msg.Body = bodyHTML;
+                msg.IsBodyHtml = true;
+                smtp.Send(msg);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
     }
 }

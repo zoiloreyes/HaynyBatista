@@ -34,7 +34,7 @@ namespace HaynyBatista.Controllers
             if(linea != null)
             {
                 linea.Cantidad = quantity;
-                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = true, Total = carrito.ComputeTotalValue(), EnvioGratisAplicable = carrito.EnvioGratisAplicable() }, JsonRequestBehavior.AllowGet);
             }
             else
             {

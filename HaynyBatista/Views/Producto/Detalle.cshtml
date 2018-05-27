@@ -5,12 +5,12 @@
 }
 
 <div class="row mt-4">
-    <div class="offset-md-1 col-md-4 bg-white d-flex justify-content-center flex-column">
+    <div class="offset-md-1 col-md-4 bg-white d-flex justify-content-center card flex-column">
         <div class="d-flex">
             <img src="/ImagenesSubidas/@($"{Model.IdImagen}{Model.Imagen.Formato}")" alt="@Model.Titulo" class="img-fluid">
         </div>
     </div>
-    <div class="col-md-5 ml-4">
+    <div class="col-md-5 ml-4 p-4 bg-white fnt-Roboto">
         @using (Html.BeginForm("AddToCart","Carrito",FormMethod.Post,null))
         {
             @Html.Hidden("productId", Model.ProductoID)
@@ -21,37 +21,9 @@
             <div class="form-group row">
                 @Html.Label("quantity","Cantidad:",new { @class = "col-md-2 col-form-label" })                
                 <div class="col-md-2">
-                    @Html.TextBox("quantity", 1, new { step=1, min=1, @class="form-control", placeholder = "Cantidad", type="number"})
+                    @Html.TextBox("quantity", 1, new { step=1, min=1, @class="form-control", max=Model.Cantidad, placeholder = "Cantidad", type="number"})
                 </div>
             </div>
-            <form target="paypal" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-                <input type="hidden" name="cmd" value="_s-xclick">
-                <input type="hidden" name="hosted_button_id" value="19218">
-                <table>
-                    <tr><td><input type="hidden" name="on0" value="Color">Color</td></tr>
-                    <tr>
-                        <td>
-                            <select name="os0">
-                                <option value="Red">Red $10.00
-                                <option value="Blue">Blue $8.00
-                                <option value="Green">Green $12.00
-                            </select>
-                        </td>
-                    </tr>
-                    <tr><td><input type="hidden" name="on1" value="Size">Size</td></tr>
-                    <tr>
-                        <td>
-                            <select name="os1">
-                                <option value="Small">Small
-                                <option value="Large">Large
-                            </select>
-                        </td>
-                    </tr>
-                </table>
-                <input type="hidden" name="currency_code" value="USD">
-                <input type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_addtocart_120x26.png" alt="Add to Cart" name="submit">
-                <img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-            </form>
             <button type="submit" class="my-4 haynyBtn bg-purple p-3"><i class="fa fa-shopping-cart"></i> Agregar al carrito</button>
             <hr>
             <h5>Descripción</h5>

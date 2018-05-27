@@ -7,11 +7,11 @@
     <div class="col-md-3">
         @Html.Action("CategoryMenu", "Navigation", new { currentCategory = Model.PagingInfo.CategoriaActual })
     </div>
-    <div class="col-md-9">
-        <div class="row mt-3 mr-2">
+    <div class="col-md-8 bg-white">
+        <div class="row mt-3 py-2 ">
             @if (this.User.IsInRole("Administrador"))
             {
-                <button class="btn-block haynyBtn bg-purple  py-2" data-toggle="modal" data-target="#NuevoProducto"><strong>Nuevo Producto</strong><i class="fa fa-plus ml-2" aria-hidden="true"></i></button>
+                <button class="btn-block haynyBtn bg-purple mx-3 py-2" data-toggle="modal" data-target="#NuevoProducto"><strong>Nuevo Producto</strong><i class="fa fa-plus ml-2" aria-hidden="true"></i></button>
             }
 
             @if (Model.Productos.Count() == 0)

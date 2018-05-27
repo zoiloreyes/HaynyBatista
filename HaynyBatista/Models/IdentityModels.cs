@@ -52,6 +52,10 @@ namespace HaynyBatista.Models
         public virtual DbSet<Pago> Pagos { get; set; }
         public virtual DbSet<Categoria> Categorias { get; set; }
         public virtual DbSet<Producto> Productos { get; set; }
+        public virtual DbSet<Compra> Compras { get; set; }
+        public virtual DbSet<ItemCompra> ItemsCompra { get; set; }
+
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

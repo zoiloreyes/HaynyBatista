@@ -1,0 +1,41 @@
+﻿@model Compra
+@{
+    Layout = "~/Views/Shared/_MailLayout.cshtml";
+}
+
+    <h3>@User.Identity.GetFirstName() @User.Identity.GetLastName(),</h3>
+    <p>Agradecemos por realizar una compra con nosotros. Tu orden ha sido recibida y está siendoprocesada. Los detalles de está se encuentran mas abajo para tu referencia:</p>
+    <h4>Orden: @Model.CompraID </h4>
+    <h5>Fecha: @DateTime.Now.ToString("dd/MM/yyyy hh:mmtt")</h5>
+    <table style="border: 1px solid
+#cecece
+; width: 100%">
+        <thead>
+            <tr>
+                <th align="center" style="border-bottom: 1px solid #cecece">Producto</th>
+                <th align="center" style="border-bottom: 1px solid #cecece">Cantidad</th>
+                <th align="center" style="border-bottom: 1px solid #cecece">Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ItemsCompra)
+            {
+                <tr>
+                    <td style="border-bottom: 1px solid #cecece">@item.Producto.Titulo</td>
+                    <td align="center" style="border-bottom: 1px solid #cecece">@item.Cantidad</td>
+                    <td align="right" style="border-bottom: 1px solid #cecece">$@item.PrecioTotal</td>
+                </tr>
+            }<tr>
+                <td colspan="2">
+                    Total:
+                </td>
+                <td align="right">$@Model.ItemsCompra.Sum(x => x.PrecioTotal)</td>
+            </tr>
+        </tbody>
+    </table>
+    <h4>Detalles del cliente</h4>
+    <p>Email: @User.Identity.GetEmail() </p>
+    <p>Telefono: @User.Identity.GetPhoneNumber()</p>
+    <br>
+    <br>
+    <p>Si tienes alguna pregunta con la orden, o deseas comunicarte con Hayny para establecer el envío o el retiro de tu compra, puedes enviar un correo a HaynyBatista@haynybatista.com o llamar al numero @ConfigurationManager.AppSettings["TelefonoHayny"];</p>

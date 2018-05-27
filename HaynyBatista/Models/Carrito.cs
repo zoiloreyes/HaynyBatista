@@ -9,6 +9,8 @@ namespace HaynyBatista.Models
     {
         private List<LineaCarrito> lineas = new List<LineaCarrito>();
 
+        public int CantidadEnvioGratis { get { return 4000; } }
+
         public void AddItem(Producto producto, int cantidad)
         {
             LineaCarrito linea = lineas.Where(p => p.Producto.ProductoID == producto.ProductoID).FirstOrDefault();
@@ -30,6 +32,11 @@ namespace HaynyBatista.Models
         public decimal ComputeTotalValue()
         {
             return lineas.Sum(x => x.Producto.Precio * x.Cantidad);
+        }
+
+        public bool EnvioGratisAplicable()
+        {
+            return ComputeTotalValue() > CantidadEnvioGratis;
         }
 
         public void Clear()

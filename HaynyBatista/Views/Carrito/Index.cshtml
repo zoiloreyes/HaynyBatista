@@ -3,8 +3,8 @@
     ViewBag.Title = "Index";
 }
 <div class="row">
-    <div class="col-md-9 py-3 bg-white">
-        <h3 class="fg-purple font-weight-bold">Carrito</h3>
+    <div class="col-md-8 offset-md-1 py-3 bg-white">
+        <h3 class="fg-purple fnt-Fjalla p-2">Carrito</h3>
         <hr />
         @foreach (var linea in Model.Carrito.Lineas)
         {
@@ -23,14 +23,14 @@
                             <h4 class="col-md-6">Producto</h4>
                             <label for="quantity" class="col-md-3 text-right font-weight-bold">Cantidad:</label>
                             <div class="col-md-3">
-                                <input class="CantidadProducto form-control" type="number" min="1" value="@linea.Cantidad" id="quantity">
+                                <input class="CantidadProducto form-control" type="number" min="1" max="@linea.Producto.Cantidad" value="@linea.Cantidad" id="quantity">
                             </div>
                         </div>
                         <div class="row">
-                            <h5>Precio: <span class="fg-purple">RD$<span class="PrecioLinea">@($"{linea.Producto.Precio}")</span></span></h5>
+                            <h5>Precio: <span class="fg-purple">RD$<span class="PrecioLinea">@($"{(linea.Producto.Precio).ToString("C").Remove(0, 1)}")</span></span></h5>
                         </div>
                         <div class="row">
-                            <h5>Subtotal: <span class="fg-purple">RD$<span class="SubTotalLinea">@(linea.Producto.Precio * linea.Cantidad)</span></span></h5>
+                            <h5>Subtotal: <span class="fg-purple">RD$<span class="SubTotalLinea">@((linea.Producto.Precio * linea.Cantidad).ToString("C").Remove(0, 1))</span></span></h5>
                         </div>
                         <div class="row">
                             <div class="offset-md-10 col-md-2">
@@ -47,17 +47,18 @@
     </div>
     <div class="col-md-3">
         <div class="card bg-white p-2">
-            <h3 class="fg-purple font-weight-bold">Resumen</h3>
+            <h3 class="fg-purple fnt-Fjalla p-2">Resumen</h3>
             <hr />
-            <h5 class="">Subtotal: <span class="fg-purple">RD$<span class="SubTotalCarrito">@Model.Carrito.ComputeTotalValue()</span></span></h5>
+            <h5 class="">Subtotal: <span class="fg-purple">RD$<span class="SubTotalCarrito">@Model.Carrito.ComputeTotalValue().ToString("C").Remove(0, 1)</span></span></h5>
             <hr />
-            <h5 class="">Total: <span class="fg-purple">RD$<span class="SubTotalCarrito">@Model.Carrito.ComputeTotalValue()</span></span></h5>
-            <a href="@Url.Action("Index","Orden")"class="haynyBtn text-white text-center p-2 bg-purple my-2 btn-block">Continuar a Pago</a>
+            <h5 class="">Total: <span class="fg-purple">RD$<span class="SubTotalCarrito">@Model.Carrito.ComputeTotalValue().ToString("C").Remove(0, 1)</span></span></h5>
+            <a href="@Url.Action("Create","Compra")"class="haynyBtn text-white text-center p-2 bg-purple my-2 btn-block">Continuar a Pago</a>
         </div>
         <div class="card bg-white p-2 mt-4">
             <h4 class="font-weight-bold" style="color: #616161">Envío gratís</h4>
-            <p class="text-justify">Nosotros apreciamos a nuetros clientes. Si tu orden de compra supera los RD$4000 te ofrecemos envío gratis dentro del país. Aprovecha la oferta!</p>
-            <h5 class="">Estado: <span id="estadoEnvioGratis" class="@(Model.Carrito.ComputeTotalValue() > 4000 ? "text-success": "text-danger")">@(Model.Carrito.ComputeTotalValue() > 4000 ? "Aplica": "No Aplica")</span></h5>
+            <p class="text-justify">Nosotros apreciamos a nuetros clientes. Si tu orden de compra supera los RD$@Model.Carrito.CantidadEnvioGratis.ToString("C").Remove(0,1) te ofrecemos envío gratis dentro del país. Aprovecha la oferta!</p>
+            <h5 class="">Estado: <span id="estadoEnvioGratis" class="@(Model.Carrito.EnvioGratisAplicable() ? "text-success": "text-danger")">@(Model.Carrito.EnvioGratisAplicable() ? "Aplica": "No Aplica")</span></h5>
+            <p><span class="font-weight-bold">Importante: </span> Si tu compra no aplica para envío, tendrás que recoger la compra</p>
         </div>
         
     </div>
@@ -73,7 +74,10 @@
                 try {
                     var precio = linea.find(".PrecioLinea").text();
                     var subTotal = precio * cantidad;
-                    linea.find(".SubTotalLinea").text(subTotal.toFixed(2));
+
+                    //linea.find(".SubTotalLinea").text(subTotal.toFixed(2));
+                    linea.find(".SubTotalLinea").text(subTotal.toLocaleString('en'));
+
 
                     var datos = {
                         productId: linea.data("idproducto"),
@@ -85,7 +89,24 @@
                         type: "POST"
                     });
 
-                    promesa.done(x => { console.log(x) });
+                    promesa.done(x => {
+                        if (x.Success) {
+                            $(".SubTotalCarrito").text(x.Total.toLocaleString('en'));
+
+
+                            if (x.EnvioGratisAplicable) {
+                                $("#estadoEnvioGratis").removeClass();
+                                $("#estadoEnvioGratis").addClass("text-success");
+                                $("#estadoEnvioGratis").text("Aplica");
+                            } else {
+                                $("#estadoEnvioGratis").removeClass();
+                                $("#estadoEnvioGratis").addClass("text-danger");
+                                $("#estadoEnvioGratis").text("No Aplica");
+
+                            }
+
+                        }
+                    });
                 } catch (error){
                     console.log(error);
                 }

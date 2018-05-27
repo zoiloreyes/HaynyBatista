@@ -1,0 +1,147 @@
+﻿@model Compra
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-md-1 ">
+        @using (Html.BeginForm("Create", "Compra", FormMethod.Post,new { id="formCompra"}))
+        {
+            @Html.HiddenFor(model => model.IdUsuario);
+            for(int contador = 0; contador < Model.ItemsCompra.Count(); contador++)
+            {
+                @Html.HiddenFor(Model => Model.ItemsCompra[contador].PrecioTotal);
+                @Html.HiddenFor(Model => Model.ItemsCompra[contador].ProductoID);
+                @Html.HiddenFor(Model => Model.ItemsCompra[contador].Cantidad);
+            }
+            if (Model.ItemsCompra.Sum(i => i.PrecioTotal) > 4000)
+            {
+                <div class="row">
+                    <div class="col py-3 bg-white card">
+                        <h3 class="fg-purple fnt-Fjalla p-2">Envío</h3>
+                        <hr />
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(m => m.Provincia)
+                                @Html.TextBoxFor(m => m.Provincia, new { @class = "form-control", placeholder = "Provincia" })
+                            </div>
+                            <div class="form-group col-md-6">
+                                @Html.LabelFor(m => m.Sector)
+                                @Html.TextBoxFor(m => m.Sector, new { @class = "form-control", placeholder = "Sector" })
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(m => m.Direccion)
+                                @Html.TextBoxFor(m => m.Direccion, new { @class = "form-control", placeholder = "Dirección" })
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+        }
+        <div class="row my-3">
+            <div class="col py-3 bg-white card">
+                <h3 class="fg-purple fnt-Fjalla p-2">Compra</h3>
+                <hr />
+                @foreach (var item in Model.ItemsCompra)
+                {
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="d-flex flex-column justify-content-center">
+                                <img class="img-fluid" src="/ImagenesSubidas/@item.Producto.Imagen.IdImagen@item.Producto.Imagen.Formato" alt="@item.Producto.Titulo" />
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <h5>@item.Producto.Titulo</h5>
+                            <h6 class="text-secondary">Cantidad: @item.Cantidad</h6>
+                            <h6 class="text-secondary">Total: RD$@item.PrecioTotal.ToString("C").Remove(0, 1)</h6>
+
+                        </div>
+                    </div>
+                    <hr />
+                }
+            </div>
+        </div>
+
+
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-white p-2">
+            <h3 class="fg-purple fnt-Fjalla p-2">Resumen</h3>
+            <hr />
+            <h5 class="">Subtotal: <span class="fg-purple">RD$<span class="SubTotalCarrito">@Model.ItemsCompra.Sum(i => i.PrecioTotal).ToString("C").Remove(0, 1)</span></span></h5>
+            <hr />
+            <h5 class="">Total: <span class="fg-purple">RD$<span class="SubTotalCarrito">@Model.ItemsCompra.Sum(i => i.PrecioTotal).ToString("C").Remove(0, 1)</span></span></h5>
+            <div id="paypal-button" class="text-center my-2">
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@section scripts{
+    <script>
+        paypal.Button.render({
+            env: 'sandbox', // Or 'sandbox',
+
+            client: {
+                'sandbox': 'ASPonTcenvfxELYclhx_PNlRiOv6Vo2tQY_aGKXqih4zm7-xq3JsUyh2wINZMYqR-t8lkpNilEL7PhX_'
+            },
+            locale: "es_ES",
+            commit: true, // Show a 'Pay Now' button
+
+            style: {
+                color: 'blue',
+                size: 'small'
+            },
+
+            payment: function (data, actions) {
+                return actions.payment.create({
+                    payment: {
+                        transactions: [
+                            {
+                                amount: { total: '@ViewBag.TotalUSD', currency: 'USD' }
+                            }
+                        ]
+                    }
+                });
+            },
+
+            onAuthorize: function (data, actions) {
+                return actions.payment.execute().then(function (payment) {
+                    $("#formCompra").append($("<input>", {
+                        type: "hidden",
+                        value: payment.id,
+                        name: "ReferenciaPaypal"
+                    }))
+                    $("#formCompra").append($("<input>", {
+                        type: "hidden",
+                        value: `Pais: ${payment.payer.payer_info.country_code},Linea1: ${payment.payer.payer_info.shipping_address.line1}, Linea2: ${payment.payer.payer_info.shipping_address.line2}, Ciudad: ${payment.payer.payer_info.shipping_address.city},Provincia: ${payment.payer.payer_info.shipping_address.state}`,
+                        name: "DireccionPaypal"
+                    }))
+                   
+                    $("#formCompra").submit();
+                });
+            },
+
+            onCancel: function (data, actions) {
+                /*
+                 * Buyer cancelled the payment
+                 */
+            },
+
+            onError: function (err) {
+                /*
+                 * An error occurred during the transaction
+                 */
+            }
+        }, '#paypal-button');
+    </script>
+
+}

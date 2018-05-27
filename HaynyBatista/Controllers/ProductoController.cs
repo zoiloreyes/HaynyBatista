@@ -20,18 +20,20 @@ namespace HaynyBatista.Controllers
         // GET: Producto
         public ViewResult List(string categoria, int page=1)
         {
-            ListaProductosViewModel model = new ListaProductosViewModel
-            {
-                Productos = db.Productos
+            var Productos = db.Productos
                 .Where(p => categoria == null || p.Categoria.Nombre == categoria)
                 .OrderBy(p => p.ProductoID)
                 .Skip((page - 1) * PageSize)
-                .Take(PageSize),
+                .Take(PageSize);
+
+            ListaProductosViewModel model = new ListaProductosViewModel
+            {
+                Productos = Productos,
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = db.Productos.Count(),
+                    TotalItems = Productos.Count(),
                     CategoriaActual = categoria
                 },
                 Categorias = db.Categorias
@@ -52,6 +54,26 @@ namespace HaynyBatista.Controllers
             {
                 return View("ErrorView", new ErrorViewModel { Summary = "Error 404", Description = "La página no existe" });
             }
+        }
+
+        [HttpGet]
+        public ActionResult Editar(int id) {
+
+            EditarProductoViewModel model = new EditarProductoViewModel
+            {
+                Producto = db.Productos.Find(id),
+                Categorias = db.Categorias.ToList()
+            };
+            
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Editar(Producto producto) {
+            db.Entry(producto).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("List");
         }
 
         [HttpPost]

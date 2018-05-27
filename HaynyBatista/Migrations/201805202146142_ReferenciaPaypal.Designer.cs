@@ -7,13 +7,13 @@ namespace HaynyBatista.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Tienda : IMigrationMetadata
+    public sealed partial class ReferenciaPaypal : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Tienda));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ReferenciaPaypal));
         
         string IMigrationMetadata.Id
         {
-            get { return "201804010141031_Tienda"; }
+            get { return "201805202146142_ReferenciaPaypal"; }
         }
         
         string IMigrationMetadata.Source

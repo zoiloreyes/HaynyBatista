@@ -1,15 +1,24 @@
 ﻿@model HaynyBatista.Models.Cita
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_MailLayout.cshtml";
 }
-
-<p> @if (DateTime.Now.Hour >= 18 || DateTime.Now.Hour < 6) { <text>Buenas Noches</text>}
-else if (DateTime.Now.Hour >= 6 || DateTime.Now.Hour < 12) { <text>Buenos Dias</text>}
-else { <text>Buenas Tardes</text>} Señor(a) @Model.Usuarios.First().Apellido:<br /><br /></p>
-<div>Sirve al presente para confirmarle que su solictud de cita ha sido recibida.</div>
-<div>&nbsp;</div>
-<div>Nos estaremos comunicando con usted por esta v&iacute;a para confirmar la fecha y la hora.</div>
-<div>&nbsp;</div>
-<div>Atentamente:</div>
-<div><br /><br />Hayny Batista</div>
+<table>
+    <tr>
+        <td>
+            <h3>@Model.Usuarios.First().Nombre @Model.Usuarios.First().Apellido, </h3>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>Hemos recibido su solicitud de cita y nos estaremos comunicando con usted por esta por esta v&iacute;a para confirmar la fecha y la hora de la cita.</p>
+        </td>
+        
+    </tr>
+    <tr>
+        <td>
+            <p>Atentamente:</p>
+            <p>Hayny Batista</p>
+        </td>
+    </tr>
+</table>

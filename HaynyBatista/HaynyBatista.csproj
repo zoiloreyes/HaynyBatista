@@ -209,7 +209,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
-    <Compile Include="Controllers\OrdenController.cs" />
+    <Compile Include="Controllers\CompraController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="DAL\HaynyBatistaInitializer.cs" />
     <Compile Include="Extensions\IdentityExtensions.cs" />
@@ -221,13 +221,21 @@
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
     <Compile Include="Infrastructure\Attributes\LoginRedirectAuthorize.cs" />
     <Compile Include="Infrastructure\Binders\CartModelBinder.cs" />
-    <Compile Include="Migrations\201804142010087_initial.cs" />
-    <Compile Include="Migrations\201804142010087_initial.Designer.cs">
-      <DependentUpon>201804142010087_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201805201617516_initial.cs" />
+    <Compile Include="Migrations\201805201617516_initial.Designer.cs">
+      <DependentUpon>201805201617516_initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804150038035_TipoDatoTituloProducto.cs" />
-    <Compile Include="Migrations\201804150038035_TipoDatoTituloProducto.Designer.cs">
-      <DependentUpon>201804150038035_TipoDatoTituloProducto.cs</DependentUpon>
+    <Compile Include="Migrations\201805201852363_Compra.cs" />
+    <Compile Include="Migrations\201805201852363_Compra.Designer.cs">
+      <DependentUpon>201805201852363_Compra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805202146142_ReferenciaPaypal.cs" />
+    <Compile Include="Migrations\201805202146142_ReferenciaPaypal.Designer.cs">
+      <DependentUpon>201805202146142_ReferenciaPaypal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805272110095_FechaCompra.cs" />
+    <Compile Include="Migrations\201805272110095_FechaCompra.Designer.cs">
+      <DependentUpon>201805272110095_FechaCompra.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -245,12 +253,14 @@
     <Compile Include="Models\FormaPago.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Imagen.cs" />
+    <Compile Include="Models\ItemCompra.cs" />
     <Compile Include="Models\LineaCarrito.cs" />
     <Compile Include="Models\ViewModels\CartIndexViewModel.cs" />
+    <Compile Include="Models\ViewModels\EditarProductoViewModel.cs" />
     <Compile Include="Models\ViewModels\ErrorViewModel.cs" />
     <Compile Include="Models\ViewModels\ListaProductosViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\Compra.cs" />
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Models\Pago.cs" />
     <Compile Include="Models\Producto.cs" />
@@ -745,6 +755,13 @@
     <Content Include="Views\Carrito\Summary.cshtml" />
     <Content Include="Views\Carrito\Index.cshtml" />
     <Content Include="Views\Orden\Index.cshtml" />
+    <Content Include="Views\Compra\Create.cshtml" />
+    <Content Include="Views\Compra\Completada.cshtml" />
+    <Content Include="Views\Shared\_MailLayout.cshtml" />
+    <Content Include="Views\Correo\Orden.cshtml" />
+    <Content Include="Views\Producto\Editar.cshtml" />
+    <Content Include="Views\Admin\Compra.cshtml" />
+    <Content Include="Views\Compra\Detalles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -762,11 +779,17 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804142010087_initial.resx">
-      <DependentUpon>201804142010087_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805201617516_initial.resx">
+      <DependentUpon>201805201617516_initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804150038035_TipoDatoTituloProducto.resx">
-      <DependentUpon>201804150038035_TipoDatoTituloProducto.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805201852363_Compra.resx">
+      <DependentUpon>201805201852363_Compra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805202146142_ReferenciaPaypal.resx">
+      <DependentUpon>201805202146142_ReferenciaPaypal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805272110095_FechaCompra.resx">
+      <DependentUpon>201805272110095_FechaCompra.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

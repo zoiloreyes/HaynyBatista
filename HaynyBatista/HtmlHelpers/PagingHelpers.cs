@@ -16,7 +16,7 @@ namespace HaynyBatista.HtmlHelpers
         {
             StringBuilder resultado = new StringBuilder();
             TagBuilder buttonGroup = new TagBuilder("div");
-            buttonGroup.AddCssClass("btn-group");
+            buttonGroup.AddCssClass("btn-group my-2");
             buttonGroup.Attributes.Add("role", "toolbar");
             
             for(int i = 1; i <= pagingInfo.TotalPages; i++)

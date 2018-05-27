@@ -3,7 +3,7 @@ namespace HaynyBatista.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialPublish : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
@@ -65,6 +65,34 @@ namespace HaynyBatista.Migrations
                 .ForeignKey("dbo.Usuario", t => t.IdUsuario)
                 .Index(t => t.IdUsuario)
                 .Index(t => t.TipoCita_IdTipoCita);
+            
+            CreateTable(
+                "dbo.Productoes",
+                c => new
+                    {
+                        ProductoID = c.Int(nullable: false, identity: true),
+                        Titulo = c.String(nullable: false),
+                        Descripcion = c.String(nullable: false),
+                        FechaCreacion = c.DateTime(nullable: false),
+                        Precio = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Cantidad = c.Int(nullable: false),
+                        IdImagen = c.Int(nullable: false),
+                        CategoriaID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ProductoID)
+                .ForeignKey("dbo.Categorias", t => t.CategoriaID, cascadeDelete: true)
+                .ForeignKey("dbo.Imagen", t => t.IdImagen, cascadeDelete: true)
+                .Index(t => t.IdImagen)
+                .Index(t => t.CategoriaID);
+            
+            CreateTable(
+                "dbo.Categorias",
+                c => new
+                    {
+                        CategoriaID = c.Int(nullable: false, identity: true),
+                        Nombre = c.String(),
+                    })
+                .PrimaryKey(t => t.CategoriaID);
             
             CreateTable(
                 "dbo.Usuario",
@@ -179,6 +207,22 @@ namespace HaynyBatista.Migrations
                 .PrimaryKey(t => t.FormaPagoID);
             
             CreateTable(
+                "dbo.Pagoes",
+                c => new
+                    {
+                        PagoId = c.Int(nullable: false, identity: true),
+                        Monto = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        UsuarioID = c.Int(nullable: false),
+                        FormaPagoID = c.Int(nullable: false),
+                        Usuario_IdUsuario = c.Int(),
+                    })
+                .PrimaryKey(t => t.PagoId)
+                .ForeignKey("dbo.FormaPagoes", t => t.FormaPagoID, cascadeDelete: true)
+                .ForeignKey("dbo.Usuario", t => t.Usuario_IdUsuario)
+                .Index(t => t.FormaPagoID)
+                .Index(t => t.Usuario_IdUsuario);
+            
+            CreateTable(
                 "dbo.TipoCitas",
                 c => new
                     {
@@ -187,6 +231,33 @@ namespace HaynyBatista.Migrations
                         Costo = c.Double(nullable: false),
                     })
                 .PrimaryKey(t => t.IdTipoCita);
+            
+            CreateTable(
+                "dbo.Compras",
+                c => new
+                    {
+                        CompraID = c.Int(nullable: false, identity: true),
+                        IdUsuario = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.CompraID)
+                .ForeignKey("dbo.Usuario", t => t.IdUsuario, cascadeDelete: true)
+                .Index(t => t.IdUsuario);
+            
+            CreateTable(
+                "dbo.ItemCompras",
+                c => new
+                    {
+                        ItemCompraID = c.Int(nullable: false, identity: true),
+                        CompraID = c.Int(nullable: false),
+                        ProductoID = c.Int(nullable: false),
+                        Cantidad = c.Int(nullable: false),
+                        PrecioTotal = c.Decimal(nullable: false, precision: 18, scale: 2),
+                    })
+                .PrimaryKey(t => t.ItemCompraID)
+                .ForeignKey("dbo.Compras", t => t.CompraID, cascadeDelete: true)
+                .ForeignKey("dbo.Productoes", t => t.ProductoID, cascadeDelete: true)
+                .Index(t => t.CompraID)
+                .Index(t => t.ProductoID);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -216,11 +287,16 @@ namespace HaynyBatista.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.ItemCompras", "ProductoID", "dbo.Productoes");
+            DropForeignKey("dbo.ItemCompras", "CompraID", "dbo.Compras");
+            DropForeignKey("dbo.Compras", "IdUsuario", "dbo.Usuario");
             DropForeignKey("dbo.Imagen", "IdUsuario", "dbo.Usuario");
             DropForeignKey("dbo.UsuarioCita", "CitaId", "dbo.Citas");
             DropForeignKey("dbo.UsuarioCita", "UsuarioId", "dbo.Usuario");
             DropForeignKey("dbo.Imagen", "TipoCita_IdTipoCita", "dbo.TipoCitas");
             DropForeignKey("dbo.Citas", "IdTipoCita", "dbo.TipoCitas");
+            DropForeignKey("dbo.Pagoes", "Usuario_IdUsuario", "dbo.Usuario");
+            DropForeignKey("dbo.Pagoes", "FormaPagoID", "dbo.FormaPagoes");
             DropForeignKey("dbo.Citas", "IdFormaPago", "dbo.FormaPagoes");
             DropForeignKey("dbo.Citas", "IdEstadoCita", "dbo.EstadoCitas");
             DropForeignKey("dbo.Articulo", "IdUsuario", "dbo.Usuario");
@@ -228,12 +304,19 @@ namespace HaynyBatista.Migrations
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Productoes", "IdImagen", "dbo.Imagen");
+            DropForeignKey("dbo.Productoes", "CategoriaID", "dbo.Categorias");
             DropForeignKey("dbo.Articulo", "IdImagen", "dbo.Imagen");
             DropForeignKey("dbo.EtiquetaArticulo", "IdArticulo", "dbo.Articulo");
             DropForeignKey("dbo.EtiquetaArticulo", "IdEtiqueta", "dbo.Etiqueta");
             DropIndex("dbo.UsuarioCita", new[] { "CitaId" });
             DropIndex("dbo.UsuarioCita", new[] { "UsuarioId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.ItemCompras", new[] { "ProductoID" });
+            DropIndex("dbo.ItemCompras", new[] { "CompraID" });
+            DropIndex("dbo.Compras", new[] { "IdUsuario" });
+            DropIndex("dbo.Pagoes", new[] { "Usuario_IdUsuario" });
+            DropIndex("dbo.Pagoes", new[] { "FormaPagoID" });
             DropIndex("dbo.Citas", new[] { "IdFormaPago" });
             DropIndex("dbo.Citas", new[] { "IdTipoCita" });
             DropIndex("dbo.Citas", new[] { "IdEstadoCita" });
@@ -243,6 +326,8 @@ namespace HaynyBatista.Migrations
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", new[] { "Usuario_IdUsuario" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.Productoes", new[] { "CategoriaID" });
+            DropIndex("dbo.Productoes", new[] { "IdImagen" });
             DropIndex("dbo.Imagen", new[] { "TipoCita_IdTipoCita" });
             DropIndex("dbo.Imagen", new[] { "IdUsuario" });
             DropIndex("dbo.EtiquetaArticulo", new[] { "IdArticulo" });
@@ -251,7 +336,10 @@ namespace HaynyBatista.Migrations
             DropIndex("dbo.Articulo", new[] { "IdUsuario" });
             DropTable("dbo.UsuarioCita");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.ItemCompras");
+            DropTable("dbo.Compras");
             DropTable("dbo.TipoCitas");
+            DropTable("dbo.Pagoes");
             DropTable("dbo.FormaPagoes");
             DropTable("dbo.EstadoCitas");
             DropTable("dbo.Citas");
@@ -260,6 +348,8 @@ namespace HaynyBatista.Migrations
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.Usuario");
+            DropTable("dbo.Categorias");
+            DropTable("dbo.Productoes");
             DropTable("dbo.Imagen");
             DropTable("dbo.Etiqueta");
             DropTable("dbo.EtiquetaArticulo");

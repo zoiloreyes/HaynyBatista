@@ -12,7 +12,7 @@ namespace HaynyBatista.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(HaynyBatista.Models.ApplicationDbContext context)
@@ -99,6 +99,35 @@ namespace HaynyBatista.Migrations
                 context.SaveChanges();
             }
 
+            if(!context.Categorias.Any(c => c.Nombre == "Accesorios"))
+            {
+                context.Categorias.Add(new Categoria() { Nombre = "Accesorios" });
+                context.SaveChanges();
+            }
+
+            if (!context.Categorias.Any(c => c.Nombre == "Anillos"))
+            {
+                context.Categorias.Add(new Categoria() { Nombre = "Anillos" });
+                context.SaveChanges();
+            }
+
+            if (!context.Categorias.Any(c => c.Nombre == "Condones"))
+            {
+                context.Categorias.Add(new Categoria() { Nombre = "Condones" });
+                context.SaveChanges();
+            }
+
+            if (!context.Categorias.Any(c => c.Nombre == "Consoladores"))
+            {
+                context.Categorias.Add(new Categoria() { Nombre = "Consoladores" });
+                context.SaveChanges();
+            }
+
+            if (!context.Categorias.Any(c => c.Nombre == "Aceites"))
+            {
+                context.Categorias.Add(new Categoria() { Nombre = "Aceites" });
+                context.SaveChanges();
+            }
         }
     }
 }

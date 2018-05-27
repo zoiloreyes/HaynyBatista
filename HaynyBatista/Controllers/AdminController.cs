@@ -66,7 +66,14 @@ namespace HaynyBatista.Controllers
 
         public ActionResult Tienda()
         {
-            return View();
+            var Productos = db.Productos.Include(p => p.Categoria).ToList();
+            return View(Productos);
+        }
+
+        public ActionResult Compra()
+        {
+            var Compras = db.Compras.Include(c => c.Usuario).Include(c => c.ItemsCompra);
+            return View(Compras);
         }
 
         public ActionResult Blog()

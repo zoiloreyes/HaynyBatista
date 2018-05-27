@@ -153,7 +153,7 @@ namespace HaynyBatista.Controllers
                     db.Citas.Add(Cita);
                     db.SaveChanges();
                     //var body = FakeController.RenderViewToString(this.ControllerContext, "~/Views/Correo/CitaSolicitada.cshtml", Cita, false);
-                    if (MailSender.SendBasicEmail("HaynyBatista@haynybatista.com", "@Hayny.Batista", user.Email, "Solicitud de cita " + Cita.Fecha.ToString("dd/MM/yyyy"), FakeController.RenderViewToString(this.ControllerContext, "~/Views/Correo/CitaSolicitada.cshtml", Cita, false)))
+                    if (MailSender.SendEmailWithLogo("HaynyBatista@haynybatista.com", "@Hayny.Batista", user.Email, "Solicitud de cita " + Cita.Fecha.ToString("dd/MM/yyyy"), FakeController.RenderViewToString(this.ControllerContext, "~/Views/Correo/CitaSolicitada.cshtml", Cita, false)))
                     {
                         retorno = new Retorno() { Success = true, Message = "Nueva cita Registrada." };
                     }
