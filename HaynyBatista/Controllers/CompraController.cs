@@ -98,7 +98,7 @@ namespace HaynyBatista.Controllers
         [HttpGet]
         public ActionResult Detalles(int CompraID) {
             using (ApplicationDbContext context = new ApplicationDbContext()) {
-                Compra compra = context.Compras.Include(c => c.ItemsCompra.Select(i => i.Compra)).Include(c => c.Usuario).Where(c => c.CompraID == CompraID).FirstOrDefault();
+                Compra compra = context.Compras.Include(c => c.ItemsCompra.Select(i => i.Producto)).Include(c => c.Usuario).Where(c => c.CompraID == CompraID).FirstOrDefault();
                 return View(compra);
             }
         }

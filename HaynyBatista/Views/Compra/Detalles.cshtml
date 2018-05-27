@@ -5,8 +5,17 @@
 }
 
 <div class="col-md-8 offset-md-2 bg-white p-3">
-    <h4>Compra</h4>
+    <h4>Compra #@Model.CompraID</h4>
     <hr />
+    <div class="row">
+        <div class="col">
+            <h4 class="font-weight-bold">
+                Fecha
+            </h4>
+            <p>@Model.FechaCreacion.ToString("dd/MM/yyyy hh:mmtt")</p>
+        </div>
+    </div>
+    
     <div class="row">
         <div class="col">
             <h4 class="font-weight-bold">
@@ -14,36 +23,64 @@
             </h4>
             <p>@Html.DisplayFor(model => model.Usuario.Nombre) @Html.DisplayFor(model => model.Usuario.Apellido)</p>
         </div>
-        <div class="col">
-            <h4 class="font-weight-bold">
-                @Html.DisplayNameFor(model => model.Direccion)
-            </h4>
-            <p>@Html.DisplayFor(model => model.Direccion)</p>
-        </div>
+        @if (!String.IsNullOrWhiteSpace(Model.Direccion))
+        {
+            <div class="col">
+                <h4 class="font-weight-bold">
+                    @Html.DisplayNameFor(model => model.Direccion)
+                </h4>
+                <p>@Html.DisplayFor(model => model.Direccion)</p>
+            </div>
+        }
+
     </div>
 
     <div class="row">
-        <div class="col">
-            <h4 class="font-weight-bold">
-                @Html.DisplayNameFor(model => model.Sector)
-            </h4>
-            <p>@Html.DisplayFor(model => model.Sector) </p>
-        </div>
-        <div class="col">
-            <h4 class="font-weight-bold">
-                @Html.DisplayNameFor(model => model.Provincia)
-            </h4>
-            <p>@Html.DisplayFor(model => model.Provincia)</p>
-        </div>
+        @if (!String.IsNullOrWhiteSpace(Model.Sector))
+        {
+            <div class="col">
+                <h4 class="font-weight-bold">
+                    @Html.DisplayNameFor(model => model.Sector)
+                </h4>
+                <p>@Html.DisplayFor(model => model.Sector) </p>
+            </div>
+        }
+
+        @if (!String.IsNullOrWhiteSpace(Model.Provincia))
+        {
+            <div class="col">
+                <h4 class="font-weight-bold">
+                    @Html.DisplayNameFor(model => model.Provincia)
+                </h4>
+                <p>@Html.DisplayFor(model => model.Provincia)</p>
+            </div>
+        }
+
     </div>
-    <div class="row">
+    <div class="row my-3">
         <div class="col">
             <table class="table table-hover">
                 <thead>
-                    <th></th>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                    </tr>
+
                 </thead>
                 <tbody>
-
+                    @foreach (var item in Model.ItemsCompra)
+                    {
+                        <tr>
+                            <td>@item.Producto.Titulo</td>
+                            <td>@item.Cantidad</td>
+                            <td>@item.PrecioTotal.ToString("C")</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td colspan="2">Total:</td>
+                        <td>@Model.ItemsCompra.Sum(i => i.PrecioTotal).ToString("C")</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
