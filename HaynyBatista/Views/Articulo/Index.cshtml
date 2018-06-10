@@ -8,7 +8,23 @@
 
 
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-12">
+        @using (@Html.BeginForm("Index", "Articulo", FormMethod.Get, new { @class = "" }))
+        {
+            <div class="form-group row">
+                <div class="input-group col-12 mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></div>
+                    </div>
+                    <input type="text" name="filtro" class="form-control" id="inlineFormInputGroup" placeholder="Buscar..." value="@ViewBag.Filtro">
+                </div>
+            </div>
+        }
+
+
+    </div>
+
+    <div class="col-12 col-md-10 offset-md-1">
         @if (this.User.IsInRole("Administrador"))
         {
             <button class="btn-block haynyBtn bg-purple py-2" data-toggle="modal" data-target="#NuevoArticulo"><strong>Nueva Entrada</strong><i class="fa fa-plus ml-2" aria-hidden="true"></i></button>
@@ -28,10 +44,17 @@
                 {
                     <div class="articulo mt-2 w-100" id="@("Articulo" + articulo.IdArticulo)" data-id="@articulo.IdArticulo">
                         <p class="FechaArticulo"><span>@articulo.FechaSubida.ToString("dd/MM/yyy")</span></p>
-                        <div class="d-flex w-100">
-                            <div class="d-flex w-50 flex-column">
-                                <h4 style="min-height: 70px"><a class="ArtitleTitleLink" href="@Url.Action("Detalle",new { id = articulo.IdArticulo})">@articulo.Titulo</a></h4>
-                                <p class="clamped text-justify" style=" height:150px">@articulo.Contenido.StripHtml().Substring(0,300)</p>
+                        <div class="d-flex flex-column flex-md-row w-100">
+                            <div class="d-flex justify-content-center col-12 col-md-6 pr-4">
+                                <a href="@Url.Action("Detalle", new { id = articulo.IdArticulo})">
+                                    <img class="ArticleImage" src="/ImagenesSubidas/@articulo.Imagen.IdImagen@articulo.Imagen.Formato" />
+
+                                </a>
+
+                            </div>
+                            <div class="d-flex col-12 col-md-6 flex-column my-md-0 my-3">
+                                <h4 class="TituloArticulo"><a class="ArtitleTitleLink" href="@Url.Action("Detalle",new { id = articulo.IdArticulo})">@articulo.Titulo</a></h4>
+                                <p class="clamped text-justify ResumenContenido">@Html.Raw(articulo.Contenido.StripHtml().Length >= 300 ? articulo.Contenido.StripHtml().Substring(0, 300) : articulo.Contenido.StripHtml() )</p>
                                 <p class="LowImportance">Escrito por <span><a class="HaynyLink" href="#">@articulo.Usuario.Nombre @articulo.Usuario.Apellido</a></span></p>
                                 <p class="FechaArticulo"></p>
 
@@ -47,13 +70,7 @@
                                 </div>*@
                                 </div>
                             </div>
-                            <div class="d-flex w-50 pl-4">
-                                <a href="@Url.Action("Detalle", new { id = articulo.IdArticulo})">
-                                    <img class="ArticleImage" src="/ImagenesSubidas/@articulo.Imagen.IdImagen@articulo.Imagen.Formato" />
-
-                                </a>
-                                
-                            </div>
+                            
                         </div>
                     </div>
                 }
@@ -109,25 +126,6 @@
             </div>
 
         }
-
-    </div>
-    <div class="col-md-3">
-        @using (@Html.BeginForm("Index", "Articulo", FormMethod.Get, new { @class = "form-inline" }))
-        {
-
-            <div class="form-row align-items-center">
-                <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup">Username</label>
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></div>
-                        </div>
-                        <input type="text" name="filtro" class="form-control" id="inlineFormInputGroup" placeholder="Buscar..." value="@ViewBag.Filtro">
-                    </div>
-                </div>
-            </div>
-        }
-
 
     </div>
 </div>

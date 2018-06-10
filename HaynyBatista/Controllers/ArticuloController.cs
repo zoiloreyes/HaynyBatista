@@ -41,7 +41,7 @@ namespace HaynyBatista.Controllers
                 articulos = articulos.Where(x => x.Usuario.IdUsuario == idUsuario).ToList();
             }
 
-            if(filtro != null)
+            if(!String.IsNullOrWhiteSpace(filtro))
             {
                 ViewBag.Filtro = filtro;
                 articulos =
@@ -330,8 +330,8 @@ namespace HaynyBatista.Controllers
                         Usuario = usuarioHayny,
                         Imagen = imagenArticulo
                     };
-
-                    foreach (Etiqueta etiq in etiquetas)
+                    db.Articulos.Add(articulo);
+                        foreach (Etiqueta etiq in etiquetas)
                     {
                         etiq.Nombre = etiq.Nombre.ToLowerInvariant();
                         db.Etiquetas.Add(etiq);

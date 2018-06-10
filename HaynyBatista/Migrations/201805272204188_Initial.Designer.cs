@@ -7,13 +7,13 @@ namespace HaynyBatista.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class FechaCompra : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(FechaCompra));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805272110095_FechaCompra"; }
+            get { return "201805272204188_Initial"; }
         }
         
         string IMigrationMetadata.Source

@@ -92,6 +92,13 @@ body {
     outline: none !important;
 }
 
+
+@media only screen and (max-width: 600px) {
+    .RegisterFormContainer {
+       margin-top: 100px !important;
+    }
+}
+
 .returnButton:hover{
     right: 20px;
 }
@@ -274,7 +281,25 @@ body {
         color: #ff4444;
     }
 
-.LowImportance{
+.TituloArticulo {
+    min-height: 70px
+}
+
+
+.ResumenContenido {
+    min-height:150px;
+}
+@media only screen and (max-width: 600px) {
+    .TituloArticulo {
+        min-height: 20px !important;
+    }
+
+    .ResumenContenido {
+        min-height: 50px !important;
+    }
+}
+
+.LowImportance {
     font-size: 14px;
     color: gray;
 }
@@ -612,6 +637,14 @@ body {
     min-height: 400px;
 }
 
+@media only screen and (max-width: 600px) {
+    .SummaryContainer {
+        flex-direction: column;
+    }
+    .SummaryElement {
+        width: 100% !important;
+    }
+}
 .DetailsDiv {
     background-color: white;
     min-height: 400px;
@@ -623,6 +656,31 @@ body {
     transition: right 1s;
 }
 
+@media only screen and (max-width: 600px) {
+    .DetailsDiv {
+        min-height: 1040px;
+        top: -1040px;
+        flex-direction: column;
+    }
+
+    .DetailsDivImageContainer{
+        width: 100% !important;
+    }
+
+    .DetailsDivDescriptionContainer {
+        justify-content: center !important;
+        width: 90% !important;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #calendar {
+     height: 400px;
+    }
+}
+
+
+
     .DetailsDiv.Showed {
         right: 0%;
     }
@@ -633,6 +691,16 @@ body {
     color: #742477;
     width: 25%;
 }
+
+@media only screen and (max-width: 600px) {
+    .ItemContacto i.fa {
+        display: none;
+    }
+    .ItemContacto{
+        text-align: center;
+    }
+}
+
 
 .SummaryDivTitle {
     display: table;

@@ -3,7 +3,7 @@ namespace HaynyBatista.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -238,6 +238,12 @@ namespace HaynyBatista.Migrations
                     {
                         CompraID = c.Int(nullable: false, identity: true),
                         IdUsuario = c.Int(nullable: false),
+                        Direccion = c.String(),
+                        Provincia = c.String(),
+                        Sector = c.String(),
+                        ReferenciaPaypal = c.String(),
+                        DireccionPaypal = c.String(),
+                        FechaCreacion = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.CompraID)
                 .ForeignKey("dbo.Usuario", t => t.IdUsuario, cascadeDelete: true)
@@ -287,9 +293,9 @@ namespace HaynyBatista.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Compras", "IdUsuario", "dbo.Usuario");
             DropForeignKey("dbo.ItemCompras", "ProductoID", "dbo.Productoes");
             DropForeignKey("dbo.ItemCompras", "CompraID", "dbo.Compras");
-            DropForeignKey("dbo.Compras", "IdUsuario", "dbo.Usuario");
             DropForeignKey("dbo.Imagen", "IdUsuario", "dbo.Usuario");
             DropForeignKey("dbo.UsuarioCita", "CitaId", "dbo.Citas");
             DropForeignKey("dbo.UsuarioCita", "UsuarioId", "dbo.Usuario");

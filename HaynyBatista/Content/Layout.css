@@ -18,8 +18,19 @@
     display: flex;
     width: 100%;
 }
+@media only screen and (max-width: 600px) {
+    .UpperMenu, .LowerMenu {
+        flex-direction: column;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .img-Hayny {
+        border: 0;
+        border-radius: 0 !important;
+    }
+}
 
-.UpperMenu {
+ .UpperMenu {
     justify-content: space-between;
 }
 

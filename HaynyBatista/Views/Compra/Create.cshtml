@@ -88,10 +88,11 @@
 @section scripts{
     <script>
         paypal.Button.render({
-            env: 'sandbox', // Or 'sandbox',
+            env: 'production', // Or 'sandbox',
 
             client: {
-                'sandbox': 'ASPonTcenvfxELYclhx_PNlRiOv6Vo2tQY_aGKXqih4zm7-xq3JsUyh2wINZMYqR-t8lkpNilEL7PhX_'
+                'sandbox': 'ASPonTcenvfxELYclhx_PNlRiOv6Vo2tQY_aGKXqih4zm7-xq3JsUyh2wINZMYqR-t8lkpNilEL7PhX_',
+                'production': 'AWRg6rH_bVTdsPhqWSHXmeYNAQju_K0ic7q3J1WJsocav5InyP--6np5BLfRGDp0oegEnrgCotT8WWtl'
             },
             locale: "es_ES",
             commit: true, // Show a 'Pay Now' button

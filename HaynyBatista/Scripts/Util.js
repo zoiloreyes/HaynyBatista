@@ -154,8 +154,8 @@ $.fn.SlideMyDivs = function () {
 
             maxHeight = Math.max.apply(null, heights);
 
-        $(this).find(".SlideDiv").height(maxHeight);
-        $(this).height(maxHeight);
+        $(this).find(".SlideDiv").height(maxHeight * 2);
+        $(this).height(maxHeight * 2);
     });
 
 }

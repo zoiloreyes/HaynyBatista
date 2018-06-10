@@ -8,19 +8,43 @@
     <meta property="og:url" content="@Request.Url.AbsoluteUri" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="@Model.Titulo" />
-    <meta property="og:description" content="@Model.Contenido.StripHtml().Substring(0,90)@("...")" />
+    <meta property="og:description" content="@(Model.Contenido.StripHtml().Length > 90? Model.Contenido.StripHtml().Substring(0,90) : Model.Contenido.StripHtml())@("...")" />
     <meta property="og:image" content="@Html.Raw(@Url.Content("~/ImagenesSubidas/" + Model.Imagen.IdImagen + Model.Imagen.Formato,true))" />
     <meta property="fb:app_id" content="1932433733741110" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="@Model.Titulo" />
-    <meta name="twitter:description" content="@Model.Contenido.StripHtml().Substring(0,90)@("...")" />
+    <meta name="twitter:description" content="@(Model.Contenido.StripHtml().Length > 90? Model.Contenido.StripHtml().Substring(0,90) : Model.Contenido.StripHtml())@("...")" />
     <meta name="twitter:image" content="@Html.Raw(@Url.Content("~/ImagenesSubidas/" + Model.Imagen.IdImagen + Model.Imagen.Formato,true))" />
     @Html.Raw("<meta name='twitter:site' content='@TheSlimZ' />")
     @Html.Raw("<meta name='twitter:creator' content='@TheSlimZ' />")
 }
 @Html.Partial("SocialMediaEnabler")
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-3 col-12">
+        @using (@Html.BeginForm("Index", "Articulo", FormMethod.Get, new { @class = "" }))
+        {
+            <div class="form-group row">
+                <div class="input-group col-12 mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></div>
+                    </div>
+                    <input type="text" name="filtro" class="form-control" id="inlineFormInputGroup" placeholder="Buscar..." value="@ViewBag.Filtro">
+                </div>
+            </div>
+        }
+
+        <div class="mt-4">
+            <div class="bg-purple rounded-top p-1">
+                <h5><i class="fa fa-tag mx-1"></i>Etiquetas </h5>
+            </div>
+            <div class="bg-white ArticuloDetalleContainer">
+                @foreach (var etiquetaArticulo in Model.EtiquetaArticulo)
+                {@Html.ActionLink(etiquetaArticulo.Etiqueta.Nombre, "Index", new { filtro = etiquetaArticulo.Etiqueta.Nombre }, new { @class = "badge badge-pill bg-purple m-1" })}
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9 col-12">
         @if (this.User.IsInRole("Administrador"))
         {
             <div class="mx-5 my-2">
@@ -52,34 +76,7 @@
 
         </div>
     </div>
-    <div class="col-md-3">
-        @using (@Html.BeginForm("Index", "Articulo", FormMethod.Get, new { @class = "form-inline" }))
-        {
-
-            <div class="form-row align-items-center">
-                <div class="col-auto">
-                    <label class="sr-only" for="inlineFormInputGroup">Username</label>
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></div>
-                        </div>
-                        <input type="text" name="filtro" class="form-control" id="inlineFormInputGroup" placeholder="Buscar..." value="@ViewBag.Filtro">
-                    </div>
-                </div>
-            </div>
-        }
-
-        <div class="mt-4">
-            <div class="bg-purple rounded-top p-1">
-                <h5><i class="fa fa-tag mx-1"></i>Etiquetas </h5>
-            </div>
-            <div class="bg-white ArticuloDetalleContainer">
-                @foreach (var etiquetaArticulo in Model.EtiquetaArticulo)
-                {@Html.ActionLink(etiquetaArticulo.Etiqueta.Nombre, "Index", new { filtro = etiquetaArticulo.Etiqueta.Nombre }, new { @class = "badge badge-pill bg-purple m-1" })}
-
-            </div>
-        </div>
-    </div>
+    
 </div>
 
 @if (this.User.IsInRole("Administrador"))

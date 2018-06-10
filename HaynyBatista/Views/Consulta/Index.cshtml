@@ -8,7 +8,7 @@
 }
 <div class="row py-4" style="margin-top: -20px">
     <div class="col-md-2 offset-md-1">
-        <img class="img-fluid img-thumbnail rounded-circle" src="~/Content/Images/HaynyPq.jpg" />
+        <img class="img-fluid img-thumbnail rounded-circle img-Hayny" src="~/Content/Images/HaynyPq.jpg" />
     </div>
     <div class="col-md-9 text-center">
         <h2 class="text-center fnt-Italianno fg-purple font-weight-bold">Hayny Batista</h2>
@@ -20,7 +20,7 @@
 <div class="row">
     <div class="SummaryDiv w-100">
         <h3 class='text-center mt-4 fg-purple font-weight-bold SummaryDivTitle'>Terapias</h3>
-        <div class="d-flex w-100 justify-content-around">
+        <div class="d-flex w-100 justify-content-around SummaryContainer">
             <div class='d-flex mt-3 p-2 flex-column SummaryElement'>
                 <img class='SummaryImg img-fluid' src='~/Content/Images/Skype.jpeg' />
                 <h3 class='text-center mt-4 SummaryElementTitle'>Skype</h3>
@@ -66,10 +66,10 @@
     <div class="col-md-6">
         <div class="d-flex w-100 flex-column justify-content-between" style="height: 100%">
             <div class="d-flex flex-column">
-                <p class="fg-purple my-4" style="font-size: 1.2em"><i class="fa fa-map-marker"></i> C/ Alexander Fleming No. 24, esq. Ortega y Gasset, Santo Domingo, República Dominicana</p>
-                <p class="fg-purple my-4" style="font-size: 1.2em"><i class="fa fa-phone"></i> 829-846-5445</p>
-                <p class="fg-purple my-4" style="font-size: 1.2em"><i class="fa fa-envelope"></i> HaynyBatista@haynybatista.com</p>
-                <p class="fg-purple my-4" style="font-size: 1.2em"><i class="fa fa-calendar"></i> Lunes - Sábado : 9:30 A.M - 12:30 P.M </p>
+                <p class="fg-purple my-md-4 ItemContacto" style="font-size: 1.2em"><i class="fa fa-map-marker"></i><span> C/ Alexander Fleming No. 24, esq. Ortega y Gasset, Santo Domingo, República Dominicana</span> </p>
+                <p class="fg-purple my-md-4 ItemContacto" style="font-size: 1.2em"><i class="fa fa-phone"></i><span> 829-846-5445</span> </p>
+                <p class="fg-purple my-md-4 ItemContacto" style="font-size: 1.2em"><i class="fa fa-envelope"></i> HaynyBatista@haynybatista.com</p>
+                <p class="fg-purple my-md-4 ItemContacto" style="font-size: 1.2em"><i class="fa fa-calendar"></i> Lunes - Sábado : 9:30 A.M - 12:30 P.M </p>
             </div>
             <div class="d-flex">
                 <div class="d-flex">
@@ -356,6 +356,7 @@
                 $("#btnSolicitarCita").addClass("animated fadeInDown")
             }, 500)
             $("#calendar").fullCalendar({
+                defaultView: $(window).width() < 765 ? 'basicDay' : 'month',
                 locale: "es",
                 aspectRatio: 2.0,
                 events: "/Consulta/GetEventosMes/",
