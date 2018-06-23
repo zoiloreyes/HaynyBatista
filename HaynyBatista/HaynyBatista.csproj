@@ -205,6 +205,7 @@
     <Compile Include="Controllers\ArticuloController.cs" />
     <Compile Include="Controllers\CarritoController.cs" />
     <Compile Include="Controllers\ConsultaController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FakeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -224,6 +225,10 @@
     <Compile Include="Migrations\201805272204188_Initial.cs" />
     <Compile Include="Migrations\201805272204188_Initial.Designer.cs">
       <DependentUpon>201805272204188_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806231717078_NumeroVisitas.cs" />
+    <Compile Include="Migrations\201806231717078_NumeroVisitas.Designer.cs">
+      <DependentUpon>201806231717078_NumeroVisitas.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -753,6 +758,8 @@
     <Content Include="Views\Producto\Editar.cshtml" />
     <Content Include="Views\Admin\Compra.cshtml" />
     <Content Include="Views\Compra\Detalles.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -772,6 +779,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201805272204188_Initial.resx">
       <DependentUpon>201805272204188_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806231717078_NumeroVisitas.resx">
+      <DependentUpon>201806231717078_NumeroVisitas.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

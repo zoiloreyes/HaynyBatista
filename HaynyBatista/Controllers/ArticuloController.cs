@@ -27,6 +27,9 @@ namespace HaynyBatista.Controllers
             {
                 return HttpNotFound();
             }
+            articulo.Visitas++;
+            db.Entry(articulo).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
             return View(articulo);
 
         }

@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
+
 namespace HaynyBatista.Models
 {
     public class Carrito
     {
         private List<LineaCarrito> lineas = new List<LineaCarrito>();
 
-        public int CantidadEnvioGratis { get { return 4000; } }
+        public int CantidadEnvioGratis { get { return Int32.Parse(ConfigurationManager.AppSettings["MontoEnvioGratis"]); } }
 
         public void AddItem(Producto producto, int cantidad)
         {

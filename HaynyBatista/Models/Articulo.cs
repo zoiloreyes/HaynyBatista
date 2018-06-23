@@ -27,6 +27,7 @@ namespace HaynyBatista.Models
         public string Contenido { get; set; }
 
         public DateTime FechaSubida { get; set; }
+        public int Visitas { get; set; }
 
         public int? IdImagen { get; set; }
 

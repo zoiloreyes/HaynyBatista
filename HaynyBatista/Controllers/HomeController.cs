@@ -11,7 +11,7 @@ namespace HaynyBatista.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Consulta");
         }
 
         public ActionResult About()
