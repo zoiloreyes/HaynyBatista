@@ -74,7 +74,7 @@ namespace HaynyBatista.UtilClasses
                 {
                     return true;
                 };
-                LinkedResource linkedImage = new LinkedResource(HttpContext.Current.Server.MapPath("~/Content/Images/logo.png"));
+                LinkedResource linkedImage = new LinkedResource(HttpContext.Current.Server.MapPath("~/Content/Images/SaludPsicologica.png"));
                 linkedImage.ContentId = "LogoHayny";
 
                 AlternateView htmlView = AlternateView.CreateAlternateViewFromString(bodyHTML, null, "text/html");

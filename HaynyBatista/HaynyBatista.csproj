@@ -282,6 +282,8 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Consulta.css" />
+    <Content Include="Content\Images\CoupleSmiling.jpg" />
     <Content Include="Content\Images\DSC_2519.jpg" />
     <Content Include="Content\Images\DSC_2527.jpg" />
     <Content Include="Content\Images\DSC_2528.jpg" />
@@ -299,6 +301,7 @@
     <Content Include="Content\Images\logoBanner.jpg" />
     <Content Include="Content\Images\logoPequeno.png" />
     <Content Include="Content\Images\Pareja.jpeg" />
+    <Content Include="Content\Images\SaludPsicologica.png" />
     <Content Include="Content\Images\Skype.jpeg" />
     <Content Include="Content\Layout.css" />
     <Content Include="Content\PagedList.css" />
@@ -652,6 +655,16 @@
     <Content Include="Content\Fonts\Italianno-Regular.ttf" />
     <Content Include="Content\Fonts\Roboto-Regular.ttf" />
     <Content Include="Plugins\jquery-ui-1.12.1\package.json" />
+    <Content Include="Content\Fonts\OpenSans-Bold.ttf" />
+    <Content Include="Content\Fonts\OpenSans-BoldItalic.ttf" />
+    <Content Include="Content\Fonts\OpenSans-ExtraBold.ttf" />
+    <Content Include="Content\Fonts\OpenSans-ExtraBoldItalic.ttf" />
+    <Content Include="Content\Fonts\OpenSans-Italic.ttf" />
+    <Content Include="Content\Fonts\OpenSans-Light.ttf" />
+    <Content Include="Content\Fonts\OpenSans-LightItalic.ttf" />
+    <Content Include="Content\Fonts\OpenSans-Regular.ttf" />
+    <Content Include="Content\Fonts\OpenSans-SemiBold.ttf" />
+    <Content Include="Content\Fonts\OpenSans-SemiBoldItalic.ttf" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Properties\Settings.settings">

@@ -11,27 +11,65 @@
     font-family: "Roboto";
     src: url("Fonts/Roboto-Regular.ttf")
 }   
+
+@font-face {
+    font-family: "Open Sans";
+    src: url("Fonts/OpenSans-Regular.ttf")
+}
+
+@font-face {
+    font-family: "Opens Sans Light";
+    src: url("Fonts/OpenSans-Light.ttf")
+}
 body {
     background-color: #eeeeee;
 }
 
+.border-circle {
+    border-radius: 50%;
+}
+
 .bg-purple {
-    background-color: #742377;
+    background-color: #a86d9b;
     color: white;
 }
 
+.bg-instagram {
+    background: #f09433;
+    background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    background: -webkit-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
 
 .text-black {
     color: black;
 }
 .fg-purple {
-    color: #742377;
+    color: #a86d9b;
+}
+
+.fg-transparent {
+    color: transparent;
+}
+
+.fg-twitter{
+    color: #55acee;
+}
+
+.fg-facebook {
+    color: #3b5998;
+}
+
+.fg-youtube {
+    color: #c4302b;
+}
+
+.fg-gplus {
+    color: #db4a39;
 }
 
 #NavLogo {
-    width: 250px;
     height: 70px;
-    margin-left: 50px;
 }
 
 .RegisterFormContainer {
@@ -628,6 +666,7 @@ body {
     font-family: "FjallaOne";
     font-size: 1em;
     text-decoration: none;
+    transition: all 0.5s ease-in-out;
 }
 
     #btnSolicitarCita:hover {
@@ -698,7 +737,6 @@ body {
 .SummaryElement {
     transition: color 0.9s, background-color 0.9s;
     cursor: pointer;
-    color: #742477;
     width: 25%;
 }
 
@@ -730,7 +768,7 @@ body {
     }
 
 .SummaryElement:hover {
-    background-color: #742477;
+    background-color: #a86d9b;
     color: white;
 }
 

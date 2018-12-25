@@ -10,6 +10,11 @@ $(document).ready(function () {
                 $(this).find('.dropdown-menu').first().stop(true, true).slideDown(300);
             });
 
+            $(".NavToggler").click(() => {
+                $(".NavLinks").toggleClass("active");
+
+            });
+
             $('.dropdown-menu').parent().on('hide.bs.dropdown', function (e) {
                 $(this).find('.dropdown-menu').first().stop(true, true).slideUp(200);
             });

@@ -12,33 +12,33 @@
 </head>
 <body>
     <header>
-        <div class="menu">
-            <div class="UpperMenu">
-                <div class="logo">
-                    <a class="d-block" href="@Url.Action("Index","Home")">
-                        <img class='' id="NavLogo" src="~/Content/Images/logoPequeno.png" />
-                    </a>
-                </div>
-                <div id="UserLinks">
-                    @Html.Partial("_LoginPartial")
-                    @Html.Action("Summary","Carrito")
-                    @*<div class="NavIcon"><a href="#"><i class="fa fa-star" aria-hidden="true"></i><span class="badge badge-pill bg-purple">0</span></a></div>*@
-                </div>
-
+        <div class="menu d-flex justify-content-between">
+            <div class="NavTogglerContainer NavIcon d-md-none d-sm-flex">
+                <a href="#" class="NavToggler">
+                    <div class="d-flex align-items-center">
+                        <i class="fa fa-bars fa-2x"></i>
+                    </div>
+                </a>
             </div>
-            <hr id="MenuDivider">
-            <div class="LowerMenu">
+            <div class="logo d-flex pl-md-3">
+                <a class="d-block" href="@Url.Action("Index","Home")">
+                    <img class='' id="NavLogo" src="~/Content/Images/SaludPsicologica.png" />
+                </a>
+            </div>
+            <div class="NavLinks d-flex">
                 <div class="NavLink LowerLink">@Html.ActionLink("Blog", "Index", "Articulo")</div>
                 <div class="NavLink  LowerLink">@Html.ActionLink("Consulta", "Index", "Consulta", null, new { @class = "MainNavLink" })</div>
                 <div class="NavLink  LowerLink">@Html.ActionLink("Productos", "List", "Producto", null, new { @class = "MainNavLink" })</div>
                 <!--<div class="NavLink LowerLink"><a href="#">Tienda</a></div>-->
                 @if (User.IsInRole("Administrador"))
-                    {
-                        <div class="NavLink  LowerLink">@Html.ActionLink("Administrar", "Usuario", "Admin", null, new { @class = "MainNavLink" })</div>
-                    }
-
+                {
+                    <div class="NavLink  LowerLink">@Html.ActionLink("Administrar", "Usuario", "Admin", null, new { @class = "MainNavLink" })</div>
+                }
             </div>
-
+            <div class="UserLinks d-flex">
+                @Html.Partial("_LoginPartial")
+                @Html.Action("Summary", "Carrito")
+            </div>
 
         </div>
     </header>

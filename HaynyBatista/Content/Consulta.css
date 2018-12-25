@@ -1,0 +1,114 @@
+﻿.LandingImageBg {
+    background-image: url("/Content/Images/CoupleSmiling.jpg");
+    height: 80vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+    .LandingImageBg .ImageLayer {
+        width: 100%;
+        height: 100%;
+        position:relative;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+
+.ImageContainer {
+    background-image: url(/Content/Images/HaynyPq.jpg);
+    border-radius: 50%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 100%;
+    position: relative;
+    width: 100%;
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+
+.fakeRow{
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.firstRow{
+    margin-top: -20px;
+}
+
+.bg-Gray {
+    background-color: #f7f7f7;
+}
+
+.ContactoCard {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-color:white;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ContactoCard .ContactoFormContainer{
+    width: 70%;
+}
+
+    .ContactoCard .ContactoFormContainer .ContactoForm{
+        padding: 10px;
+        width: 100%;
+    }
+
+    .ContactoCard .ContactoFormContainer .ContactoForm .form-control {
+        margin: 5px;
+    }
+
+
+    .ContactoCard .ContactoFormContainer .Title {
+        font-family: "Open Sans";
+    }
+
+.ContactoCard .ContactoOtherContainer .Other {
+    border: 1px solid gray;
+    padding: 8px;
+    margin: 5px 0;
+    word-wrap: break-word;
+}
+
+.ContactoCard .RedesSociales a{
+    color: white;
+    text-decoration: none;
+    background-color: transparent;
+}
+    .ContactoCard .ContactoOtherContainer {
+        width: 30%;
+        border-left: 1px solid #d1d1d1;
+        animation-fill-mode: forwards;
+        animation: leftBorderFadeIn 2s;
+        padding-left: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    @media only screen and (max-width: 600px){
+
+        .ContactoCard .ContactoFormContainer {
+            width: 100%;
+        }
+
+        .ContactoCard .ContactoOtherContainer {
+            width: 100%;
+            padding-left: 0;
+            margin-top: 20px;
+            border-left: 0 solid white;
+        }
+
+    }
+

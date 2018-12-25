@@ -63,6 +63,7 @@ namespace HaynyBatista
                       ));
             bundles.Add(new StyleBundle("~/bundles/LayoutCss").Include(
                       "~/Content/Layout.css",
+                      "~/Content/Consulta.css",
                       "~/Content/animate.min.css",
                       "~/Plugins/FontAwesome/css/font-awesome.min.css",
                       "~/Plugins/TagsInput/tagsinput.css",
